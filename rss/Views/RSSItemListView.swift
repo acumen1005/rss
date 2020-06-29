@@ -14,7 +14,7 @@ struct RSSItemListView: View {
     
     let rssSource: RSS
     
-    @State private var selectedURL: URL?
+    @State private var selectedItem: RSSFeedItemWrapper?
     @State private var isSafariViewPresented = false
     
     @State private var items: [RSSFeedItem] = []
@@ -29,10 +29,7 @@ struct RSSItemListView: View {
                 ForEach(self.items.map({ RSSFeedItemWrapper(item: $0) }), id: \.item?.title) { item in
                     RSSItemRow(wrapper: item)
                         .onTapGesture {
-                            if let link = item.item?.link {
-                                self.selectedURL = URL(string: link)
-                                self.isSafariViewPresented = true
-                            }
+                            self.selectedItem = item
                     }
                 }
             }
@@ -52,9 +49,11 @@ struct RSSItemListView: View {
                 }
             }
         }
-        .sheet(isPresented: $isSafariViewPresented) {
-            SafariView(url: self.selectedURL!)
-        }
+        .sheet(item: $selectedItem, content: { item in
+            if let link = item.item?.link, let url = URL(string: link) {
+                SafariView(url: url)
+            }
+        })
     }
 }
 

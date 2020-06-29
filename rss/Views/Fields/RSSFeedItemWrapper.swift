@@ -10,7 +10,7 @@ import Foundation
 import Combine
 import FeedKit
 
-class RSSFeedItemWrapper: ObservableObject {
+class RSSFeedItemWrapper: ObservableObject, Identifiable {
     @Published var item: RSSFeedItem?
     
     init(item: RSSFeedItem) {

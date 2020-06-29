@@ -20,7 +20,7 @@ struct AddRssSourceView: View {
             self.presentationMode.wrappedValue.dismiss()
         }) {
             Text("Done")
-        }
+        }.disabled(!isVaildSource)
     }
     
     private var cancelButton: some View {
@@ -29,6 +29,10 @@ struct AddRssSourceView: View {
         }) {
             Text("Cancel")
         }
+    }
+    
+    private var isVaildSource: Bool {
+        return !feedUrl.isEmpty
     }
     
     @State private var feedUrl: String = ""
