@@ -9,6 +9,7 @@
 
 import Foundation
 import CoreData
+import FeedKit
 
 
 extension RSS {
@@ -22,8 +23,16 @@ extension RSS {
     @NSManaged public var desc: String?
     @NSManaged public var createTime: Date?
     @NSManaged public var updateTime: Date?
+    @NSManaged public var lastFetchTime: Date?
     @NSManaged public var uuid: UUID?
     @NSManaged public var isFetched: Bool
+    
+    public var rssURL: URL? {
+        guard let url = url else {
+            return nil
+        }
+        return URL(string: url)
+    }
     
     public var createTimeStr: String {
         if let create = self.updateTime {
@@ -45,7 +54,7 @@ extension RSS {
     }
     
     static func simple() -> RSS {
-        let rss = RSS(context: PersistenceManager().managedObjectContext)
+        let rss = RSS(context: PersistenceManager(entity: .RSS).managedObjectContext)
         rss.title = "demo"
         rss.desc = "desc demo"
         rss.url = "http://images.apple.com/main/rss/hotnews/hotnews.rss"
@@ -59,3 +68,20 @@ extension RSS {
         return lhs.uuid == rhs.uuid
     }
 }
+
+extension RSS {
+    func update(from feed: Feed) {
+        let rss = self
+        switch feed {
+        case .atom(let atomFeed):
+            rss.title = atomFeed.title
+        case .json(let jsonFeed):
+            rss.title = jsonFeed.title
+            rss.desc = jsonFeed.description?.trimWhiteAndSpace
+        case .rss(let rssFeed):
+            rss.title = rssFeed.title
+            rss.desc = rssFeed.description?.trimWhiteAndSpace
+        }
+    }
+}
+

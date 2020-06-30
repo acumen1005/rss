@@ -14,7 +14,7 @@ struct HomeView: View {
     @EnvironmentObject var store: RSSStore
     
     @State private var isAddFormPresented = false
-    @State private var isSourceListPresented = false
+    @State private var isSettingPresented = false
     
     @ObservedObject private var rssObservable: RSSObservable = RSSObservable(items: [])
     
@@ -22,7 +22,22 @@ struct HomeView: View {
         Button(action: {
             self.isAddFormPresented = true
         }) {
-            Text("Add")
+            Image(systemName: "plus.circle")
+        }
+    }
+    
+    private var settingButton: some View {
+        Button(action: {
+            self.isSettingPresented = true
+        }) {
+            Image(systemName: "gear")
+        }
+    }
+    
+    private var trailingView: some View {
+        HStack(alignment: .top, spacing: 16) {
+            settingButton
+            addSourceButton
         }
     }
     
@@ -42,12 +57,12 @@ struct HomeView: View {
                 }
             }
             .navigationBarTitle("RSS")
-            .navigationBarItems(trailing: addSourceButton)
+            .navigationBarItems(trailing: trailingView)
         }
         .sheet(isPresented: $isAddFormPresented) {
             AddRssSourceView(onDoneAction: { (url, title) in
-                let rss = self.store.create(url: url, title: title)
-                self.rssObservable.append(rss)
+                let rss = self.store.createAndSave(url: url, title: title)
+                self.rssObservable.insert(head: rss)
             })
         }
         .onAppear {

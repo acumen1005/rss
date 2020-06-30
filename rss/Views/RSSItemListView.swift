@@ -14,10 +14,13 @@ struct RSSItemListView: View {
     
     let rssSource: RSS
     
-    @State private var selectedItem: RSSFeedItemWrapper?
-    @State private var isSafariViewPresented = false
+    let store = RSSItemStore()
     
-    @State private var items: [RSSFeedItem] = []
+    @State private var selectedItem: RSSItem?
+    @State private var isSafariViewPresented = false
+    @State private var items: [RSSItem] = []
+    @State private var start: Int = 0
+    @State private var footer: String = "load more"
     
     init(source: RSS) {
         rssSource = source
@@ -26,34 +29,57 @@ struct RSSItemListView: View {
     var body: some View {
         VStack {
             List {
-                ForEach(self.items.map({ RSSFeedItemWrapper(item: $0) }), id: \.item?.title) { item in
+                ForEach(self.items, id: \.self) { item in
                     RSSItemRow(wrapper: item)
                         .onTapGesture {
                             self.selectedItem = item
                     }
                 }
+                VStack(alignment: .center) {
+                    Button(action: self.loadMore) {
+                        Text(self.footer)
+                    }
+                }
             }
             .navigationBarTitle(rssSource.title ?? "")
         }.onAppear {
-            let aUrl = URL(string: self.rssSource.url!)!
-            let parser = FeedParser(URL: aUrl)
-            parser.parseAsync(queue: DispatchQueue.global()) { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let feed):
-                        print(feed.rssFeed?.items ?? [])
-                        self.items = feed.rssFeed?.items ?? []
-                    case .failure(let error):
-                        print(error)
-                    }
+            fetchNewRSSItem(model: self.rssSource, url: self.rssSource.rssURL, start: self.start, in: self.store) { result in
+                switch result {
+                case .success(let items):
+                    self.items = items
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            syncNewRSSItem(model: self.rssSource, url: self.rssSource.rssURL, in: self.store) { result in
+                switch result {
+                case .success(let items):
+                    self.items.insert(contentsOf: items, at: 0)
+                case .failure(let error):
+                    print(error)
                 }
             }
         }
         .sheet(item: $selectedItem, content: { item in
-            if let link = item.item?.link, let url = URL(string: link) {
-                SafariView(url: url)
+            if item.url != nil {
+                SafariView(url: URL(string: (item.url)!)!)
             }
         })
+    }
+    
+    func loadMore() {
+        self.start += self.items.count
+        fetchNewRSSItem(model: self.rssSource, url: self.rssSource.rssURL, start: self.start, in: self.store) { result in
+            switch result {
+            case .success(let items):
+                self.items.append(contentsOf: items)
+                if items.isEmpty {
+                    self.footer = "no data"
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
 

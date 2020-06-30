@@ -13,7 +13,7 @@ import FeedKit
 
 class RSSStore: NSObject {
     
-    private let persistenceManager = PersistenceManager()
+    private let persistenceManager = PersistenceManager(entity: .RSS)
     
     private lazy var fetchedResultsController: NSFetchedResultsController<RSS> = {
         let fetchRequest: NSFetchRequest<RSS> = RSS.fetchRequest()
@@ -34,7 +34,7 @@ class RSSStore: NSObject {
         return fetchedResultsController.fetchedObjects ?? []
     }
     
-     public var rssSrouces: [RSS] = []
+    public var rssSrouces: [RSS] = []
     
     override init() {
         super.init()
@@ -42,29 +42,22 @@ class RSSStore: NSObject {
         self.rssSrouces = items;
     }
     
-    public func create(url: String, title: String? = nil) -> RSS {
+    public func createAndSave(url: String, title: String? = nil) -> RSS {
         let rss = RSS.create(
             url: url,
             title: title,
             in: persistenceManager.managedObjectContext
         )
-        let aUrl = URL(string: url)!
-        let parser = FeedParser(URL: aUrl)
-        parser.parseAsync(queue: DispatchQueue.global()) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let feed):
-                    print(feed)
-                    rss.title = feed.rssFeed?.title
-                    rss.desc = feed.rssFeed?.description
-                    do {
-                        try self.update(RSS: rss)
-                    } catch let error {
-                        print("error = \(error)")
-                    }
-                case .failure(let error):
-                    print(error)
+        fetchNewRSS(model: rss, url: URL(string: url)!) { result in
+            switch result {
+            case .success(let rss):
+                do {
+                    try self.update(RSS: rss)
+                } catch let error {
+                    print("error = \(error)")
                 }
+            case .failure(let error):
+                print("error = \(error)")
             }
         }
         saveChanges()
@@ -75,6 +68,14 @@ class RSSStore: NSObject {
         rssSrouces.removeAll { object.uuid == $0.uuid }
         persistenceManager.managedObjectContext.delete(object)
         saveChanges()
+    }
+    
+    public func update(_ item: RSS) {
+        do {
+            try update(RSS: item)
+        } catch let error {
+            print("error = \(error)")
+        }
     }
     
     private func update(RSS item: RSS) throws {
@@ -90,7 +91,9 @@ class RSSStore: NSObject {
                 rss.title = item.title
                 rss.desc = item.desc
                 rss.url = item.url
-                rss.createTime = Date()
+                rss.lastFetchTime = item.lastFetchTime
+                rss.createTime = item.createTime
+                rss.updateTime = Date()
                 saveChanges()
             } else {
                 // TODO: throw Error

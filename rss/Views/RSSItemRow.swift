@@ -11,22 +11,22 @@ import FeedKit
 
 struct RSSItemRow: View {
     
-    let itemWrapper: RSSFeedItemWrapper
+    let itemWrapper: RSSItem
     
-    init(wrapper: RSSFeedItemWrapper) {
+    init(wrapper: RSSItem) {
         itemWrapper = wrapper
     }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(itemWrapper.item?.title ?? "")
+            Text(itemWrapper.title ?? "")
                 .font(.headline)
-            Text((itemWrapper.item?.description ?? "").trimHTMLTag)
+            Text((itemWrapper.desc ?? "").trimHTMLTag.trimWhiteAndSpace)
                 .font(.subheadline)
                 .lineLimit(3)
                 .foregroundColor(Color("footnoteColor"))
             Spacer()
-            Text("\(itemWrapper.item?.pubDate?.string() ?? "")")
+            Text("\(itemWrapper.createTime?.string() ?? "")")
                 .font(.footnote)
                 .foregroundColor(.gray)
         }

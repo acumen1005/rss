@@ -67,6 +67,6 @@ import FeedKit
 
 let aUrl = URL(string: "https://36kr.com/feed")!
 let parser = FeedParser(URL: aUrl)
-let rs = parser.parse()
+let simpleRS = parser.parse()
 
 #endif
