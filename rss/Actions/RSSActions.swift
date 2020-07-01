@@ -26,6 +26,29 @@ func fetchNewRSS(model: RSS?, url: URL, completionHandler: @escaping ((Result<RS
     }
 }
 
+func fetchNewRSS(model: RSS) -> AnyPublisher<RSS?, Error> {
+    return Future<RSS?, Error> { promise in
+        guard let urlStr = model.url, let url = URL(string: urlStr) else {
+            promise(.failure(RSSError.invalidURL))
+            return
+        }
+        let rss = model
+        let parser = FeedParser(URL: url)
+        parser.parseAsync(queue: DispatchQueue.global()) { [weak rss] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let feed):
+                    rss?.update(from: feed)
+                    promise(.success(rss))
+                case .failure(let error):
+                    promise(.failure(error))
+                }
+            }
+        }
+    }
+    .eraseToAnyPublisher()
+}
+
 
 fileprivate func appendNewRSSItem(items: [RSSItem], lastDate: Date?) -> [RSSItem] {
     let savingItems = items.filter { model -> Bool in

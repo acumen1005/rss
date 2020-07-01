@@ -10,18 +10,6 @@ import Foundation
 import CoreData
 
 class PersistenceManager {
-    
-    enum PersistenceEntity: String {
-        case RSS = "RSS"
-        case RSSItem = "RSSItem"
-    }
-    
-    let entity: PersistenceEntity
-    
-    init(entity: PersistenceEntity) {
-        self.entity = .RSS
-    }
-    
     lazy var managedObjectContext: NSManagedObjectContext = {
         let context = self.persistentContainer.viewContext
         context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
@@ -29,7 +17,7 @@ class PersistenceManager {
     }()
     
     lazy var persistentContainer: NSPersistentContainer  = {
-        let container = NSPersistentContainer(name: self.entity.rawValue)
+        let container = NSPersistentContainer(name: "RSS")
         container.loadPersistentStores { (persistentStoreDescription, error) in
             if let error = error {
                 fatalError(error.localizedDescription)

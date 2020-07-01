@@ -13,7 +13,7 @@ import FeedKit
 
 class RSSItemStore: NSObject {
     
-    private let persistenceManager = PersistenceManager(entity: .RSSItem)
+    private let persistenceManager = PersistenceManager()
 
     private lazy var fetchedResultsController: NSFetchedResultsController<RSSItem> = {
         let fetchRequest: NSFetchRequest<RSSItem> = RSSItem.fetchRequest()

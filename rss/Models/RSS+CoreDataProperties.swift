@@ -41,6 +41,7 @@ extension RSS {
         return ""
     }
     
+    @discardableResult
     static func create(url: String, title: String? = nil, desc: String? = nil, in context: NSManagedObjectContext) -> RSS {
         let rss = RSS(context: context)
         rss.title = title
@@ -54,13 +55,28 @@ extension RSS {
     }
     
     static func simple() -> RSS {
-        let rss = RSS(context: PersistenceManager(entity: .RSS).managedObjectContext)
+        let rss = RSS(context: PersistenceManager().managedObjectContext)
         rss.title = "demo"
         rss.desc = "desc demo"
         rss.url = "http://images.apple.com/main/rss/hotnews/hotnews.rss"
         return rss
     }
+}
 
+extension RSS {
+    
+    @discardableResult
+    func store(in context: NSManagedObjectContext) -> RSS? {
+        let rss = RSS(context: context)
+        rss.title = title
+        rss.desc = desc
+        rss.url = url
+        rss.uuid = UUID()
+        rss.createTime = Date()
+        rss.updateTime = Date()
+        rss.isFetched = false
+        return rss
+    }
 }
 
 extension RSS {

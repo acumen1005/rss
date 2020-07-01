@@ -12,13 +12,15 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    
+    let rssStore = RSSStore()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        
-        let rssStore = RSSStore()
-        let homeView = HomeView().environmentObject(rssStore)
+        let environment = AppEnvironment.bootstrap()
+        let homeView = HomeView(container: environment.container)
 
+        print(rssStore.items.map { $0.title })
+        
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
@@ -63,10 +65,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 #if DEBUG
 
-import FeedKit
-
-let aUrl = URL(string: "https://36kr.com/feed")!
-let parser = FeedParser(URL: aUrl)
-let simpleRS = parser.parse()
+//import FeedKit
+//
+//let aUrl = URL(string: "https://36kr.com/feed")!
+//let parser = FeedParser(URL: aUrl)
+//let simpleRS = parser.parse()
 
 #endif

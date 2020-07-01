@@ -13,6 +13,18 @@
 		4C872FD824A9F72200934910 /* RSSItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FD724A9F72200934910 /* RSSItemStore.swift */; };
 		4C872FE124AA1C5100934910 /* RSSItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FDF24AA1C5100934910 /* RSSItem+CoreDataClass.swift */; };
 		4C872FE224AA1C5100934910 /* RSSItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FE024AA1C5100934910 /* RSSItem+CoreDataProperties.swift */; };
+		4C872FE424AB66B200934910 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FE324AB66B200934910 /* CoreDataStack.swift */; };
+		4C872FE624AB688900934910 /* CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FE524AB688900934910 /* CoreDataHelpers.swift */; };
+		4C872FE924AB697900934910 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FE824AB697900934910 /* AppEnvironment.swift */; };
+		4C872FEC24AC207800934910 /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FEB24AC207800934910 /* DependencyInjector.swift */; };
+		4C872FEE24AC20A500934910 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FED24AC20A500934910 /* AppState.swift */; };
+		4C872FF024AC21F000934910 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FEF24AC21F000934910 /* Store.swift */; };
+		4C872FF224AC252B00934910 /* InteractorsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FF124AC252B00934910 /* InteractorsContainer.swift */; };
+		4C872FF524AC5C6500934910 /* RSSSourcesDBRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FF424AC5C6500934910 /* RSSSourcesDBRepository.swift */; };
+		4C872FF824AC69E100934910 /* RootViewAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FF724AC69E100934910 /* RootViewAppearance.swift */; };
+		4C872FFB24AC6B7300934910 /* RSSSourcesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FFA24AC6B7300934910 /* RSSSourcesInteractor.swift */; };
+		4C872FFD24AC6D4100934910 /* RSSSourcesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FFC24AC6D4100934910 /* RSSSourcesList.swift */; };
+		4C872FFF24AC996200934910 /* CancelBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FFE24AC996200934910 /* CancelBag.swift */; };
 		4C9A3FED24A04D2A00AAEF0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A3FEC24A04D2A00AAEF0D /* AppDelegate.swift */; };
 		4C9A3FEF24A04D2A00AAEF0D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A3FEE24A04D2A00AAEF0D /* SceneDelegate.swift */; };
 		4C9A3FF424A04D2A00AAEF0D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A3FF324A04D2A00AAEF0D /* HomeView.swift */; };
@@ -45,6 +57,18 @@
 		4C872FD724A9F72200934910 /* RSSItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSItemStore.swift; sourceTree = "<group>"; };
 		4C872FDF24AA1C5100934910 /* RSSItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "RSSItem+CoreDataClass.swift"; path = "../../RSSItem+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4C872FE024AA1C5100934910 /* RSSItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RSSItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4C872FE324AB66B200934910 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		4C872FE524AB688900934910 /* CoreDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelpers.swift; sourceTree = "<group>"; };
+		4C872FE824AB697900934910 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
+		4C872FEB24AC207800934910 /* DependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
+		4C872FED24AC20A500934910 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		4C872FEF24AC21F000934910 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		4C872FF124AC252B00934910 /* InteractorsContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractorsContainer.swift; sourceTree = "<group>"; };
+		4C872FF424AC5C6500934910 /* RSSSourcesDBRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSSourcesDBRepository.swift; sourceTree = "<group>"; };
+		4C872FF724AC69E100934910 /* RootViewAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewAppearance.swift; sourceTree = "<group>"; };
+		4C872FFA24AC6B7300934910 /* RSSSourcesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSSourcesInteractor.swift; sourceTree = "<group>"; };
+		4C872FFC24AC6D4100934910 /* RSSSourcesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSSourcesList.swift; sourceTree = "<group>"; };
+		4C872FFE24AC996200934910 /* CancelBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelBag.swift; sourceTree = "<group>"; };
 		4C9A3FE924A04D2A00AAEF0D /* rss.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rss.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C9A3FEC24A04D2A00AAEF0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C9A3FEE24A04D2A00AAEF0D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +107,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C872FE724AB695C00934910 /* System */ = {
+			isa = PBXGroup;
+			children = (
+				4C872FE824AB697900934910 /* AppEnvironment.swift */,
+			);
+			name = System;
+			path = rss/System;
+			sourceTree = SOURCE_ROOT;
+		};
+		4C872FEA24AC205800934910 /* Injected */ = {
+			isa = PBXGroup;
+			children = (
+				4C872FEB24AC207800934910 /* DependencyInjector.swift */,
+				4C872FF124AC252B00934910 /* InteractorsContainer.swift */,
+				4C872FED24AC20A500934910 /* AppState.swift */,
+			);
+			path = Injected;
+			sourceTree = "<group>";
+		};
+		4C872FF324AC5C4500934910 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				4C872FF424AC5C6500934910 /* RSSSourcesDBRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		4C872FF624AC69BA00934910 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				4C872FF724AC69E100934910 /* RootViewAppearance.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		4C872FF924AC6B5500934910 /* Interactors */ = {
+			isa = PBXGroup;
+			children = (
+				4C872FFA24AC6B7300934910 /* RSSSourcesInteractor.swift */,
+			);
+			path = Interactors;
+			sourceTree = "<group>";
+		};
 		4C9A3FE024A04D2A00AAEF0D = {
 			isa = PBXGroup;
 			children = (
@@ -103,6 +170,11 @@
 		4C9A3FEB24A04D2A00AAEF0D /* rss */ = {
 			isa = PBXGroup;
 			children = (
+				4C872FF924AC6B5500934910 /* Interactors */,
+				4C872FF624AC69BA00934910 /* UI */,
+				4C872FF324AC5C4500934910 /* Repositories */,
+				4C872FEA24AC205800934910 /* Injected */,
+				4C872FE724AB695C00934910 /* System */,
 				4CB18E4124A3577000F78F34 /* Utils */,
 				4CB18E3C24A338C100F78F34 /* Redux */,
 				4CB18E3B24A3348C00F78F34 /* Actions */,
@@ -135,6 +207,7 @@
 			children = (
 				4CB5A02524A24C940052E80A /* Fields */,
 				4C9A3FF324A04D2A00AAEF0D /* HomeView.swift */,
+				4C872FFC24AC6D4100934910 /* RSSSourcesList.swift */,
 				4C9A414124A1B5A300AAEF0D /* SourceListView.swift */,
 				4C9A400424A04FE300AAEF0D /* AddRssSourceView.swift */,
 				4CB5A02824A268DF0052E80A /* RSSItemListView.swift */,
@@ -189,6 +262,8 @@
 				4CB18E4224A3578400F78F34 /* String+Ext.swift */,
 				4CB18E4424A3591100F78F34 /* Date+Ext.swift */,
 				4C872FD524A9F1B000934910 /* RSSError.swift */,
+				4C872FEF24AC21F000934910 /* Store.swift */,
+				4C872FFE24AC996200934910 /* CancelBag.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -196,6 +271,8 @@
 		4CB5A00524A1E96A0052E80A /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				4C872FE324AB66B200934910 /* CoreDataStack.swift */,
+				4C872FE524AB688900934910 /* CoreDataHelpers.swift */,
 				4CB5A00624A1E98D0052E80A /* PersistenceManager.swift */,
 				4CB5A00824A1E9C50052E80A /* RSSStore.swift */,
 				4C872FD724A9F72200934910 /* RSSItemStore.swift */,
@@ -300,14 +377,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C872FF524AC5C6500934910 /* RSSSourcesDBRepository.swift in Sources */,
 				4CB18E4324A3578400F78F34 /* String+Ext.swift in Sources */,
 				4CB5A02924A268DF0052E80A /* RSSItemListView.swift in Sources */,
 				4CB5A02024A1FCFA0052E80A /* RSS.xcdatamodeld in Sources */,
 				4C9A3FED24A04D2A00AAEF0D /* AppDelegate.swift in Sources */,
+				4C872FFF24AC996200934910 /* CancelBag.swift in Sources */,
+				4C872FEC24AC207800934910 /* DependencyInjector.swift in Sources */,
 				4C872FE124AA1C5100934910 /* RSSItem+CoreDataClass.swift in Sources */,
+				4C872FF224AC252B00934910 /* InteractorsContainer.swift in Sources */,
 				4C872FD824A9F72200934910 /* RSSItemStore.swift in Sources */,
 				4CB18E3E24A3391700F78F34 /* Redux.swift in Sources */,
 				4CB5A02724A24CBB0052E80A /* RSSObservable.swift in Sources */,
+				4C872FFD24AC6D4100934910 /* RSSSourcesList.swift in Sources */,
 				4CB5A02B24A26DE10052E80A /* SafariView.swift in Sources */,
 				4CB18E4024A3485B00F78F34 /* RSSItemRow.swift in Sources */,
 				4CB5A02424A1FD4E0052E80A /* RSS+CoreDataProperties.swift in Sources */,
@@ -319,10 +401,17 @@
 				4C9A400824A0503400AAEF0D /* TextFieldView.swift in Sources */,
 				4CB5A00724A1E98D0052E80A /* PersistenceManager.swift in Sources */,
 				4C9A414224A1B5A300AAEF0D /* SourceListView.swift in Sources */,
+				4C872FE424AB66B200934910 /* CoreDataStack.swift in Sources */,
+				4C872FEE24AC20A500934910 /* AppState.swift in Sources */,
+				4C872FF824AC69E100934910 /* RootViewAppearance.swift in Sources */,
 				4C9A3FF424A04D2A00AAEF0D /* HomeView.swift in Sources */,
+				4C872FE924AB697900934910 /* AppEnvironment.swift in Sources */,
 				4C872FD624A9F1B000934910 /* RSSError.swift in Sources */,
+				4C872FFB24AC6B7300934910 /* RSSSourcesInteractor.swift in Sources */,
 				4C9A3FEF24A04D2A00AAEF0D /* SceneDelegate.swift in Sources */,
 				4CB5A02324A1FD4E0052E80A /* RSS+CoreDataClass.swift in Sources */,
+				4C872FF024AC21F000934910 /* Store.swift in Sources */,
+				4C872FE624AB688900934910 /* CoreDataHelpers.swift in Sources */,
 				4C9A400524A04FE300AAEF0D /* AddRssSourceView.swift in Sources */,
 				4CB5A01024A1EE0B0052E80A /* SourceListRow.swift in Sources */,
 			);

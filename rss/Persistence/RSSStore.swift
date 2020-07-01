@@ -13,7 +13,7 @@ import FeedKit
 
 class RSSStore: NSObject {
     
-    private let persistenceManager = PersistenceManager(entity: .RSS)
+    private let persistenceManager = PersistenceManager()
     
     private lazy var fetchedResultsController: NSFetchedResultsController<RSS> = {
         let fetchRequest: NSFetchRequest<RSS> = RSS.fetchRequest()
@@ -39,7 +39,7 @@ class RSSStore: NSObject {
     override init() {
         super.init()
         fetchRSS()
-        self.rssSrouces = items;
+        rssSrouces = items;
     }
     
     public func createAndSave(url: String, title: String? = nil) -> RSS {

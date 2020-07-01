@@ -52,6 +52,7 @@ struct AddRssSourceView: View {
 
 struct AddRssSource_Previews: PreviewProvider {
     static var previews: some View {
-        AddRssSourceView()
+//        AddRssSourceView()
+        return Text("demo")
     }
 }
