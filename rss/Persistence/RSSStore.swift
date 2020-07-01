@@ -28,6 +28,10 @@ class RSSStore: NSObject {
         return fetechedResultsController
     }()
     
+    var context: NSManagedObjectContext {
+        return self.persistenceManager.managedObjectContext
+    }
+    
     let didChange = PassthroughSubject<RSSStore, Never>()
     
     public var items: [RSS] {
@@ -42,24 +46,13 @@ class RSSStore: NSObject {
         self.rssSrouces = items;
     }
     
-    public func createAndSave(url: String, title: String? = nil) -> RSS {
+    public func createAndSave(url: String, title: String? = nil, desc: String? = nil) -> RSS {
         let rss = RSS.create(
             url: url,
             title: title,
-            in: persistenceManager.managedObjectContext
+            desc: desc,
+            in: context
         )
-        fetchNewRSS(model: rss, url: URL(string: url)!) { result in
-            switch result {
-            case .success(let rss):
-                do {
-                    try self.update(RSS: rss)
-                } catch let error {
-                    print("error = \(error)")
-                }
-            case .failure(let error):
-                print("error = \(error)")
-            }
-        }
         saveChanges()
         return rss
     }
@@ -113,10 +106,12 @@ class RSSStore: NSObject {
     }
     
     private func saveChanges() {
-        guard persistenceManager.managedObjectContext.hasChanges else { return }
+        guard context.hasChanges else { return }
         do {
-            try persistenceManager.managedObjectContext.save()
-        } catch { fatalError() }
+            try context.save()
+        } catch {
+            print(error)
+        }
     }
 }
 

@@ -58,6 +58,7 @@ class RSSItemStore: NSObject {
         }
         let fetchRequest: NSFetchRequest<RSSItem> = RSSItem.fetchRequest()
         let predicate = NSPredicate(format: "rssUUID = %@", argumentArray: [uuid])
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createTime", ascending: false)]
         fetchRequest.predicate = predicate
         fetchRequest.fetchLimit = limit
         fetchRequest.fetchOffset = start

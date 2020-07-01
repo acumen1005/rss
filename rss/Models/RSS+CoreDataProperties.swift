@@ -81,6 +81,7 @@ extension RSS {
         case .rss(let rssFeed):
             rss.title = rssFeed.title
             rss.desc = rssFeed.description?.trimWhiteAndSpace
+            rss.url = rssFeed.link
         }
     }
 }

@@ -10,8 +10,9 @@ import Foundation
 import Combine
 import FeedKit
 
-func fetchNewRSS(model: RSS?, url: URL, completionHandler: @escaping ((Result<RSS, Error>) -> Void)) {
-    let rss = model ?? RSS()
+func fetchNewRSS(model: RSS? = nil, url: URL, in store: RSSStore,
+                 completionHandler: @escaping ((Result<RSS, Error>) -> Void)) {
+    let rss = model ?? RSS(context: store.context)
     let parser = FeedParser(URL: url)
     parser.parseAsync(queue: DispatchQueue.global()) { result in
         DispatchQueue.main.async {
@@ -67,6 +68,11 @@ func syncNewRSSItem(model: RSS, url: URL?, start: Int = 0, in store: RSSItemStor
                     }
                     return a > b
                 })
+                
+                items.forEach { item in
+                    print("\(item.createTime ?? Date())")
+                }
+                
                 let savingItems = appendNewRSSItem(items: items, lastDate: rss.lastFetchTime)
                 if let recentItem = items.first {
                     rss.lastFetchTime = recentItem.createTime
