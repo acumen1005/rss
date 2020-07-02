@@ -13,7 +13,7 @@ import FeedKit
 
 class RSSStore: NSObject {
     
-    private let persistenceManager = PersistenceManager(entity: .RSS)
+    private let persistence = Persistence.current
     
     private lazy var fetchedResultsController: NSFetchedResultsController<RSS> = {
         let fetchRequest: NSFetchRequest<RSS> = RSS.fetchRequest()
@@ -21,7 +21,7 @@ class RSSStore: NSObject {
         
         let fetechedResultsController = NSFetchedResultsController(
             fetchRequest: fetchRequest,
-            managedObjectContext: self.persistenceManager.managedObjectContext,
+            managedObjectContext: persistence.context,
             sectionNameKeyPath: nil,
             cacheName: nil)
         fetechedResultsController.delegate = self
@@ -29,7 +29,7 @@ class RSSStore: NSObject {
     }()
     
     var context: NSManagedObjectContext {
-        return self.persistenceManager.managedObjectContext
+        return persistence.context
     }
     
     let didChange = PassthroughSubject<RSSStore, Never>()
@@ -46,7 +46,7 @@ class RSSStore: NSObject {
         self.rssSrouces = items;
     }
     
-    public func createAndSave(url: String, title: String? = nil, desc: String? = nil) -> RSS {
+    public func createAndSave(url: String, title: String = "", desc: String = "") -> RSS {
         let rss = RSS.create(
             url: url,
             title: title,
@@ -58,8 +58,7 @@ class RSSStore: NSObject {
     }
     
     public func delete(_ object: RSS) {
-        rssSrouces.removeAll { object.uuid == $0.uuid }
-        persistenceManager.managedObjectContext.delete(object)
+        context.delete(object)
         saveChanges()
     }
     
@@ -105,7 +104,7 @@ class RSSStore: NSObject {
         }
     }
     
-    private func saveChanges() {
+    func saveChanges() {
         guard context.hasChanges else { return }
         do {
             try context.save()

@@ -20,17 +20,22 @@ extension RSSItem {
         return NSFetchRequest<RSSItem>(entityName: "RSSItem")
     }
 
-    @NSManaged public var createTime: Date?
-    @NSManaged public var desc: String?
+    @NSManaged public var createTime: Date
+    @NSManaged public var desc: String
     @NSManaged public var progress: Double
     @NSManaged public var rssUUID: UUID?
-    @NSManaged public var title: String?
-    @NSManaged public var url: String?
+    @NSManaged public var title: String
+    @NSManaged public var url: String
     @NSManaged public var uuid: UUID?
-    @NSManaged public var author: String?
+    @NSManaged public var author: String
     
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        uuid = UUID()
+    }
     
-    static func create(uuid: UUID, title: String?, desc: String? = nil, author: String?, url: String?, createTime: Date?, progress: Double = 0, in context: NSManagedObjectContext) -> RSSItem {
+    static func create(uuid: UUID, title: String = "", desc: String = "", author: String = "", url: String = "",
+                       createTime: Date = Date(), progress: Double = 0, in context: NSManagedObjectContext) -> RSSItem {
         let item = RSSItem(context: context)
         item.rssUUID = uuid
         item.uuid = UUID()

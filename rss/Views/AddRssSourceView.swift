@@ -13,12 +13,12 @@ struct AddRssSourceView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var store: RSSStore
     
-    var onDoneAction: ((String, String?, String?) -> Void)?
+    var onDoneAction: ((RSS) -> Void)?
     
     
     private var doneButton: some View {
         Button(action: {
-            self.onDoneAction?(self.feedUrl, self.detailFeedTitle, self.detailFeedDesc)
+            self.onDoneAction?(self.createdRSS)
             self.presentationMode.wrappedValue.dismiss()
         }) {
             Text("Done")
@@ -28,6 +28,7 @@ struct AddRssSourceView: View {
     private var cancelButton: some View {
         Button(action: {
             self.presentationMode.wrappedValue.dismiss()
+            self.store.context.reset()
         }) {
             Text("Cancel")
         }
@@ -47,18 +48,12 @@ struct AddRssSourceView: View {
         return !feedUrl.isEmpty
     }
     
-    private var hasFetchResult: Bool {
-        return !self.detailFeedTitle.isEmpty
-            || !self.detailFeedDesc.isEmpty
-            || !self.detailFeedURL.isEmpty
-    }
+    @State private var hasFetchResult: Bool = false
     
     @State private var feedUrl: String = "https://36kr.com/feed"
     @State private var feedTitle: String = ""
     
-    @State private var detailFeedTitle: String = ""
-    @State private var detailFeedDesc: String = ""
-    @State private var detailFeedURL: String = ""
+    @State private var createdRSS: RSS = RSS(context: Persistence.current.context)
     
     var body: some View {
         NavigationView {
@@ -70,10 +65,7 @@ struct AddRssSourceView: View {
                     if !hasFetchResult {
                         Text("no result")
                     } else {
-                        TextFieldView(label: "Title", placeholder: "", text: $detailFeedTitle)
-                        TextFieldView(label: "Description", placeholder: "", text: $detailFeedDesc)
-                        TextFieldView(label: "Feed URL", placeholder: "", text: $detailFeedURL)
-                            .disabled(true)
+                        SourceDisplayView(rss: $createdRSS)
                     }
                 }
             }
@@ -86,13 +78,12 @@ struct AddRssSourceView: View {
         guard let url = URL(string: self.feedUrl) else {
             return
         }
-        fetchNewRSS(url: url, in: store) { result in
+        createdRSS.url = self.feedUrl
+        fetchNewRSS(model: createdRSS, url: url, in: store) { result in
             switch result {
             case .success(let rss):
-                self.detailFeedTitle = rss.title ?? ""
-                self.detailFeedDesc = rss.desc ?? ""
-                self.detailFeedURL = rss.url ?? ""
-//                self.store.context.undo()
+                self.createdRSS = rss
+                self.hasFetchResult = true
             case .failure(let error):
                 print("fetchDetail error = \(error)")
             }
@@ -102,6 +93,7 @@ struct AddRssSourceView: View {
 
 struct AddRssSource_Previews: PreviewProvider {
     static var previews: some View {
-        AddRssSourceView()
+//        AddRssSourceView()
+        Text("")
     }
 }

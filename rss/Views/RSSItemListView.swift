@@ -41,7 +41,7 @@ struct RSSItemListView: View {
                     }
                 }
             }
-            .navigationBarTitle(rssSource.title ?? "")
+            .navigationBarTitle(rssSource.title)
         }.onAppear {
             fetchNewRSSItem(model: self.rssSource, url: self.rssSource.rssURL, start: self.start, in: self.store) { result in
                 switch result {
@@ -61,9 +61,7 @@ struct RSSItemListView: View {
             }
         }
         .sheet(item: $selectedItem, content: { item in
-            if item.url != nil {
-                SafariView(url: URL(string: (item.url)!)!)
-            }
+            SafariView(url: URL(string: item.url)!)
         })
     }
     

@@ -18,30 +18,24 @@ extension RSS {
         return NSFetchRequest<RSS>(entityName: "RSS")
     }
 
-    @NSManaged public var url: String?
-    @NSManaged public var title: String?
-    @NSManaged public var desc: String?
-    @NSManaged public var createTime: Date?
-    @NSManaged public var updateTime: Date?
+    @NSManaged public var url: String
+    @NSManaged public var title: String
+    @NSManaged public var desc: String
+    @NSManaged public var createTime: Date!
+    @NSManaged public var updateTime: Date!
     @NSManaged public var lastFetchTime: Date?
     @NSManaged public var uuid: UUID?
     @NSManaged public var isFetched: Bool
     
     public var rssURL: URL? {
-        guard let url = url else {
-            return nil
-        }
         return URL(string: url)
     }
     
     public var createTimeStr: String {
-        if let create = self.updateTime {
-            return "Last Update: \(create.string())"
-        }
-        return ""
+        return "Last Update: \(self.createTime?.string() ?? "")"
     }
     
-    static func create(url: String, title: String? = nil, desc: String? = nil, in context: NSManagedObjectContext) -> RSS {
+    static func create(url: String, title: String = "", desc: String = "", in context: NSManagedObjectContext) -> RSS {
         let rss = RSS(context: context)
         rss.title = title
         rss.desc = desc
@@ -54,7 +48,7 @@ extension RSS {
     }
     
     static func simple() -> RSS {
-        let rss = RSS(context: PersistenceManager(entity: .RSS).managedObjectContext)
+        let rss = RSS(context: Persistence.current.context)
         rss.title = "demo"
         rss.desc = "desc demo"
         rss.url = "http://images.apple.com/main/rss/hotnews/hotnews.rss"
@@ -74,14 +68,13 @@ extension RSS {
         let rss = self
         switch feed {
         case .atom(let atomFeed):
-            rss.title = atomFeed.title
+            rss.title = atomFeed.title ?? ""
         case .json(let jsonFeed):
-            rss.title = jsonFeed.title
-            rss.desc = jsonFeed.description?.trimWhiteAndSpace
+            rss.title = jsonFeed.title ?? ""
+            rss.desc = jsonFeed.description?.trimWhiteAndSpace ?? ""
         case .rss(let rssFeed):
-            rss.title = rssFeed.title
-            rss.desc = rssFeed.description?.trimWhiteAndSpace
-            rss.url = rssFeed.link
+            rss.title = rssFeed.title ?? ""
+            rss.desc = rssFeed.description?.trimWhiteAndSpace ?? ""
         }
     }
 }

@@ -13,10 +13,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    let rssStore = RSSStore()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-        let rssStore = RSSStore()
         let homeView = HomeView().environmentObject(rssStore)
 
         // Use a UIHostingController as window root view controller.

@@ -12,7 +12,7 @@ import FeedKit
 
 func fetchNewRSS(model: RSS? = nil, url: URL, in store: RSSStore,
                  completionHandler: @escaping ((Result<RSS, Error>) -> Void)) {
-    let rss = model ?? RSS(context: store.context)
+    let rss = model ?? RSS.create(url: url.absoluteString, in: store.context)
     let parser = FeedParser(URL: url)
     parser.parseAsync(queue: DispatchQueue.global()) { result in
         DispatchQueue.main.async {
@@ -30,10 +30,10 @@ func fetchNewRSS(model: RSS? = nil, url: URL, in store: RSSStore,
 
 fileprivate func appendNewRSSItem(items: [RSSItem], lastDate: Date?) -> [RSSItem] {
     let savingItems = items.filter { model -> Bool in
-        guard let lastDate = lastDate, let date = model.createTime else {
+        guard let lastDate = lastDate else {
             return true
         }
-        return date > lastDate
+        return model.createTime > lastDate
     }
     print("new: \(savingItems.map({ $0.title }))")
     return savingItems
@@ -62,15 +62,9 @@ func syncNewRSSItem(model: RSS, url: URL?, start: Int = 0, in store: RSSItemStor
                 case .rss(let rssFeed):
                     items = rssFeed.items?.map({ $0.asRSSItem(container: rss.uuid!, in: context) }) ?? []
                 }
-                items.sort(by: {
-                    guard let a = $0.createTime, let b = $1.createTime else {
-                        return true
-                    }
-                    return a > b
-                })
-                
+                items.sort(by: { $0.createTime > $1.createTime })
                 items.forEach { item in
-                    print("\(item.createTime ?? Date())")
+                    print("\(item.createTime)")
                 }
                 
                 let savingItems = appendNewRSSItem(items: items, lastDate: rss.lastFetchTime)

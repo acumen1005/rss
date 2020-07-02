@@ -22,6 +22,7 @@
 		4C9A400524A04FE300AAEF0D /* AddRssSourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A400424A04FE300AAEF0D /* AddRssSourceView.swift */; };
 		4C9A400824A0503400AAEF0D /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A400724A0503400AAEF0D /* TextFieldView.swift */; };
 		4C9A414224A1B5A300AAEF0D /* SourceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A414124A1B5A300AAEF0D /* SourceListView.swift */; };
+		4CA04A7F24ADED0F00521D0C /* SourceDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA04A7E24ADED0F00521D0C /* SourceDisplayView.swift */; };
 		4CB18E3E24A3391700F78F34 /* Redux.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB18E3D24A3391700F78F34 /* Redux.swift */; };
 		4CB18E4024A3485B00F78F34 /* RSSItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB18E3F24A3485B00F78F34 /* RSSItemRow.swift */; };
 		4CB18E4324A3578400F78F34 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB18E4224A3578400F78F34 /* String+Ext.swift */; };
@@ -56,6 +57,7 @@
 		4C9A400424A04FE300AAEF0D /* AddRssSourceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRssSourceView.swift; sourceTree = "<group>"; };
 		4C9A400724A0503400AAEF0D /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		4C9A414124A1B5A300AAEF0D /* SourceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceListView.swift; sourceTree = "<group>"; };
+		4CA04A7E24ADED0F00521D0C /* SourceDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceDisplayView.swift; sourceTree = "<group>"; };
 		4CB18E3D24A3391700F78F34 /* Redux.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Redux.swift; sourceTree = "<group>"; };
 		4CB18E3F24A3485B00F78F34 /* RSSItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSItemRow.swift; sourceTree = "<group>"; };
 		4CB18E4224A3578400F78F34 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				4CB5A00F24A1EE0B0052E80A /* SourceListRow.swift */,
 				4CB18E3F24A3485B00F78F34 /* RSSItemRow.swift */,
 				4CB5A02A24A26DE10052E80A /* SafariView.swift */,
+				4CA04A7E24ADED0F00521D0C /* SourceDisplayView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				4C9A3FEF24A04D2A00AAEF0D /* SceneDelegate.swift in Sources */,
 				4CB5A02324A1FD4E0052E80A /* RSS+CoreDataClass.swift in Sources */,
 				4C9A400524A04FE300AAEF0D /* AddRssSourceView.swift in Sources */,
+				4CA04A7F24ADED0F00521D0C /* SourceDisplayView.swift in Sources */,
 				4CB5A01024A1EE0B0052E80A /* SourceListRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -461,7 +465,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"rss/Preview Content\"";
 				DEVELOPMENT_TEAM = CDAT27Y9CY;
 				ENABLE_PREVIEWS = YES;
@@ -484,7 +488,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"rss/Preview Content\"";
 				DEVELOPMENT_TEAM = CDAT27Y9CY;
 				ENABLE_PREVIEWS = YES;

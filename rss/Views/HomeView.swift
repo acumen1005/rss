@@ -74,9 +74,9 @@ struct HomeView: View {
         }
         .sheet(isPresented: $isSheetPresented, content: {
             if self.sheetFeatureItem == .add {
-                AddRssSourceView(onDoneAction: { (url, title, desc) in
-                    let rss = self.store.createAndSave(url: url, title: title, desc: desc)
+                AddRssSourceView(onDoneAction: { (rss) in
                     self.rssObservable.insert(head: rss)
+                    self.store.saveChanges()
                 })
                 .environmentObject(self.store)
             } else if self.sheetFeatureItem == .set {

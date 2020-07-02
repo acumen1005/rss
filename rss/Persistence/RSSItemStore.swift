@@ -13,7 +13,7 @@ import FeedKit
 
 class RSSItemStore: NSObject {
     
-    private let persistenceManager = PersistenceManager(entity: .RSSItem)
+    private let persistence = Persistence.current
 
     private lazy var fetchedResultsController: NSFetchedResultsController<RSSItem> = {
         let fetchRequest: NSFetchRequest<RSSItem> = RSSItem.fetchRequest()
@@ -21,7 +21,7 @@ class RSSItemStore: NSObject {
         
         let fetechedResultsController = NSFetchedResultsController(
             fetchRequest: fetchRequest,
-            managedObjectContext: self.persistenceManager.managedObjectContext,
+            managedObjectContext: persistence.context,
             sectionNameKeyPath: nil,
             cacheName: nil)
         fetechedResultsController.delegate = self
@@ -29,7 +29,7 @@ class RSSItemStore: NSObject {
     }()
     
     var context: NSManagedObjectContext {
-        return self.persistenceManager.managedObjectContext
+        return persistence.context
     }
     
     let didChange = PassthroughSubject<RSSItemStore, Never>()
@@ -39,9 +39,9 @@ class RSSItemStore: NSObject {
         fetchRSS()
     }
     
-    public func createAndSave(rss uuid: UUID, tilte: String?, desc: String?, author: String?, url: String?, createTime: Date?) -> RSSItem {
+    public func createAndSave(rss uuid: UUID, tilte: String, desc: String, author: String, url: String, createTime: Date) -> RSSItem {
         let item = RSSItem.create(uuid: uuid, title: tilte, desc: desc, author: author, url: url, createTime: createTime,
-                                  in: persistenceManager.managedObjectContext)
+                                  in: persistence.context)
         saveChanges()
         return item
     }
@@ -80,9 +80,9 @@ class RSSItemStore: NSObject {
     }
     
     private func saveChanges() {
-        guard persistenceManager.managedObjectContext.hasChanges else { return }
+        guard context.hasChanges else { return }
         do {
-            try persistenceManager.managedObjectContext.save()
+            try context.save()
         } catch { fatalError() }
     }
 }
