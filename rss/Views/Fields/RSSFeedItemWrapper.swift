@@ -8,20 +8,44 @@
 
 import Foundation
 import Combine
+import CoreData
 import FeedKit
 
-class RSSFeedItemWrapper: ObservableObject, Identifiable {
-    @Published var item: RSSFeedItem?
-    
-    init(item: RSSFeedItem) {
-        self.item = item
+protocol RSSItemConvertable {
+    func asRSSItem(container uuid: UUID, in context: NSManagedObjectContext) -> RSSItem
+}
+
+extension RSSFeedItem: RSSItemConvertable {
+    func asRSSItem(container uuid: UUID, in context: NSManagedObjectContext) -> RSSItem {
+        return RSSItem.create(uuid: uuid,
+                              title: title ?? "",
+                              desc: description ?? "",
+                              author: author ?? "",
+                              url: link ?? "",
+                              createTime: pubDate ?? Date(),
+                              in: context)
     }
 }
 
-extension RSSFeedItemWrapper {
-    static func == (lhs: RSSFeedItemWrapper, rhs: RSSFeedItemWrapper) -> Bool {
-        return lhs.item == rhs.item
+extension AtomFeedEntry: RSSItemConvertable {
+    func asRSSItem(container uuid: UUID, in context: NSManagedObjectContext) -> RSSItem {
+        return RSSItem.create(uuid: uuid,
+                              title: title ?? "",
+                              desc: "",
+                              author: authors?.first?.name ?? "",
+                              url: links?.first?.attributes?.href ?? "",
+                              createTime: (published ?? updated) ?? Date(),
+                              in: context)
     }
 }
 
-
+extension JSONFeedItem: RSSItemConvertable {
+    func asRSSItem(container uuid: UUID, in context: NSManagedObjectContext) -> RSSItem {
+        return RSSItem.create(uuid: uuid,
+                              title: title ?? "",
+                              author: author?.name ?? "",
+                              url: url ?? "",
+                              createTime: datePublished ?? Date(),
+                              in: context)
+    }
+}

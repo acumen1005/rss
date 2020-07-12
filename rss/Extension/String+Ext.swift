@@ -12,4 +12,8 @@ extension String {
     var trimHTMLTag: String {
         return replacingOccurrences(of:"<[^>]+>", with: "", options: .regularExpression, range: nil)
     }
+    
+    var trimWhiteAndSpace: String {
+        return replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+    }
 }

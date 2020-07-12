@@ -19,6 +19,7 @@ struct TextFieldView: View {
         HStack {
             Text("\(label)")
             TextField(placeholder, text: $text)
+                .multilineTextAlignment(.trailing)
         }
     }
 }

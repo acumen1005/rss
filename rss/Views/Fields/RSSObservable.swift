@@ -18,6 +18,10 @@ class RSSObservable: ObservableObject {
         self.items = items
     }
     
+    func insert(head item: RSS) {
+        self.items.insert(item, at: 0)
+    }
+    
     func append(_ item: RSS) {
         self.items.append(item)
     }

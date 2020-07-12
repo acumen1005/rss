@@ -15,9 +15,9 @@ struct SourceListRow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
 //            if rss.isFetched {
-                Text(rss.title ?? "")
+                Text(rss.title)
                     .font(.headline)
-                Text(rss.desc ?? "")
+                Text(rss.desc)
                     .font(.subheadline)
                     .foregroundColor(Color("footnoteColor"))
                 Spacer()

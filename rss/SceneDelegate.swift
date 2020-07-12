@@ -13,11 +13,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-        let rssStore = RSSStore()
-        let homeView = HomeView().environmentObject(rssStore)
+        let homeView = HomeView()
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
@@ -67,6 +65,6 @@ import FeedKit
 
 let aUrl = URL(string: "https://36kr.com/feed")!
 let parser = FeedParser(URL: aUrl)
-let rs = parser.parse()
+let simpleRS = parser.parse()
 
 #endif
