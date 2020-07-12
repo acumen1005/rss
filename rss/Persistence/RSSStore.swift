@@ -66,7 +66,7 @@ class RSSStore: NSObject {
         do {
             try update(RSS: item)
         } catch let error {
-            print("error = \(error)")
+            print("\(#function) error = \(error)")
         }
     }
     

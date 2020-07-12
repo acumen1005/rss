@@ -47,4 +47,20 @@ extension RSSItem {
         item.progress = 0
         return item
     }
+    
+    static func requestObjects(rssUUID: UUID, start: Int = 0, limit: Int = 20) -> NSFetchRequest<RSSItem> {
+        let request = RSSItem.fetchRequest() as NSFetchRequest<RSSItem>
+        let predicate = NSPredicate(format: "rssUUID = %@", argumentArray: [rssUUID])
+        request.predicate = predicate
+        request.sortDescriptors = [.init(key: #keyPath(RSSItem.createTime), ascending: false)]
+        request.fetchOffset = start
+        request.fetchLimit = limit
+        return request
+    }
+}
+
+extension RSSItem: ObjectValidatable {
+    func hasChangedValues() -> Bool {
+        return hasPersistentChangedValues
+    }
 }

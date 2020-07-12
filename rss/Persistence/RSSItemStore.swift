@@ -64,6 +64,9 @@ class RSSItemStore: NSObject {
         fetchRequest.fetchOffset = start
         do {
             let rs = try fetchedResultsController.managedObjectContext.fetch(fetchRequest)
+            rs.forEach { item in
+                print("item created time = \(item.createTime)")
+            }
             return rs
         } catch let error {
             throw error

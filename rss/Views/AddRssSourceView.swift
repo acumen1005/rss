@@ -11,14 +11,16 @@ import SwiftUI
 struct AddRssSourceView: View {
     
     @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var store: RSSStore
     
-    var onDoneAction: ((RSS) -> Void)?
+    @ObservedObject var rssModel: RSSModel
     
+    var onDoneAction: (() -> Void)?
+    
+    var onCancelAction: (() -> Void)?
     
     private var doneButton: some View {
         Button(action: {
-            self.onDoneAction?(self.createdRSS)
+            self.onDoneAction?()
             self.presentationMode.wrappedValue.dismiss()
         }) {
             Text("Done")
@@ -27,8 +29,8 @@ struct AddRssSourceView: View {
     
     private var cancelButton: some View {
         Button(action: {
+            self.onCancelAction?()
             self.presentationMode.wrappedValue.dismiss()
-            self.store.context.reset()
         }) {
             Text("Cancel")
         }
@@ -53,8 +55,6 @@ struct AddRssSourceView: View {
     @State private var feedUrl: String = "https://36kr.com/feed"
     @State private var feedTitle: String = ""
     
-    @State private var createdRSS: RSS = RSS(context: Persistence.current.context)
-    
     var body: some View {
         NavigationView {
             Form {
@@ -65,7 +65,7 @@ struct AddRssSourceView: View {
                     if !hasFetchResult {
                         Text("no result")
                     } else {
-                        SourceDisplayView(rss: $createdRSS)
+                        SourceDisplayView(rss: rssModel)
                     }
                 }
             }
@@ -78,11 +78,21 @@ struct AddRssSourceView: View {
         guard let url = URL(string: self.feedUrl) else {
             return
         }
-        createdRSS.url = self.feedUrl
-        fetchNewRSS(model: createdRSS, url: url, in: store) { result in
+        rssModel.url = feedUrl
+        fetchNewRSS(url: url) { result in
             switch result {
-            case .success(let rss):
-                self.createdRSS = rss
+            case .success(let feed):
+                switch feed {
+                case .atom(let atomFeed):
+                    self.rssModel.title = atomFeed.title ?? ""
+                case .json(let jsonFeed):
+                    self.rssModel.title = jsonFeed.title ?? ""
+                    self.rssModel.desc = jsonFeed.description?.trimWhiteAndSpace ?? ""
+                case .rss(let rssFeed):
+                    self.rssModel.title = rssFeed.title ?? ""
+                    self.rssModel.desc = rssFeed.description?.trimWhiteAndSpace ?? ""
+                }
+                
                 self.hasFetchResult = true
             case .failure(let error):
                 print("fetchDetail error = \(error)")

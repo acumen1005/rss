@@ -15,7 +15,9 @@ class Persistence {
     static private(set) var current = Persistence(version: 1)
     
     var context: NSManagedObjectContext {
-        return container.viewContext
+        let c = container.viewContext
+        c.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        return c
     }
     var container: NSPersistentContainer
     

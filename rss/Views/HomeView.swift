@@ -17,19 +17,26 @@ struct HomeView: View {
         case set
     }
     
-    @EnvironmentObject var store: RSSStore
-
+    @ObservedObject var rssDataSource: RSSDataSource = {
+        let dataSource = RSSDataSource(parentContext: Persistence.current.context)
+        dataSource.performFetch(RSS.requestObjects())
+        return dataSource
+    }()
+    
+    @ObservedObject var rssItemDataSource = RSSItemDataSource(parentContext: Persistence.current.context)
+    
+    @ObservedObject private var createRSSModel = RSSModel()
+    
     @State private var isAddFormPresented = false
     @State private var isSettingPresented = false
     @State private var isSheetPresented = false
     @State private var sheetFeatureItem: FeatureItem = .none
     
-    @ObservedObject private var rssObservable: RSSObservable = RSSObservable(items: [])
-    
     private var addSourceButton: some View {
         Button(action: {
             self.isSheetPresented = true
             self.sheetFeatureItem = .add
+            self.beginCreateNewRSS()
         }) {
             Image(systemName: "plus.circle")
                 .imageScale(.medium)
@@ -54,18 +61,24 @@ struct HomeView: View {
         }
     }
     
+    private func destinationView(_ rss: RSS) -> some View {
+        RSSItemListView(source: rss)
+            .environmentObject(self.rssDataSource)
+    }
+    
     var body: some View {
         NavigationView {
             List {
-                ForEach(self.rssObservable.items, id: \.self) { rss in
-                    NavigationLink(destination: RSSItemListView(source: rss)) {
+                ForEach(rssDataSource.fetchedResult.fetchedObjects ?? [], id: \.self) { rss in
+                    NavigationLink(destination: self.destinationView(rss)) {
                         SourceListRow(rss: rss)
                     }
-                }.onDelete { indexSet in
-                    if let index = indexSet.first {
-                        let item = self.rssObservable.items[index]
-                        self.rssObservable.delete(item)
-                        self.store.delete(item)
+                }
+                .onDelete { indexSet in
+                    if let index = indexSet.first,
+                        let objects = self.rssDataSource.fetchedResult.fetchedObjects {
+                        let object = objects[index]
+                        self.rssDataSource.delete(object, saveContext: true)
                     }
                 }
             }
@@ -74,18 +87,39 @@ struct HomeView: View {
         }
         .sheet(isPresented: $isSheetPresented, content: {
             if self.sheetFeatureItem == .add {
-                AddRssSourceView(onDoneAction: { (rss) in
-                    self.rssObservable.insert(head: rss)
-                    self.store.saveChanges()
-                })
-                .environmentObject(self.store)
+                AddRssSourceView(
+                    rssModel: self.createRSSModel,
+                    onDoneAction: self.commitCreateNewRSS,
+                    onCancelAction: self.cancelCreateNewRSS)
+                    .environmentObject(self.rssDataSource)
             } else if self.sheetFeatureItem == .set {
 
             }
         })
         .onAppear {
-            self.rssObservable.append(contentsOf: self.store.items)
+            
         }
+    }
+}
+
+extension HomeView {
+    
+    func beginCreateNewRSS() {
+        rssDataSource.discardNewObject()
+        rssDataSource.prepareNewObject()
+        createRSSModel.rss = rssDataSource.newObject
+    }
+    
+    func commitCreateNewRSS() {
+        rssDataSource.saveCreateContext()
+    }
+    
+    func cancelCreateNewRSS() {
+        rssDataSource.discardNewObject()
+    }
+    
+    func deleteRSS() {
+//        rssDataSource.de
     }
 }
 

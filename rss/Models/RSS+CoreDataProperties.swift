@@ -35,7 +35,7 @@ extension RSS {
         return "Last Update: \(self.createTime?.string() ?? "")"
     }
     
-    static func create(url: String, title: String = "", desc: String = "", in context: NSManagedObjectContext) -> RSS {
+    static func create(url: String = "", title: String = "", desc: String = "", in context: NSManagedObjectContext) -> RSS {
         let rss = RSS(context: context)
         rss.title = title
         rss.desc = desc
@@ -54,7 +54,13 @@ extension RSS {
         rss.url = "http://images.apple.com/main/rss/hotnews/hotnews.rss"
         return rss
     }
-
+    
+    static func requestObjects() -> NSFetchRequest<RSS> {
+        let request = RSS.fetchRequest() as NSFetchRequest<RSS>
+        request.predicate = .init(value: true)
+        request.sortDescriptors = [.init(key: #keyPath(RSS.createTime), ascending: false)]
+        return request
+    }
 }
 
 extension RSS {
@@ -76,6 +82,12 @@ extension RSS {
             rss.title = rssFeed.title ?? ""
             rss.desc = rssFeed.description?.trimWhiteAndSpace ?? ""
         }
+    }
+}
+
+extension RSS: ObjectValidatable {
+    func hasChangedValues() -> Bool {
+        return hasPersistentChangedValues
     }
 }
 

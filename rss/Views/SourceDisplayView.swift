@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SourceDisplayView: View {
     
-    @Binding var rss: RSS
+    @ObservedObject var rss: RSSModel
     
     var body: some View {
         Group {
