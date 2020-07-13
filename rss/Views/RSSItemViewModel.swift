@@ -54,14 +54,16 @@ class RSSItemViewModel: NSObject, ObservableObject {
                 case .json(let jsonFeed):
                     items = jsonFeed.items?.map({ $0.asRSSItem(container: uuid, in: self.dataSource.createContext) }) ?? []
                 case .rss(let rssFeed):
-                    items = rssFeed.items?.map({ $0.asRSSItem(container: uuid, in: self.dataSource.createContext) }) ?? []
-                    var newItems = [RSSItem]()
-                    for item in items {
-                        if let fetchDate = self.rss.lastFetchTime, item.createTime < fetchDate {
+                    for item in rssFeed.items ?? [] {
+                        if let fetchDate = self.rss.lastFetchTime, let pubDate = item.pubDate, pubDate < fetchDate {
                             continue
                         }
-                        newItems.append(item)
+                        guard let title = item.title, items.filter({ $0.title == title }).count <= 0 else {
+                            continue
+                        }
+                        items.append(item.asRSSItem(container: uuid, in: self.dataSource.createContext))
                     }
+                    
                     self.rss.lastFetchTime = Date()
                     self.dataSource.saveUpdateContext()
                     

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C488D6424BCB81F00406700 /* ImageServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C488D6324BCB81F00406700 /* ImageServices.swift */; };
 		4C872FCE24A87AAB00934910 /* RSSFeedItemWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FCD24A87AAB00934910 /* RSSFeedItemWrapper.swift */; };
 		4C872FD024A9E48400934910 /* RSSActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FCF24A9E48400934910 /* RSSActions.swift */; };
 		4C872FD624A9F1B000934910 /* RSSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FD524A9F1B000934910 /* RSSError.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C488D6324BCB81F00406700 /* ImageServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageServices.swift; sourceTree = "<group>"; };
 		4C872FCD24A87AAB00934910 /* RSSFeedItemWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedItemWrapper.swift; sourceTree = "<group>"; };
 		4C872FCF24A9E48400934910 /* RSSActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSActions.swift; sourceTree = "<group>"; };
 		4C872FD524A9F1B000934910 /* RSSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSError.swift; sourceTree = "<group>"; };
@@ -97,6 +99,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C488D6224BCB80F00406700 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4C488D6324BCB81F00406700 /* ImageServices.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		4C9A3FE024A04D2A00AAEF0D = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +127,7 @@
 		4C9A3FEB24A04D2A00AAEF0D /* rss */ = {
 			isa = PBXGroup;
 			children = (
+				4C488D6224BCB80F00406700 /* Services */,
 				4CA04AC724B9DBA000521D0C /* Extension */,
 				4CA04AC224B9D89F00521D0C /* DataSources */,
 				4CB18E3B24A3348C00F78F34 /* Actions */,
@@ -332,6 +343,7 @@
 				4CB5A02724A24CBB0052E80A /* RSSObservable.swift in Sources */,
 				4CB5A02B24A26DE10052E80A /* SafariView.swift in Sources */,
 				4CB18E4024A3485B00F78F34 /* RSSItemRow.swift in Sources */,
+				4C488D6424BCB81F00406700 /* ImageServices.swift in Sources */,
 				4CB5A02424A1FD4E0052E80A /* RSS+CoreDataProperties.swift in Sources */,
 				4CB18E4524A3591100F78F34 /* Date+Ext.swift in Sources */,
 				4CA04AD324BAED0300521D0C /* RSSItemViewModel.swift in Sources */,

@@ -25,6 +25,7 @@ extension RSS {
     @NSManaged public var updateTime: Date!
     @NSManaged public var lastFetchTime: Date?
     @NSManaged public var uuid: UUID?
+    @NSManaged public var image: String
     @NSManaged public var isFetched: Bool
     
     public var rssURL: URL? {
@@ -35,11 +36,12 @@ extension RSS {
         return "Last Update: \(self.createTime?.string() ?? "")"
     }
     
-    static func create(url: String = "", title: String = "", desc: String = "", in context: NSManagedObjectContext) -> RSS {
+    static func create(url: String = "", title: String = "", desc: String = "", image: String = "", in context: NSManagedObjectContext) -> RSS {
         let rss = RSS(context: context)
         rss.title = title
         rss.desc = desc
         rss.url = url
+        rss.image = image
         rss.uuid = UUID()
         rss.createTime = Date()
         rss.updateTime = Date()
@@ -47,9 +49,10 @@ extension RSS {
         return rss
     }
     
-    static func simple() -> RSS {
+    static func simple(image: String = "") -> RSS {
         let rss = RSS(context: Persistence.current.context)
         rss.title = "demo"
+        rss.image = image
         rss.desc = "desc demo"
         rss.url = "http://images.apple.com/main/rss/hotnews/hotnews.rss"
         return rss

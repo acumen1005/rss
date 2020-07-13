@@ -15,6 +15,12 @@ extension RSSItem: Identifiable {
 }
 
 extension RSSItem {
+    static func == (lhs: RSSItem, rhs: RSSItem) -> Bool {
+        return lhs.title == rhs.title
+    }
+}
+
+extension RSSItem {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<RSSItem> {
         return NSFetchRequest<RSSItem>(entityName: "RSSItem")

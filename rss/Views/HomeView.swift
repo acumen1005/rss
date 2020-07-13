@@ -73,17 +73,20 @@ struct HomeView: View {
                     NavigationLink(destination: self.destinationView(rss)) {
                         SourceListRow(rss: rss)
                     }
+                    .tag("RSS")
                 }
                 .onDelete { indexSet in
                     if let index = indexSet.first,
                         let objects = self.rssDataSource.fetchedResult.fetchedObjects {
                         let object = objects[index]
                         self.rssDataSource.delete(object, saveContext: true)
+                        self.rssDataSource.objectWillChange.send()
                     }
                 }
             }
             .navigationBarTitle("RSS")
             .navigationBarItems(trailing: trailingView)
+            .navigationViewStyle(StackNavigationViewStyle())
         }
         .sheet(isPresented: $isSheetPresented, content: {
             if self.sheetFeatureItem == .add {

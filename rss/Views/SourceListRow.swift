@@ -10,31 +10,65 @@ import SwiftUI
 
 struct SourceListRow: View {
     
+    @ObservedObject var imageLoader: ImageLoader
     @ObservedObject var rss: RSS
     
-    var body: some View {
+    init(rss: RSS) {
+        self.rss = rss
+        self.imageLoader = ImageLoader(path: rss.image)
+    }
+    
+    
+    
+    private func iconImageView(_ image: UIImage) -> some View {
+        Image(uiImage: image)
+        .resizable()
+        .frame(width: 60, height: 60, alignment: .center)
+        .cornerRadius(4)
+        .animation(.easeInOut)
+    }
+    
+    private var pureTextView: some View {
         VStack(alignment: .leading, spacing: 4) {
-//            if rss.isFetched {
-                Text(rss.title)
-                    .font(.headline)
-                Text(rss.desc)
-                    .font(.subheadline)
-                    .foregroundColor(Color("footnoteColor"))
+            Text(rss.title)
+                .font(.headline)
+            Text(rss.desc)
+                .font(.subheadline)
+                .foregroundColor(Color("footnoteColor"))
+            Spacer()
+        }
+    }
+    
+    var body: some View {
+        HStack(alignment: .top) {
+            VStack(alignment: .leading) {
+                HStack {
+                    if self.imageLoader.image != nil {
+                        iconImageView(self.imageLoader.image!)
+                        pureTextView
+                    } else {
+                        pureTextView
+                    }
+                }
                 Spacer()
                 Text(rss.createTimeStr)
                     .font(.footnote)
                     .foregroundColor(.gray)
-//            } else {
-//                Text("loading")
-//                    .padding(.top, 8)
-//                    .padding(.bottom, 8)
-//            }
+            }
+            
         }
+        .padding(.top, 8)
+        .padding(.bottom, 8)
     }
 }
 
 struct SourceListRow_Previews: PreviewProvider {
     static var previews: some View {
-        SourceListRow(rss: RSS.simple()).frame(width: 100, height: 60, alignment: .leading)
+        VStack {
+            SourceListRow(rss: RSS.simple(image: "image")).frame(width: 100, height: 60, alignment: .leading)
+            Spacer()
+            SourceListRow(rss: RSS.simple()).frame(width: 100, height: 60, alignment: .leading)
+        }
+        .frame(width: 300, height: 180, alignment: .top)
     }
 }
