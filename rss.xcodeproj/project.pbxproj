@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4C488D6424BCB81F00406700 /* ImageServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C488D6324BCB81F00406700 /* ImageServices.swift */; };
+		4C488D6E24BE273B00406700 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C488D6D24BE273B00406700 /* SettingsView.swift */; };
 		4C872FCE24A87AAB00934910 /* RSSFeedItemWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FCD24A87AAB00934910 /* RSSFeedItemWrapper.swift */; };
 		4C872FD024A9E48400934910 /* RSSActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FCF24A9E48400934910 /* RSSActions.swift */; };
 		4C872FD624A9F1B000934910 /* RSSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FD524A9F1B000934910 /* RSSError.swift */; };
@@ -48,6 +49,8 @@
 
 /* Begin PBXFileReference section */
 		4C488D6324BCB81F00406700 /* ImageServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageServices.swift; sourceTree = "<group>"; };
+		4C488D6524BDA0BD00406700 /* rss.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = rss.entitlements; sourceTree = "<group>"; };
+		4C488D6D24BE273B00406700 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		4C872FCD24A87AAB00934910 /* RSSFeedItemWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedItemWrapper.swift; sourceTree = "<group>"; };
 		4C872FCF24A9E48400934910 /* RSSActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSActions.swift; sourceTree = "<group>"; };
 		4C872FD524A9F1B000934910 /* RSSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSError.swift; sourceTree = "<group>"; };
@@ -127,6 +130,7 @@
 		4C9A3FEB24A04D2A00AAEF0D /* rss */ = {
 			isa = PBXGroup;
 			children = (
+				4C488D6524BDA0BD00406700 /* rss.entitlements */,
 				4C488D6224BCB80F00406700 /* Services */,
 				4CA04AC724B9DBA000521D0C /* Extension */,
 				4CA04AC224B9D89F00521D0C /* DataSources */,
@@ -169,6 +173,7 @@
 				4CB18E3F24A3485B00F78F34 /* RSSItemRow.swift */,
 				4CB5A02A24A26DE10052E80A /* SafariView.swift */,
 				4CA04A7E24ADED0F00521D0C /* SourceDisplayView.swift */,
+				4C488D6D24BE273B00406700 /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -337,6 +342,7 @@
 				4CB5A02024A1FCFA0052E80A /* RSS.xcdatamodeld in Sources */,
 				4CA04AD124BA23C100521D0C /* Date.swift in Sources */,
 				4C9A3FED24A04D2A00AAEF0D /* AppDelegate.swift in Sources */,
+				4C488D6E24BE273B00406700 /* SettingsView.swift in Sources */,
 				4C872FE124AA1C5100934910 /* RSSItem+CoreDataClass.swift in Sources */,
 				4C872FD824A9F72200934910 /* RSSItemStore.swift in Sources */,
 				4CA04AC424B9D8C300521D0C /* RSSItemDataSource.swift in Sources */,
@@ -500,8 +506,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = rss/rss.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"rss/Preview Content\"";
 				DEVELOPMENT_TEAM = CDAT27Y9CY;
 				ENABLE_PREVIEWS = YES;
@@ -511,8 +518,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.acumen.rss;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -522,9 +531,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = rss/rss.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"rss/Preview Content\"";
 				DEVELOPMENT_TEAM = CDAT27Y9CY;
 				ENABLE_PREVIEWS = YES;
@@ -534,9 +544,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.acumen.rss;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -17,6 +17,18 @@ struct HomeView: View {
         case set
     }
     
+    enum SegmentItem: Int {
+        case home
+        case inbox
+        
+        var label: String {
+            switch self {
+            case .home: return "Home"
+            case .inbox: return "Inbox"
+            }
+        }
+    }
+    
     @ObservedObject var rssDataSource: RSSDataSource = {
         let dataSource = RSSDataSource(parentContext: Persistence.current.context)
         dataSource.performFetch(RSS.requestObjects())
@@ -31,6 +43,7 @@ struct HomeView: View {
     @State private var isSettingPresented = false
     @State private var isSheetPresented = false
     @State private var sheetFeatureItem: FeatureItem = .none
+    @State private var selectedSegment: SegmentItem = .home
     
     private var addSourceButton: some View {
         Button(action: {
@@ -69,19 +82,31 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(rssDataSource.fetchedResult.fetchedObjects ?? [], id: \.self) { rss in
-                    NavigationLink(destination: self.destinationView(rss)) {
-                        SourceListRow(rss: rss)
-                    }
-                    .tag("RSS")
+                Section {
+                    Picker("Lists", selection: $selectedSegment) {
+                        ForEach([SegmentItem.home, SegmentItem.inbox], id: \.self) {
+                            Text($0.label).tag($0.rawValue)
+                        }
+                    }.pickerStyle(SegmentedPickerStyle())
                 }
-                .onDelete { indexSet in
-                    if let index = indexSet.first,
-                        let objects = self.rssDataSource.fetchedResult.fetchedObjects {
-                        let object = objects[index]
-                        self.rssDataSource.delete(object, saveContext: true)
-                        self.rssDataSource.objectWillChange.send()
+                
+                if self.selectedSegment == SegmentItem.home {
+                    ForEach(rssDataSource.fetchedResult.fetchedObjects ?? [], id: \.self) { rss in
+                        NavigationLink(destination: self.destinationView(rss)) {
+                            SourceListRow(rss: rss)
+                        }
+                        .tag("RSS")
                     }
+                    .onDelete { indexSet in
+                        if let index = indexSet.first,
+                            let objects = self.rssDataSource.fetchedResult.fetchedObjects {
+                            let object = objects[index]
+                            self.rssDataSource.delete(object, saveContext: true)
+                            self.rssDataSource.objectWillChange.send()
+                        }
+                    }
+                } else {
+                    Text("Inbox")
                 }
             }
             .navigationBarTitle("RSS")
@@ -96,7 +121,7 @@ struct HomeView: View {
                     onCancelAction: self.cancelCreateNewRSS)
                     .environmentObject(self.rssDataSource)
             } else if self.sheetFeatureItem == .set {
-
+                SettingsView()
             }
         })
         .onAppear {
