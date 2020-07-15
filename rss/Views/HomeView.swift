@@ -17,18 +17,6 @@ struct HomeView: View {
         case set
     }
     
-    enum SegmentItem: Int {
-        case home
-        case inbox
-        
-        var label: String {
-            switch self {
-            case .home: return "Home"
-            case .inbox: return "Inbox"
-            }
-        }
-    }
-    
     @ObservedObject var rssDataSource: RSSDataSource = {
         let dataSource = RSSDataSource(parentContext: Persistence.current.context)
         dataSource.performFetch(RSS.requestObjects())
@@ -42,14 +30,12 @@ struct HomeView: View {
     @State private var isSettingPresented = false
     @State private var isSheetPresented = false
     @State private var sheetFeatureItem: FeatureItem = .none
-    @State private var selectedSegment: SegmentItem = .home
     @State private var archiveScale: Image.Scale = .medium
     
     private var addSourceButton: some View {
         Button(action: {
             self.isSheetPresented = true
             self.sheetFeatureItem = .add
-            self.beginCreateNewRSS()
         }) {
             Image(systemName: "plus.circle")
                 .imageScale(.medium)
@@ -98,11 +84,8 @@ struct HomeView: View {
         }
         .sheet(isPresented: $isSheetPresented, content: {
             if self.sheetFeatureItem == .add {
-                AddRssSourceView(
-                    rssModel: self.createRSSModel,
-                    onDoneAction: self.commitCreateNewRSS,
-                    onCancelAction: self.cancelCreateNewRSS)
-                    .environmentObject(self.rssDataSource)
+                AddRSSSourceView(
+                    viewModel: AddRSSSourceViewModel(dataSource: self.rssDataSource))
             } else if self.sheetFeatureItem == .set {
                 SettingsView()
             }
@@ -140,23 +123,6 @@ struct HomeView: View {
                     }
                 }
         }
-    }
-}
-
-extension HomeView {
-    
-    func beginCreateNewRSS() {
-        rssDataSource.discardNewObject()
-        rssDataSource.prepareNewObject()
-        createRSSModel.rss = rssDataSource.newObject
-    }
-    
-    func commitCreateNewRSS() {
-        rssDataSource.saveCreateContext()
-    }
-    
-    func cancelCreateNewRSS() {
-        rssDataSource.discardNewObject()
     }
 }
 
