@@ -15,7 +15,12 @@ class RSSModel: ObservableObject {
             desc = rss?.desc ?? ""
             createTime = rss?.createTime ?? Date()
             url = rss?.url ?? ""
+            image = rss?.image ?? ""
         }
+    }
+    
+    @Published var image = "" {
+        didSet { rss?.image = image }
     }
     
     @Published var title = "" {

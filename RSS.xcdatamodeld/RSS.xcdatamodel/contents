@@ -3,6 +3,7 @@
     <entity name="RSS" representedClassName="RSS" syncable="YES">
         <attribute name="createTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="desc" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="image" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="isFetched" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="lastFetchTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String" defaultValueString=""/>
@@ -14,9 +15,11 @@
         <attribute name="author" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="createTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="desc" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="isArchive" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="progress" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="rssUUID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="updateTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="url" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <uniquenessConstraints>
@@ -26,7 +29,7 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="RSS" positionX="-54" positionY="-9" width="128" height="163"/>
-        <element name="RSSItem" positionX="-54" positionY="45" width="128" height="163"/>
+        <element name="RSS" positionX="-54" positionY="-9" width="128" height="178"/>
+        <element name="RSSItem" positionX="-54" positionY="45" width="128" height="193"/>
     </elements>
 </model>

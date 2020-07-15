@@ -85,12 +85,18 @@ struct AddRssSourceView: View {
                 switch feed {
                 case .atom(let atomFeed):
                     self.rssModel.title = atomFeed.title ?? ""
+                    if let id = atomFeed.id, var url = URL(string: id), let icon = atomFeed.icon {
+                        url.appendPathComponent(icon)
+                        self.rssModel.image = url.absoluteString
+                    }
                 case .json(let jsonFeed):
                     self.rssModel.title = jsonFeed.title ?? ""
                     self.rssModel.desc = jsonFeed.description?.trimWhiteAndSpace ?? ""
+                    self.rssModel.image = jsonFeed.icon ?? ""
                 case .rss(let rssFeed):
                     self.rssModel.title = rssFeed.title ?? ""
                     self.rssModel.desc = rssFeed.description?.trimWhiteAndSpace ?? ""
+                    self.rssModel.image = rssFeed.image?.url ?? ""
                 }
                 
                 self.hasFetchResult = true

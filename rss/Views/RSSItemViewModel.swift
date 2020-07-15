@@ -22,6 +22,15 @@ class RSSItemViewModel: NSObject, ObservableObject {
         super.init()
     }
     
+    func archiveOrCancel(_ item: RSSItem) {
+        let updatedItem = dataSource.readObject(item)
+        updatedItem.isArchive = !item.isArchive
+        updatedItem.updateTime = Date()
+        dataSource.setUpdateObject(updatedItem)
+        
+        _ = dataSource.saveUpdateObject()
+    }
+    
     func loadMore() {
         start = items.count
         fecthResults(start: start)
@@ -49,26 +58,43 @@ class RSSItemViewModel: NSObject, ObservableObject {
             case .success(let feed):
                 var items = [RSSItem]()
                 switch feed {
-                case .atom(let atomFeed):
-                    items = atomFeed.entries?.map({ $0.asRSSItem(container: uuid, in: self.dataSource.createContext) }) ?? []
-                case .json(let jsonFeed):
-                    items = jsonFeed.items?.map({ $0.asRSSItem(container: uuid, in: self.dataSource.createContext) }) ?? []
-                case .rss(let rssFeed):
-                    items = rssFeed.items?.map({ $0.asRSSItem(container: uuid, in: self.dataSource.createContext) }) ?? []
-                    var newItems = [RSSItem]()
-                    for item in items {
-                        if let fetchDate = self.rss.lastFetchTime, item.createTime < fetchDate {
-                            continue
+                    case .atom(let atomFeed):
+                        for item in atomFeed.entries ?? [] {
+                            if let fetchDate = self.rss.lastFetchTime, let pubDate = item.published, pubDate < fetchDate {
+                                continue
+                            }
+                            guard let title = item.title, items.filter({ $0.title == title }).count <= 0 else {
+                                continue
+                            }
+                            items.append(item.asRSSItem(container: uuid, in: self.dataSource.createContext))
                         }
-                        newItems.append(item)
+                    case .json(let jsonFeed):
+                        for item in jsonFeed.items ?? [] {
+                            if let fetchDate = self.rss.lastFetchTime, let pubDate = item.datePublished, pubDate < fetchDate {
+                                continue
+                            }
+                            guard let title = item.title, items.filter({ $0.title == title }).count <= 0 else {
+                                continue
+                            }
+                            items.append(item.asRSSItem(container: uuid, in: self.dataSource.createContext))
+                        }
+                    case .rss(let rssFeed):
+                        for item in rssFeed.items ?? [] {
+                            if let fetchDate = self.rss.lastFetchTime, let pubDate = item.pubDate, pubDate < fetchDate {
+                                continue
+                            }
+                            guard let title = item.title, items.filter({ $0.title == title }).count <= 0 else {
+                                continue
+                            }
+                            items.append(item.asRSSItem(container: uuid, in: self.dataSource.createContext))
+                        }
                     }
                     self.rss.lastFetchTime = Date()
-                    self.dataSource.saveUpdateContext()
                     
                     self.dataSource.saveCreateContext()
                     
                     self.fecthResults()
-                }
+                
                 case .failure(let error):
                     print("feed error \(error)")
             }

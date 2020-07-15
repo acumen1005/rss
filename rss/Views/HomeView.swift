@@ -17,6 +17,18 @@ struct HomeView: View {
         case set
     }
     
+    enum SegmentItem: Int {
+        case home
+        case inbox
+        
+        var label: String {
+            switch self {
+            case .home: return "Home"
+            case .inbox: return "Inbox"
+            }
+        }
+    }
+    
     @ObservedObject var rssDataSource: RSSDataSource = {
         let dataSource = RSSDataSource(parentContext: Persistence.current.context)
         dataSource.performFetch(RSS.requestObjects())
@@ -24,13 +36,14 @@ struct HomeView: View {
     }()
     
     @ObservedObject var rssItemDataSource = RSSItemDataSource(parentContext: Persistence.current.context)
-    
     @ObservedObject private var createRSSModel = RSSModel()
     
     @State private var isAddFormPresented = false
     @State private var isSettingPresented = false
     @State private var isSheetPresented = false
     @State private var sheetFeatureItem: FeatureItem = .none
+    @State private var selectedSegment: SegmentItem = .home
+    @State private var archiveScale: Image.Scale = .medium
     
     private var addSourceButton: some View {
         Button(action: {
@@ -61,29 +74,27 @@ struct HomeView: View {
         }
     }
     
-    private func destinationView(_ rss: RSS) -> some View {
-        RSSItemListView(source: rss)
-            .environmentObject(self.rssDataSource)
-    }
-    
-    var body: some View {
+    private var homeListView: some View {
         NavigationView {
             List {
                 ForEach(rssDataSource.fetchedResult.fetchedObjects ?? [], id: \.self) { rss in
                     NavigationLink(destination: self.destinationView(rss)) {
                         SourceListRow(rss: rss)
                     }
+                    .tag("RSS")
                 }
                 .onDelete { indexSet in
                     if let index = indexSet.first,
                         let objects = self.rssDataSource.fetchedResult.fetchedObjects {
                         let object = objects[index]
                         self.rssDataSource.delete(object, saveContext: true)
+                        self.rssDataSource.objectWillChange.send()
                     }
                 }
             }
             .navigationBarTitle("RSS")
             .navigationBarItems(trailing: trailingView)
+            .navigationViewStyle(StackNavigationViewStyle())
         }
         .sheet(isPresented: $isSheetPresented, content: {
             if self.sheetFeatureItem == .add {
@@ -93,11 +104,41 @@ struct HomeView: View {
                     onCancelAction: self.cancelCreateNewRSS)
                     .environmentObject(self.rssDataSource)
             } else if self.sheetFeatureItem == .set {
-
+                SettingsView()
             }
         })
         .onAppear {
-            
+
+        }
+    }
+    
+    private var archiveListView: some View {
+        ArchiveListView()
+    }
+    
+    private func destinationView(_ rss: RSS) -> some View {
+        RSSItemListView(viewModel: RSSItemViewModel(rss: rss, dataSource: self.rssItemDataSource))
+            .environmentObject(self.rssDataSource)
+    }
+    
+    var body: some View {
+        TabView {
+            homeListView
+                .tabItem {
+                    VStack {
+                        Image(systemName: "house.fill")
+                            .imageScale(.medium)
+                        Text("Home")
+                    }
+                }
+            archiveListView
+                .tabItem {
+                    VStack {
+                        Image(systemName: "archivebox.fill")
+                            .imageScale(.medium)
+                        Text("Archive")
+                    }
+                }
         }
     }
 }
@@ -116,10 +157,6 @@ extension HomeView {
     
     func cancelCreateNewRSS() {
         rssDataSource.discardNewObject()
-    }
-    
-    func deleteRSS() {
-//        rssDataSource.de
     }
 }
 
