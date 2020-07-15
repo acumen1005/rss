@@ -13,6 +13,8 @@
 		4C488D7224BEA8F100406700 /* ArchiveListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C488D7124BEA8F100406700 /* ArchiveListView.swift */; };
 		4C488D7424BEAAD200406700 /* ArchiveListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C488D7324BEAAD200406700 /* ArchiveListViewModel.swift */; };
 		4C812FF124BF119200CDD840 /* AddRSSSourceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C812FF024BF119200CDD840 /* AddRSSSourceViewModel.swift */; };
+		4C812FF324BF1B9E00CDD840 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C812FF224BF1B9E00CDD840 /* HomeViewModel.swift */; };
+		4C812FF524BF1D9B00CDD840 /* DataSourceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C812FF424BF1D9B00CDD840 /* DataSourceService.swift */; };
 		4C872FCE24A87AAB00934910 /* RSSFeedItemWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FCD24A87AAB00934910 /* RSSFeedItemWrapper.swift */; };
 		4C872FD024A9E48400934910 /* RSSActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FCF24A9E48400934910 /* RSSActions.swift */; };
 		4C872FD624A9F1B000934910 /* RSSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FD524A9F1B000934910 /* RSSError.swift */; };
@@ -59,6 +61,8 @@
 		4C488D7124BEA8F100406700 /* ArchiveListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveListView.swift; sourceTree = "<group>"; };
 		4C488D7324BEAAD200406700 /* ArchiveListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveListViewModel.swift; sourceTree = "<group>"; };
 		4C812FF024BF119200CDD840 /* AddRSSSourceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRSSSourceViewModel.swift; sourceTree = "<group>"; };
+		4C812FF224BF1B9E00CDD840 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		4C812FF424BF1D9B00CDD840 /* DataSourceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceService.swift; sourceTree = "<group>"; };
 		4C872FCD24A87AAB00934910 /* RSSFeedItemWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedItemWrapper.swift; sourceTree = "<group>"; };
 		4C872FCF24A9E48400934910 /* RSSActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSActions.swift; sourceTree = "<group>"; };
 		4C872FD524A9F1B000934910 /* RSSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSError.swift; sourceTree = "<group>"; };
@@ -114,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				4C488D6324BCB81F00406700 /* ImageServices.swift */,
+				4C812FF424BF1D9B00CDD840 /* DataSourceService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -174,6 +179,7 @@
 				4C9A3FF324A04D2A00AAEF0D /* HomeView.swift */,
 				4CB5A02824A268DF0052E80A /* RSSItemListView.swift */,
 				4C488D7124BEA8F100406700 /* ArchiveListView.swift */,
+				4C812FF224BF1B9E00CDD840 /* HomeViewModel.swift */,
 				4CA04AD224BAED0200521D0C /* RSSItemViewModel.swift */,
 				4C488D7324BEAAD200406700 /* ArchiveListViewModel.swift */,
 				4C812FF024BF119200CDD840 /* AddRSSSourceViewModel.swift */,
@@ -379,10 +385,12 @@
 				4C9A400824A0503400AAEF0D /* TextFieldView.swift in Sources */,
 				4CB5A00724A1E98D0052E80A /* PersistenceManager.swift in Sources */,
 				4C488D7024BEA58300406700 /* ActionContextMenu.swift in Sources */,
+				4C812FF524BF1D9B00CDD840 /* DataSourceService.swift in Sources */,
 				4C9A414224A1B5A300AAEF0D /* SourceListView.swift in Sources */,
 				4C9A3FF424A04D2A00AAEF0D /* HomeView.swift in Sources */,
 				4C872FD624A9F1B000934910 /* RSSError.swift in Sources */,
 				4C9A3FEF24A04D2A00AAEF0D /* SceneDelegate.swift in Sources */,
+				4C812FF324BF1B9E00CDD840 /* HomeViewModel.swift in Sources */,
 				4CB5A02324A1FD4E0052E80A /* RSS+CoreDataClass.swift in Sources */,
 				4C9A400524A04FE300AAEF0D /* AddRSSSourceView.swift in Sources */,
 				4CA04A7F24ADED0F00521D0C /* SourceDisplayView.swift in Sources */,

@@ -20,6 +20,7 @@ struct AddRSSSourceView: View {
     private var doneButton: some View {
         Button(action: {
             self.viewModel.commitCreateNewRSS()
+            self.onDoneAction?()
             self.presentationMode.wrappedValue.dismiss()
         }) {
             Text("Done")
@@ -28,8 +29,8 @@ struct AddRSSSourceView: View {
     
     private var cancelButton: some View {
         Button(action: {
-//            self.onCancelAction?()
             self.viewModel.cancelCreateNewRSS()
+            self.onCancelAction?()
             self.presentationMode.wrappedValue.dismiss()
         }) {
             Text("Cancel")
