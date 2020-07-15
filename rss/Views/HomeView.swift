@@ -36,7 +36,6 @@ struct HomeView: View {
     }()
     
     @ObservedObject var rssItemDataSource = RSSItemDataSource(parentContext: Persistence.current.context)
-    
     @ObservedObject private var createRSSModel = RSSModel()
     
     @State private var isAddFormPresented = false
@@ -44,6 +43,7 @@ struct HomeView: View {
     @State private var isSheetPresented = false
     @State private var sheetFeatureItem: FeatureItem = .none
     @State private var selectedSegment: SegmentItem = .home
+    @State private var archiveScale: Image.Scale = .medium
     
     private var addSourceButton: some View {
         Button(action: {
@@ -74,39 +74,22 @@ struct HomeView: View {
         }
     }
     
-    private func destinationView(_ rss: RSS) -> some View {
-        RSSItemListView(source: rss)
-            .environmentObject(self.rssDataSource)
-    }
-    
-    var body: some View {
+    private var homeListView: some View {
         NavigationView {
             List {
-                Section {
-                    Picker("Lists", selection: $selectedSegment) {
-                        ForEach([SegmentItem.home, SegmentItem.inbox], id: \.self) {
-                            Text($0.label).tag($0.rawValue)
-                        }
-                    }.pickerStyle(SegmentedPickerStyle())
+                ForEach(rssDataSource.fetchedResult.fetchedObjects ?? [], id: \.self) { rss in
+                    NavigationLink(destination: self.destinationView(rss)) {
+                        SourceListRow(rss: rss)
+                    }
+                    .tag("RSS")
                 }
-                
-                if self.selectedSegment == SegmentItem.home {
-                    ForEach(rssDataSource.fetchedResult.fetchedObjects ?? [], id: \.self) { rss in
-                        NavigationLink(destination: self.destinationView(rss)) {
-                            SourceListRow(rss: rss)
-                        }
-                        .tag("RSS")
+                .onDelete { indexSet in
+                    if let index = indexSet.first,
+                        let objects = self.rssDataSource.fetchedResult.fetchedObjects {
+                        let object = objects[index]
+                        self.rssDataSource.delete(object, saveContext: true)
+                        self.rssDataSource.objectWillChange.send()
                     }
-                    .onDelete { indexSet in
-                        if let index = indexSet.first,
-                            let objects = self.rssDataSource.fetchedResult.fetchedObjects {
-                            let object = objects[index]
-                            self.rssDataSource.delete(object, saveContext: true)
-                            self.rssDataSource.objectWillChange.send()
-                        }
-                    }
-                } else {
-                    Text("Inbox")
                 }
             }
             .navigationBarTitle("RSS")
@@ -125,7 +108,37 @@ struct HomeView: View {
             }
         })
         .onAppear {
-            
+
+        }
+    }
+    
+    private var archiveListView: some View {
+        ArchiveListView()
+    }
+    
+    private func destinationView(_ rss: RSS) -> some View {
+        RSSItemListView(viewModel: RSSItemViewModel(rss: rss, dataSource: self.rssItemDataSource))
+            .environmentObject(self.rssDataSource)
+    }
+    
+    var body: some View {
+        TabView {
+            homeListView
+                .tabItem {
+                    VStack {
+                        Image(systemName: "house.fill")
+                            .imageScale(.medium)
+                        Text("Home")
+                    }
+                }
+            archiveListView
+                .tabItem {
+                    VStack {
+                        Image(systemName: "archivebox.fill")
+                            .imageScale(.medium)
+                        Text("Archive")
+                    }
+                }
         }
     }
 }
@@ -144,10 +157,6 @@ extension HomeView {
     
     func cancelCreateNewRSS() {
         rssDataSource.discardNewObject()
-    }
-    
-    func deleteRSS() {
-//        rssDataSource.de
     }
 }
 

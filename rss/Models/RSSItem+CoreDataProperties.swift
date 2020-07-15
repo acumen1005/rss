@@ -16,7 +16,7 @@ extension RSSItem: Identifiable {
 
 extension RSSItem {
     static func == (lhs: RSSItem, rhs: RSSItem) -> Bool {
-        return lhs.title == rhs.title
+        return lhs.title == rhs.title && lhs.isArchive == rhs.isArchive
     }
 }
 
@@ -26,7 +26,8 @@ extension RSSItem {
         return NSFetchRequest<RSSItem>(entityName: "RSSItem")
     }
 
-    @NSManaged public var createTime: Date
+    @NSManaged public var updateTime: Date?
+    @NSManaged public var createTime: Date?
     @NSManaged public var desc: String
     @NSManaged public var progress: Double
     @NSManaged public var rssUUID: UUID?
@@ -34,6 +35,7 @@ extension RSSItem {
     @NSManaged public var url: String
     @NSManaged public var uuid: UUID?
     @NSManaged public var author: String
+    @NSManaged public var isArchive: Bool
     
     public override func awakeFromInsert() {
         super.awakeFromInsert()
@@ -50,7 +52,9 @@ extension RSSItem {
         item.author = author
         item.url = url
         item.createTime = createTime
+        item.createTime = Date()
         item.progress = 0
+        item.isArchive = false
         return item
     }
     
@@ -59,6 +63,16 @@ extension RSSItem {
         let predicate = NSPredicate(format: "rssUUID = %@", argumentArray: [rssUUID])
         request.predicate = predicate
         request.sortDescriptors = [.init(key: #keyPath(RSSItem.createTime), ascending: false)]
+        request.fetchOffset = start
+        request.fetchLimit = limit
+        return request
+    }
+    
+    static func requestArchiveObjects(start: Int = 0, limit: Int = 20) -> NSFetchRequest<RSSItem> {
+        let request = RSSItem.fetchRequest() as NSFetchRequest<RSSItem>
+        let predicate = NSPredicate(format: "isArchive = true")
+        request.predicate = predicate
+        request.sortDescriptors = [.init(key: #keyPath(RSSItem.updateTime), ascending: false)]
         request.fetchOffset = start
         request.fetchLimit = limit
         return request

@@ -8,11 +8,13 @@
 
 import SwiftUI
 import FeedKit
-
+import Combine
 
 struct RSSItemListView: View {
     
-    let rssSource: RSS
+    var rssSource: RSS {
+        return self.rssItemViewModel.rss
+    }
     
     @EnvironmentObject var rssDataSource: RSSDataSource
     
@@ -22,19 +24,18 @@ struct RSSItemListView: View {
     @State private var isSafariViewPresented = false
     @State private var start: Int = 0
     @State private var footer: String = "load more"
+    @State var cancellables = Set<AnyCancellable>()
     
-    
-    init(source: RSS) {
-        rssSource = source
-        let dataSource = RSSItemDataSource(parentContext: Persistence.current.context)
-        rssItemViewModel = RSSItemViewModel(rss: source, dataSource: dataSource)
+    init(viewModel: RSSItemViewModel) {
+        self.rssItemViewModel = viewModel
     }
     
     var body: some View {
         VStack {
             List {
                 ForEach(self.rssItemViewModel.items, id: \.self) { item in
-                    RSSItemRow(wrapper: item)
+                    RSSItemRow(wrapper: item,
+                               menu: self.contextmenuAction(_:))
                         .onTapGesture {
                             self.selectedItem = item
                     }
@@ -54,10 +55,14 @@ struct RSSItemListView: View {
             SafariView(url: URL(string: item.url)!)
         })
     }
+    
+    func contextmenuAction(_ item: RSSItem) {
+        rssItemViewModel.archiveOrCancel(item)
+    }
 }
 
 struct RSSItemListView_Previews: PreviewProvider {
     static var previews: some View {
-        RSSItemListView(source: RSS.simple())
+        Text("")
     }
 }

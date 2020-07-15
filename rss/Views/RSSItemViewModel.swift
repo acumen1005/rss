@@ -22,6 +22,15 @@ class RSSItemViewModel: NSObject, ObservableObject {
         super.init()
     }
     
+    func archiveOrCancel(_ item: RSSItem) {
+        let updatedItem = dataSource.readObject(item)
+        updatedItem.isArchive = !item.isArchive
+        updatedItem.updateTime = Date()
+        dataSource.setUpdateObject(updatedItem)
+        
+        _ = dataSource.saveUpdateObject()
+    }
+    
     func loadMore() {
         start = items.count
         fecthResults(start: start)
@@ -81,7 +90,6 @@ class RSSItemViewModel: NSObject, ObservableObject {
                         }
                     }
                     self.rss.lastFetchTime = Date()
-                    self.dataSource.saveUpdateContext()
                     
                     self.dataSource.saveCreateContext()
                     

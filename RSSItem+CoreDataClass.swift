@@ -12,5 +12,5 @@ import CoreData
 
 @objc(RSSItem)
 public class RSSItem: NSManagedObject {
-
+    
 }

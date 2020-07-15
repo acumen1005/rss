@@ -11,10 +11,13 @@ import FeedKit
 
 struct RSSItemRow: View {
     
-    let itemWrapper: RSSItem
+    @ObservedObject var itemWrapper: RSSItem
     
-    init(wrapper: RSSItem) {
+    var contextMenuAction: ((RSSItem) -> Void)?
+    
+    init(wrapper: RSSItem, menu action: ((RSSItem) -> Void)? = nil) {
         itemWrapper = wrapper
+        contextMenuAction = action
     }
     
     var body: some View {
@@ -26,9 +29,25 @@ struct RSSItemRow: View {
                 .lineLimit(3)
                 .foregroundColor(Color("footnoteColor"))
             Spacer()
-            Text("\(itemWrapper.createTime.string())")
-                .font(.footnote)
-                .foregroundColor(.gray)
+            HStack {
+                Text("\(itemWrapper.createTime?.string() ?? "")")
+                    .font(.footnote)
+                    .foregroundColor(.gray)
+                Spacer()
+                if itemWrapper.isArchive {
+                    Image(systemName: "tray.and.arrow.down.fill")
+                }
+            }
+        }
+        .padding(.top, 8)
+        .padding(.bottom, 8)
+        .contextMenu {
+            ActionContextMenu(
+                label: itemWrapper.isArchive ? "unarchive" : "archive",
+                systemName: "tray.and.arrow.\(itemWrapper.isArchive ? "up" : "down")",
+                onAction: {
+                    self.contextMenuAction?(self.itemWrapper)
+            })
         }
     }
 }
