@@ -11,6 +11,7 @@
 		4C488D7024BEA58300406700 /* ActionContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C488D6F24BEA58300406700 /* ActionContextMenu.swift */; };
 		4C488D7224BEA8F100406700 /* ArchiveListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C488D7124BEA8F100406700 /* ArchiveListView.swift */; };
 		4C488D7424BEAAD200406700 /* ArchiveListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C488D7324BEAAD200406700 /* ArchiveListViewModel.swift */; };
+		4C61EC7924C0C54E009674FC /* RSSItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EC7824C0C54E009674FC /* RSSItem+CoreDataClass.swift */; };
 		4C812FF124BF119200CDD840 /* AddRSSViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C812FF024BF119200CDD840 /* AddRSSViewModel.swift */; };
 		4C812FF324BF1B9E00CDD840 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C812FF224BF1B9E00CDD840 /* HomeViewModel.swift */; };
 		4C812FF524BF1D9B00CDD840 /* DataSourceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C812FF424BF1D9B00CDD840 /* DataSourceService.swift */; };
@@ -18,7 +19,6 @@
 		4C872FD024A9E48400934910 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FCF24A9E48400934910 /* Request.swift */; };
 		4C872FD624A9F1B000934910 /* RSSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FD524A9F1B000934910 /* RSSError.swift */; };
 		4C872FD824A9F72200934910 /* RSSItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FD724A9F72200934910 /* RSSItemStore.swift */; };
-		4C872FE124AA1C5100934910 /* RSSItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FDF24AA1C5100934910 /* RSSItem+CoreDataClass.swift */; };
 		4C872FE224AA1C5100934910 /* RSSItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FE024AA1C5100934910 /* RSSItem+CoreDataProperties.swift */; };
 		4C9A3FED24A04D2A00AAEF0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A3FEC24A04D2A00AAEF0D /* AppDelegate.swift */; };
 		4C9A3FEF24A04D2A00AAEF0D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A3FEE24A04D2A00AAEF0D /* SceneDelegate.swift */; };
@@ -55,6 +55,7 @@
 		4C488D6F24BEA58300406700 /* ActionContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionContextMenu.swift; sourceTree = "<group>"; };
 		4C488D7124BEA8F100406700 /* ArchiveListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveListView.swift; sourceTree = "<group>"; };
 		4C488D7324BEAAD200406700 /* ArchiveListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveListViewModel.swift; sourceTree = "<group>"; };
+		4C61EC7824C0C54E009674FC /* RSSItem+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RSSItem+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4C812FF024BF119200CDD840 /* AddRSSViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRSSViewModel.swift; sourceTree = "<group>"; };
 		4C812FF224BF1B9E00CDD840 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		4C812FF424BF1D9B00CDD840 /* DataSourceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceService.swift; sourceTree = "<group>"; };
@@ -62,7 +63,6 @@
 		4C872FCF24A9E48400934910 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		4C872FD524A9F1B000934910 /* RSSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSError.swift; sourceTree = "<group>"; };
 		4C872FD724A9F72200934910 /* RSSItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSItemStore.swift; sourceTree = "<group>"; };
-		4C872FDF24AA1C5100934910 /* RSSItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "RSSItem+CoreDataClass.swift"; path = "../../RSSItem+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4C872FE024AA1C5100934910 /* RSSItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RSSItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4C9A3FE924A04D2A00AAEF0D /* rss.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rss.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C9A3FEC24A04D2A00AAEF0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -265,7 +265,7 @@
 		4CB5A00A24A1E9F50052E80A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				4C872FDF24AA1C5100934910 /* RSSItem+CoreDataClass.swift */,
+				4C61EC7824C0C54E009674FC /* RSSItem+CoreDataClass.swift */,
 				4C872FE024AA1C5100934910 /* RSSItem+CoreDataProperties.swift */,
 				4CB5A02124A1FD4E0052E80A /* RSS+CoreDataClass.swift */,
 				4CB5A02224A1FD4E0052E80A /* RSS+CoreDataProperties.swift */,
@@ -355,9 +355,9 @@
 				4C488D7224BEA8F100406700 /* ArchiveListView.swift in Sources */,
 				4C812FF124BF119200CDD840 /* AddRSSViewModel.swift in Sources */,
 				4CB5A02924A268DF0052E80A /* RSSFeedListView.swift in Sources */,
+				4C61EC7924C0C54E009674FC /* RSSItem+CoreDataClass.swift in Sources */,
 				4CB5A02024A1FCFA0052E80A /* RSS.xcdatamodeld in Sources */,
 				4C9A3FED24A04D2A00AAEF0D /* AppDelegate.swift in Sources */,
-				4C872FE124AA1C5100934910 /* RSSItem+CoreDataClass.swift in Sources */,
 				4C872FD824A9F72200934910 /* RSSItemStore.swift in Sources */,
 				4CA04AC424B9D8C300521D0C /* RSSItemDataSource.swift in Sources */,
 				4CB5A02B24A26DE10052E80A /* SafariView.swift in Sources */,
