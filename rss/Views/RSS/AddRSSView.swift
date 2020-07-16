@@ -8,11 +8,11 @@
 
 import SwiftUI
 
-struct AddRSSSourceView: View {
+struct AddRSSView: View {
     
     @Environment(\.presentationMode) var presentationMode
     
-    @ObservedObject var viewModel: AddRSSSourceViewModel
+    @ObservedObject var viewModel: AddRSSViewModel
     
     var onDoneAction: (() -> Void)?
     var onCancelAction: (() -> Void)?
@@ -56,7 +56,7 @@ struct AddRSSSourceView: View {
     @State private var feedUrl: String = "https://36kr.com/feed"
     @State private var feedTitle: String = ""
     
-    init(viewModel: AddRSSSourceViewModel,
+    init(viewModel: AddRSSViewModel,
          onDoneAction: (() -> Void)? = nil,
          onCancelAction: (() -> Void)? = nil) {
         self.viewModel = viewModel
@@ -75,7 +75,7 @@ struct AddRSSSourceView: View {
                         Text("no result")
                     } else {
                         if viewModel.rss != nil {
-                            SourceDisplayView(rss: viewModel.rss!)
+                            RSSDisplayView(rss: viewModel.rss!)
                         }
                     }
                 }

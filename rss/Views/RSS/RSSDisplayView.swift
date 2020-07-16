@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct SourceDisplayView: View {
+struct RSSDisplayView: View {
     
     @ObservedObject var rss: RSS
     

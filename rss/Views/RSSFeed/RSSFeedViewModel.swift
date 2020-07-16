@@ -8,7 +8,7 @@
 
 import Foundation
 
-class RSSItemViewModel: NSObject, ObservableObject {
+class RSSFeedViewModel: NSObject, ObservableObject {
     
     @Published var items: [RSSItem] = []
     
@@ -90,7 +90,6 @@ class RSSItemViewModel: NSObject, ObservableObject {
                         }
                     }
                     self.rss.lastFetchTime = Date()
-                    
                     self.dataSource.saveCreateContext()
                     
                     self.fecthResults()

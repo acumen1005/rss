@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct SourceListRow: View {
+struct RSSRow: View {
     
     @ObservedObject var imageLoader: ImageLoader
     @ObservedObject var rss: RSS
@@ -17,8 +17,6 @@ struct SourceListRow: View {
         self.rss = rss
         self.imageLoader = ImageLoader(path: rss.image)
     }
-    
-    
     
     private func iconImageView(_ image: UIImage) -> some View {
         Image(uiImage: image)
@@ -64,11 +62,6 @@ struct SourceListRow: View {
 
 struct SourceListRow_Previews: PreviewProvider {
     static var previews: some View {
-        VStack {
-            SourceListRow(rss: RSS.simple(image: "image")).frame(width: 100, height: 60, alignment: .leading)
-            Spacer()
-            SourceListRow(rss: RSS.simple()).frame(width: 100, height: 60, alignment: .leading)
-        }
-        .frame(width: 300, height: 180, alignment: .top)
+        Text("")
     }
 }

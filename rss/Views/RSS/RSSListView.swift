@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct SourceListView: View {
+struct RSSListView: View {
     
     @State var sources: [RSS] = []
     
@@ -16,7 +16,7 @@ struct SourceListView: View {
         NavigationView {
             List {
                 ForEach(sources, id: \.self) { rss in
-                    SourceListRow(rss: rss)
+                    RSSRow(rss: rss)
                 }
             }
         }
@@ -25,6 +25,6 @@ struct SourceListView: View {
 
 struct SourceListView_Previews: PreviewProvider {
     static var previews: some View {
-        SourceListView()
+        RSSListView()
     }
 }

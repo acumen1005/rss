@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddRSSSourceViewModel: NSObject, ObservableObject {
+class AddRSSViewModel: NSObject, ObservableObject {
     
     @Published var rss: RSS?
     
