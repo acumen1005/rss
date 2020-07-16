@@ -42,6 +42,6 @@ class RSSItemDataSource: NSObject, DataSource {
     }
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-//        objectWillChange.send()
+        objectWillChange.send()
     }
 }

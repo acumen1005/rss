@@ -15,6 +15,14 @@ protocol RSSItemConvertable {
     func asRSSItem(container uuid: UUID, in context: NSManagedObjectContext) -> RSSItem
 }
 
+extension Array where Element: RSSItemConvertable {
+    func asRSSItems(container uuid: UUID, in context: NSManagedObjectContext, condition: ((Element) -> Bool)? = nil) -> [RSSItem] {
+         return filter { e -> Bool in
+            return condition?(e) ?? true
+         }.map { $0.asRSSItem(container: uuid, in: context) }
+    }
+}
+
 extension RSSFeedItem: RSSItemConvertable {
     func asRSSItem(container uuid: UUID, in context: NSManagedObjectContext) -> RSSItem {
         return RSSItem.create(uuid: uuid,

@@ -8,18 +8,18 @@
 
 import SwiftUI
 
-struct AddRssSourceView: View {
+struct AddRSSView: View {
     
     @Environment(\.presentationMode) var presentationMode
     
-    @ObservedObject var rssModel: RSSModel
+    @ObservedObject var viewModel: AddRSSViewModel
     
     var onDoneAction: (() -> Void)?
-    
     var onCancelAction: (() -> Void)?
     
     private var doneButton: some View {
         Button(action: {
+            self.viewModel.commitCreateNewRSS()
             self.onDoneAction?()
             self.presentationMode.wrappedValue.dismiss()
         }) {
@@ -29,6 +29,7 @@ struct AddRssSourceView: View {
     
     private var cancelButton: some View {
         Button(action: {
+            self.viewModel.cancelCreateNewRSS()
             self.onCancelAction?()
             self.presentationMode.wrappedValue.dismiss()
         }) {
@@ -55,6 +56,14 @@ struct AddRssSourceView: View {
     @State private var feedUrl: String = "https://36kr.com/feed"
     @State private var feedTitle: String = ""
     
+    init(viewModel: AddRSSViewModel,
+         onDoneAction: (() -> Void)? = nil,
+         onCancelAction: (() -> Void)? = nil) {
+        self.viewModel = viewModel
+        self.onDoneAction = onDoneAction
+        self.onCancelAction = onCancelAction
+    }
+    
     var body: some View {
         NavigationView {
             Form {
@@ -65,7 +74,9 @@ struct AddRssSourceView: View {
                     if !hasFetchResult {
                         Text("no result")
                     } else {
-                        SourceDisplayView(rss: rssModel)
+                        if viewModel.rss != nil {
+                            RSSDisplayView(rss: viewModel.rss!)
+                        }
                     }
                 }
             }
@@ -78,25 +89,25 @@ struct AddRssSourceView: View {
         guard let url = URL(string: self.feedUrl) else {
             return
         }
-        rssModel.url = feedUrl
+        viewModel.rss?.url = feedUrl
         fetchNewRSS(url: url) { result in
             switch result {
             case .success(let feed):
                 switch feed {
                 case .atom(let atomFeed):
-                    self.rssModel.title = atomFeed.title ?? ""
+                    self.viewModel.rss?.title = atomFeed.title ?? ""
                     if let id = atomFeed.id, var url = URL(string: id), let icon = atomFeed.icon {
                         url.appendPathComponent(icon)
-                        self.rssModel.image = url.absoluteString
+                        self.viewModel.rss?.image = url.absoluteString
                     }
                 case .json(let jsonFeed):
-                    self.rssModel.title = jsonFeed.title ?? ""
-                    self.rssModel.desc = jsonFeed.description?.trimWhiteAndSpace ?? ""
-                    self.rssModel.image = jsonFeed.icon ?? ""
+                    self.viewModel.rss?.title = jsonFeed.title ?? ""
+                    self.viewModel.rss?.desc = jsonFeed.description?.trimWhiteAndSpace ?? ""
+                    self.viewModel.rss?.image = jsonFeed.icon ?? ""
                 case .rss(let rssFeed):
-                    self.rssModel.title = rssFeed.title ?? ""
-                    self.rssModel.desc = rssFeed.description?.trimWhiteAndSpace ?? ""
-                    self.rssModel.image = rssFeed.image?.url ?? ""
+                    self.viewModel.rss?.title = rssFeed.title ?? ""
+                    self.viewModel.rss?.desc = rssFeed.description?.trimWhiteAndSpace ?? ""
+                    self.viewModel.rss?.image = rssFeed.image?.url ?? ""
                 }
                 
                 self.hasFetchResult = true
@@ -109,7 +120,7 @@ struct AddRssSourceView: View {
 
 struct AddRssSource_Previews: PreviewProvider {
     static var previews: some View {
-//        AddRssSourceView()
+//        AddRSSSourceView()
         Text("")
     }
 }

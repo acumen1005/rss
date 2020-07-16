@@ -10,15 +10,15 @@ import SwiftUI
 import FeedKit
 import Combine
 
-struct RSSItemListView: View {
+struct RSSFeedListView: View {
     
     var rssSource: RSS {
-        return self.rssItemViewModel.rss
+        return self.rssFeedViewModel.rss
     }
     
     @EnvironmentObject var rssDataSource: RSSDataSource
     
-    @ObservedObject var rssItemViewModel: RSSItemViewModel
+    @ObservedObject var rssFeedViewModel: RSSFeedViewModel
     
     @State private var selectedItem: RSSItem?
     @State private var isSafariViewPresented = false
@@ -26,14 +26,14 @@ struct RSSItemListView: View {
     @State private var footer: String = "load more"
     @State var cancellables = Set<AnyCancellable>()
     
-    init(viewModel: RSSItemViewModel) {
-        self.rssItemViewModel = viewModel
+    init(viewModel: RSSFeedViewModel) {
+        self.rssFeedViewModel = viewModel
     }
     
     var body: some View {
         VStack {
             List {
-                ForEach(self.rssItemViewModel.items, id: \.self) { item in
+                ForEach(self.rssFeedViewModel.items, id: \.self) { item in
                     RSSItemRow(wrapper: item,
                                menu: self.contextmenuAction(_:))
                         .onTapGesture {
@@ -41,15 +41,15 @@ struct RSSItemListView: View {
                     }
                 }
                 VStack(alignment: .center) {
-                    Button(action: self.rssItemViewModel.loadMore) {
+                    Button(action: self.rssFeedViewModel.loadMore) {
                         Text(self.footer)
                     }
                 }
             }
             .navigationBarTitle(rssSource.title)
         }.onAppear {
-            self.rssItemViewModel.fecthResults()
-            self.rssItemViewModel.fetchRemoteRSSItems()
+            self.rssFeedViewModel.fecthResults()
+            self.rssFeedViewModel.fetchRemoteRSSItems()
         }
         .sheet(item: $selectedItem, content: { item in
             SafariView(url: URL(string: item.url)!)
@@ -57,7 +57,7 @@ struct RSSItemListView: View {
     }
     
     func contextmenuAction(_ item: RSSItem) {
-        rssItemViewModel.archiveOrCancel(item)
+        rssFeedViewModel.archiveOrCancel(item)
     }
 }
 

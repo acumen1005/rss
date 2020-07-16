@@ -11,65 +11,28 @@ import FeedKit
 
 struct HomeView: View {
     
-    enum FeatureItem: Int {
-        case none
-        case add
-        case set
-    }
-    
-    enum SegmentItem: Int {
-        case home
-        case inbox
-        
-        var label: String {
-            switch self {
-            case .home: return "Home"
-            case .inbox: return "Inbox"
-            }
-        }
-    }
-    
-    @ObservedObject var rssDataSource: RSSDataSource = {
-        let dataSource = RSSDataSource(parentContext: Persistence.current.context)
-        dataSource.performFetch(RSS.requestObjects())
-        return dataSource
-    }()
-    
-    @ObservedObject var rssItemDataSource = RSSItemDataSource(parentContext: Persistence.current.context)
-    @ObservedObject private var createRSSModel = RSSModel()
+    @ObservedObject var viewModel: HomeViewModel
     
     @State private var isAddFormPresented = false
     @State private var isSettingPresented = false
     @State private var isSheetPresented = false
-    @State private var sheetFeatureItem: FeatureItem = .none
-    @State private var selectedSegment: SegmentItem = .home
     @State private var archiveScale: Image.Scale = .medium
+    
+    init(viewModel: HomeViewModel) {
+        self.viewModel = viewModel
+    }
     
     private var addSourceButton: some View {
         Button(action: {
             self.isSheetPresented = true
-            self.sheetFeatureItem = .add
-            self.beginCreateNewRSS()
         }) {
             Image(systemName: "plus.circle")
                 .imageScale(.medium)
         }
     }
 
-    private var settingButton: some View {
-        Button(action: {
-            self.isSheetPresented = true
-            self.sheetFeatureItem = .set
-        }) {
-            Image(systemName: "gear")
-                .imageScale(.medium)
-
-        }
-    }
-
     private var trailingView: some View {
         HStack(alignment: .top, spacing: 24) {
-            settingButton
             addSourceButton
         }
     }
@@ -77,18 +40,15 @@ struct HomeView: View {
     private var homeListView: some View {
         NavigationView {
             List {
-                ForEach(rssDataSource.fetchedResult.fetchedObjects ?? [], id: \.self) { rss in
+                ForEach(viewModel.items, id: \.self) { rss in
                     NavigationLink(destination: self.destinationView(rss)) {
-                        SourceListRow(rss: rss)
+                        RSSRow(rss: rss)
                     }
                     .tag("RSS")
                 }
                 .onDelete { indexSet in
-                    if let index = indexSet.first,
-                        let objects = self.rssDataSource.fetchedResult.fetchedObjects {
-                        let object = objects[index]
-                        self.rssDataSource.delete(object, saveContext: true)
-                        self.rssDataSource.objectWillChange.send()
+                    if let index = indexSet.first {
+                        self.viewModel.delete(at: index)
                     }
                 }
             }
@@ -97,28 +57,18 @@ struct HomeView: View {
             .navigationViewStyle(StackNavigationViewStyle())
         }
         .sheet(isPresented: $isSheetPresented, content: {
-            if self.sheetFeatureItem == .add {
-                AddRssSourceView(
-                    rssModel: self.createRSSModel,
-                    onDoneAction: self.commitCreateNewRSS,
-                    onCancelAction: self.cancelCreateNewRSS)
-                    .environmentObject(self.rssDataSource)
-            } else if self.sheetFeatureItem == .set {
-                SettingsView()
-            }
+            AddRSSView(
+                viewModel: AddRSSViewModel(dataSource: DataSourceService.current.rss),
+                onDoneAction: self.onDoneAction)
         })
         .onAppear {
-
+            self.viewModel.fecthResults()
         }
     }
     
-    private var archiveListView: some View {
-        ArchiveListView()
-    }
-    
     private func destinationView(_ rss: RSS) -> some View {
-        RSSItemListView(viewModel: RSSItemViewModel(rss: rss, dataSource: self.rssItemDataSource))
-            .environmentObject(self.rssDataSource)
+        RSSFeedListView(viewModel: RSSFeedViewModel(rss: rss, dataSource: DataSourceService.current.rssItem))
+            .environmentObject(DataSourceService.current.rss)
     }
     
     var body: some View {
@@ -131,7 +81,7 @@ struct HomeView: View {
                         Text("Home")
                     }
                 }
-            archiveListView
+            ArchiveListView()
                 .tabItem {
                     VStack {
                         Image(systemName: "archivebox.fill")
@@ -145,18 +95,8 @@ struct HomeView: View {
 
 extension HomeView {
     
-    func beginCreateNewRSS() {
-        rssDataSource.discardNewObject()
-        rssDataSource.prepareNewObject()
-        createRSSModel.rss = rssDataSource.newObject
-    }
-    
-    func commitCreateNewRSS() {
-        rssDataSource.saveCreateContext()
-    }
-    
-    func cancelCreateNewRSS() {
-        rssDataSource.discardNewObject()
+    func onDoneAction() {
+        self.viewModel.fecthResults()
     }
 }
 
@@ -164,7 +104,7 @@ extension HomeView {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        Text("")
     }
 }
 
