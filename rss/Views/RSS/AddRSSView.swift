@@ -53,7 +53,7 @@ struct AddRSSView: View {
     
     @State private var hasFetchResult: Bool = false
     
-    @State private var feedUrl: String = "https://36kr.com/feed"
+    @State private var feedUrl: String = ""
     @State private var feedTitle: String = ""
     
     init(viewModel: AddRSSViewModel,
