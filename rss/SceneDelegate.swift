@@ -57,14 +57,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
 }
-
-
-#if DEBUG
-
-import FeedKit
-
-let aUrl = URL(string: "https://36kr.com/feed")!
-let parser = FeedParser(URL: aUrl)
-let simpleRS = parser.parse()
-
-#endif

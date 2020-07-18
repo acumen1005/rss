@@ -14,6 +14,6 @@ extension String {
     }
     
     var trimWhiteAndSpace: String {
-        return replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        return replacingOccurrences(of: "\n", with: "")
     }
 }
