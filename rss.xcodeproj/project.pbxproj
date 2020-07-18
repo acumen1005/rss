@@ -13,9 +13,8 @@
 		4C488D7424BEAAD200406700 /* ArchiveListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C488D7324BEAAD200406700 /* ArchiveListViewModel.swift */; };
 		4C61EC7924C0C54E009674FC /* RSSItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EC7824C0C54E009674FC /* RSSItem+CoreDataClass.swift */; };
 		4C812FF124BF119200CDD840 /* AddRSSViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C812FF024BF119200CDD840 /* AddRSSViewModel.swift */; };
-		4C812FF324BF1B9E00CDD840 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C812FF224BF1B9E00CDD840 /* HomeViewModel.swift */; };
 		4C812FF524BF1D9B00CDD840 /* DataSourceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C812FF424BF1D9B00CDD840 /* DataSourceService.swift */; };
-		4C872FCE24A87AAB00934910 /* RSSFeedHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FCD24A87AAB00934910 /* RSSFeedHelper.swift */; };
+		4C872FCE24A87AAB00934910 /* ModelHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FCD24A87AAB00934910 /* ModelHelper.swift */; };
 		4C872FD024A9E48400934910 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FCF24A9E48400934910 /* Request.swift */; };
 		4C872FD624A9F1B000934910 /* RSSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FD524A9F1B000934910 /* RSSError.swift */; };
 		4C872FD824A9F72200934910 /* RSSItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FD724A9F72200934910 /* RSSItemStore.swift */; };
@@ -47,6 +46,7 @@
 		4CB5A02424A1FD4E0052E80A /* RSS+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB5A02224A1FD4E0052E80A /* RSS+CoreDataProperties.swift */; };
 		4CB5A02924A268DF0052E80A /* RSSFeedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB5A02824A268DF0052E80A /* RSSFeedListView.swift */; };
 		4CB5A02B24A26DE10052E80A /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB5A02A24A26DE10052E80A /* SafariView.swift */; };
+		4CE833F524C2DBAB00A911F1 /* RSSListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE833F424C2DBAB00A911F1 /* RSSListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,9 +57,8 @@
 		4C488D7324BEAAD200406700 /* ArchiveListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveListViewModel.swift; sourceTree = "<group>"; };
 		4C61EC7824C0C54E009674FC /* RSSItem+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RSSItem+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4C812FF024BF119200CDD840 /* AddRSSViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRSSViewModel.swift; sourceTree = "<group>"; };
-		4C812FF224BF1B9E00CDD840 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		4C812FF424BF1D9B00CDD840 /* DataSourceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceService.swift; sourceTree = "<group>"; };
-		4C872FCD24A87AAB00934910 /* RSSFeedHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedHelper.swift; sourceTree = "<group>"; };
+		4C872FCD24A87AAB00934910 /* ModelHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelHelper.swift; sourceTree = "<group>"; };
 		4C872FCF24A9E48400934910 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		4C872FD524A9F1B000934910 /* RSSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSError.swift; sourceTree = "<group>"; };
 		4C872FD724A9F72200934910 /* RSSItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSItemStore.swift; sourceTree = "<group>"; };
@@ -92,6 +91,7 @@
 		4CB5A02224A1FD4E0052E80A /* RSS+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RSS+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4CB5A02824A268DF0052E80A /* RSSFeedListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedListView.swift; sourceTree = "<group>"; };
 		4CB5A02A24A26DE10052E80A /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
+		4CE833F424C2DBAB00A911F1 /* RSSListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				4C9A414124A1B5A300AAEF0D /* RSSListView.swift */,
+				4CE833F424C2DBAB00A911F1 /* RSSListViewModel.swift */,
 				4CB5A00F24A1EE0B0052E80A /* RSSRow.swift */,
 				4C812FF024BF119200CDD840 /* AddRSSViewModel.swift */,
 				4C9A400424A04FE300AAEF0D /* AddRSSView.swift */,
@@ -174,7 +175,6 @@
 				4CA04AC224B9D89F00521D0C /* DataSources */,
 				4CB5A00A24A1E9F50052E80A /* Models */,
 				4CB5A00524A1E96A0052E80A /* Persistence */,
-				4C9A401D24A05C0B00AAEF0D /* Packages */,
 				4C9A400624A0501B00AAEF0D /* CommonViews */,
 				4C9A400324A04DD100AAEF0D /* Views */,
 				4C9A3FEC24A04D2A00AAEF0D /* AppDelegate.swift */,
@@ -203,7 +203,6 @@
 				4C812FF924C0BB8300CDD840 /* RSS */,
 				4C812FFB24C0BB8300CDD840 /* RSSFeed */,
 				4C9A3FF324A04D2A00AAEF0D /* HomeView.swift */,
-				4C812FF224BF1B9E00CDD840 /* HomeViewModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -216,13 +215,6 @@
 			);
 			path = CommonViews;
 			sourceTree = "<group>";
-		};
-		4C9A401D24A05C0B00AAEF0D /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Packages;
-			sourceTree = SOURCE_ROOT;
 		};
 		4C9A413E24A05CA800AAEF0D /* Frameworks */ = {
 			isa = PBXGroup;
@@ -269,7 +261,7 @@
 				4C872FE024AA1C5100934910 /* RSSItem+CoreDataProperties.swift */,
 				4CB5A02124A1FD4E0052E80A /* RSS+CoreDataClass.swift */,
 				4CB5A02224A1FD4E0052E80A /* RSS+CoreDataProperties.swift */,
-				4C872FCD24A87AAB00934910 /* RSSFeedHelper.swift */,
+				4C872FCD24A87AAB00934910 /* ModelHelper.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -370,7 +362,7 @@
 				4CA04ACB24B9DD7600521D0C /* RSSDataSource.swift in Sources */,
 				4CB5A00924A1E9C50052E80A /* RSSStore.swift in Sources */,
 				4CA04AC624B9D8E300521D0C /* DataSource.swift in Sources */,
-				4C872FCE24A87AAB00934910 /* RSSFeedHelper.swift in Sources */,
+				4C872FCE24A87AAB00934910 /* ModelHelper.swift in Sources */,
 				4C872FD024A9E48400934910 /* Request.swift in Sources */,
 				4CA04AC924B9DBC000521D0C /* ManagedObjectContext.swift in Sources */,
 				4C872FE224AA1C5100934910 /* RSSItem+CoreDataProperties.swift in Sources */,
@@ -382,11 +374,11 @@
 				4C9A3FF424A04D2A00AAEF0D /* HomeView.swift in Sources */,
 				4C872FD624A9F1B000934910 /* RSSError.swift in Sources */,
 				4C9A3FEF24A04D2A00AAEF0D /* SceneDelegate.swift in Sources */,
-				4C812FF324BF1B9E00CDD840 /* HomeViewModel.swift in Sources */,
 				4CB5A02324A1FD4E0052E80A /* RSS+CoreDataClass.swift in Sources */,
 				4C9A400524A04FE300AAEF0D /* AddRSSView.swift in Sources */,
 				4CA04A7F24ADED0F00521D0C /* RSSDisplayView.swift in Sources */,
 				4CB5A01024A1EE0B0052E80A /* RSSRow.swift in Sources */,
+				4CE833F524C2DBAB00A911F1 /* RSSListViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,7 +516,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = rss/rss.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"rss/Preview Content\"";
 				DEVELOPMENT_TEAM = CDAT27Y9CY;
 				ENABLE_PREVIEWS = YES;
@@ -550,7 +542,7 @@
 				CODE_SIGN_ENTITLEMENTS = rss/rss.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"rss/Preview Content\"";
 				DEVELOPMENT_TEAM = CDAT27Y9CY;
 				ENABLE_PREVIEWS = YES;

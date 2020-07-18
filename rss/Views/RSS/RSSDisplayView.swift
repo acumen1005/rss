@@ -21,9 +21,17 @@ struct RSSDisplayView: View {
     }
 }
 
+#if DEBUG
+
 struct SourceDisplayView_Previews: PreviewProvider {
+    static let rss = DataSourceService.current
     static var previews: some View {
-//        SourceDisplayView()
-        Text("text")
+        let rss = RSS.create(url: "https://",
+                             title: "simple demo",
+                             desc: "show me your desc",
+                             image: "", in: Persistence.current.context)
+        return RSSDisplayView(rss: rss)
     }
 }
+
+#endif

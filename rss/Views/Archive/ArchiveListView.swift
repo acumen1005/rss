@@ -10,20 +10,19 @@ import SwiftUI
 
 struct ArchiveListView: View {
     
-    @ObservedObject var archiveListViewModel: ArchiveListViewModel
+    @ObservedObject var viewModel: ArchiveListViewModel
     
     @State private var selectedItem: RSSItem?
     @State var footer = "load more"
     
-    init() {
-        let dataSource = RSSItemDataSource(parentContext: Persistence.current.context)
-        self.archiveListViewModel = ArchiveListViewModel(dataSource: dataSource)
+    init(viewModel: ArchiveListViewModel) {
+        self.viewModel = viewModel
     }
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(self.archiveListViewModel.items, id: \.self) { item in
+                ForEach(self.viewModel.items, id: \.self) { item in
                     RSSItemRow(wrapper: item)
                         .onTapGesture {
                             self.selectedItem = item
@@ -31,12 +30,12 @@ struct ArchiveListView: View {
                 }
                 .onDelete { indexSet in
                     if let index = indexSet.first {
-                        let item = self.archiveListViewModel.items[index]
-                        self.archiveListViewModel.unarchive(item)
+                        let item = self.viewModel.items[index]
+                        self.viewModel.unarchive(item)
                     }
                 }
                 VStack(alignment: .center) {
-                    Button(action: self.archiveListViewModel.loadMore) {
+                    Button(action: self.viewModel.loadMore) {
                         Text(self.footer)
                     }
                 }
@@ -45,7 +44,7 @@ struct ArchiveListView: View {
                 SafariView(url: URL(string: item.url)!)
             })
             .onAppear {
-                self.archiveListViewModel.fecthResults()
+                self.viewModel.fecthResults()
             }
             .navigationBarTitle("Archive")
             .navigationViewStyle(StackNavigationViewStyle())
@@ -55,6 +54,6 @@ struct ArchiveListView: View {
 
 struct ArchiveListView_Previews: PreviewProvider {
     static var previews: some View {
-        ArchiveListView()
+        ArchiveListView(viewModel: ArchiveListViewModel(dataSource: DataSourceService.current.rssItem))
     }
 }

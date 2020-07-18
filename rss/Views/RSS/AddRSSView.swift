@@ -117,10 +117,3 @@ struct AddRSSView: View {
         }
     }
 }
-
-struct AddRssSource_Previews: PreviewProvider {
-    static var previews: some View {
-//        AddRSSSourceView()
-        Text("")
-    }
-}

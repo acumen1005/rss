@@ -40,10 +40,6 @@ class RSSDataSource: NSObject, DataSource {
         super.init()
         fetchedResult.delegate = self
     }
-    
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        objectWillChange.send()
-    }
 }
 
 extension RSSDataSource {
