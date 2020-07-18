@@ -1,15 +1,15 @@
 //
-//  HomeViewModel.swift
+//  RSSListViewModel.swift
 //  rss
 //
-//  Created by 谷雷雷 on 2020/7/15.
+//  Created by 谷雷雷 on 2020/7/18.
 //  Copyright © 2020 acumen. All rights reserved.
 //
 
 import UIKit
 
-class HomeViewModel: NSObject, ObservableObject {
-    
+class RSSListViewModel: NSObject, ObservableObject {
+
     @Published var items: [RSS] = []
     
     let dataSource: RSSDataSource
@@ -40,4 +40,5 @@ class HomeViewModel: NSObject, ObservableObject {
         dataSource.delete(object, saveContext: true)
         items.remove(at: index)
     }
+    
 }

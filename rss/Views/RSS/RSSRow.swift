@@ -59,9 +59,3 @@ struct RSSRow: View {
         .padding(.bottom, 8)
     }
 }
-
-struct SourceListRow_Previews: PreviewProvider {
-    static var previews: some View {
-        Text("")
-    }
-}

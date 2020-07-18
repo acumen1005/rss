@@ -10,21 +10,74 @@ import SwiftUI
 
 struct RSSListView: View {
     
+    @ObservedObject var viewModel: RSSListViewModel
+    
+    @State private var isAddFormPresented = false
+    @State private var isSettingPresented = false
+    @State private var isSheetPresented = false
     @State var sources: [RSS] = []
+    
+    private var addSourceButton: some View {
+        Button(action: {
+            self.isSheetPresented = true
+        }) {
+            Image(systemName: "plus.circle")
+                .imageScale(.medium)
+        }
+    }
+
+    private var trailingView: some View {
+        HStack(alignment: .top, spacing: 24) {
+            addSourceButton
+        }
+    }
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(sources, id: \.self) { rss in
-                    RSSRow(rss: rss)
+                ForEach(viewModel.items, id: \.self) { rss in
+                    NavigationLink(destination: self.destinationView(rss)) {
+                        RSSRow(rss: rss)
+                    }
+                    .tag("RSS")
+                }
+                .onDelete { indexSet in
+                    if let index = indexSet.first {
+                        self.viewModel.delete(at: index)
+                    }
                 }
             }
+            .navigationBarTitle("RSS")
+            .navigationBarItems(trailing: trailingView)
+        }
+        .sheet(isPresented: $isSheetPresented, content: {
+            AddRSSView(
+                viewModel: AddRSSViewModel(dataSource: DataSourceService.current.rss),
+                onDoneAction: self.onDoneAction)
+        })
+        .onAppear {
+            self.viewModel.fecthResults()
         }
     }
 }
 
-struct SourceListView_Previews: PreviewProvider {
+extension RSSListView {
+    
+    func onDoneAction() {
+        self.viewModel.fecthResults()
+    }
+    
+    private func destinationView(_ rss: RSS) -> some View {
+        RSSFeedListView(viewModel: RSSFeedViewModel(rss: rss, dataSource: DataSourceService.current.rssItem))
+            .environmentObject(DataSourceService.current.rss)
+    }
+    
+}
+
+struct RSSListView_Previews: PreviewProvider {
+    static let viewModel = RSSListViewModel(dataSource: DataSourceService.current.rss)
+
     static var previews: some View {
-        RSSListView()
+        RSSListView(viewModel: self.viewModel)
     }
 }

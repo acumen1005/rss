@@ -60,9 +60,3 @@ struct RSSFeedListView: View {
         rssFeedViewModel.archiveOrCancel(item)
     }
 }
-
-struct RSSItemListView_Previews: PreviewProvider {
-    static var previews: some View {
-        Text("")
-    }
-}

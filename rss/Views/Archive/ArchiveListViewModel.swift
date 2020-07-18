@@ -30,7 +30,7 @@ class ArchiveListViewModel: NSObject, ObservableObject {
         if start == 0 {
             items.removeAll()
         }
-        dataSource.performFetch(RSSItem.requestArchiveObjects())
+        dataSource.performFetch(RSSItem.requestArchiveObjects(start: start))
         if let objects = dataSource.fetchedResult.fetchedObjects {
             items.append(contentsOf: objects)
         }
