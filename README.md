@@ -1,6 +1,6 @@
 # RSSSwiftUI
 
-RSSSwiftUI is a client RSS reader that is built with SwiftUI and CoreData. now it's very simple.
+RSSSwiftUI is a RSS reader that is built with SwiftUI and CoreData. now it's very simple.
 
 
 ## Previews
