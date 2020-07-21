@@ -32,6 +32,6 @@ class AddRSSViewModel: NSObject, ObservableObject {
     }
         
     func cancelCreateNewRSS() {
-        dataSource.discardNewObject()
+        dataSource.discardCreateContext()
     }
 }

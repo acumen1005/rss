@@ -52,7 +52,15 @@ struct RSSFeedListView: View {
             self.rssFeedViewModel.fetchRemoteRSSItems()
         }
         .sheet(item: $selectedItem, content: { item in
-            SafariView(url: URL(string: item.url)!)
+            if AppEnvironment.current.useSafari {
+                SafariView(url: URL(string: item.url)!)
+            } else {
+                WebView(
+                    rssItem: item,
+                    onArchiveAction: {
+                        self.rssFeedViewModel.archiveOrCancel(item)
+                })
+            }
         })
     }
     

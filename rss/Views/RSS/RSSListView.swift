@@ -10,8 +10,14 @@ import SwiftUI
 
 struct RSSListView: View {
     
+    enum FeaureItem {
+        case setting
+        case add
+    }
+    
     @ObservedObject var viewModel: RSSListViewModel
     
+    @State private var selectedFeatureItem = FeaureItem.add
     @State private var isAddFormPresented = false
     @State private var isSettingPresented = false
     @State private var isSheetPresented = false
@@ -20,14 +26,26 @@ struct RSSListView: View {
     private var addSourceButton: some View {
         Button(action: {
             self.isSheetPresented = true
+            self.selectedFeatureItem = .add
         }) {
             Image(systemName: "plus.circle")
+                .imageScale(.medium)
+        }
+    }
+    
+    private var settingButton: some View {
+        Button(action: {
+            self.isSheetPresented = true
+            self.selectedFeatureItem = .setting
+        }) {
+            Image(systemName: "gear")
                 .imageScale(.medium)
         }
     }
 
     private var trailingView: some View {
         HStack(alignment: .top, spacing: 24) {
+            settingButton
             addSourceButton
         }
     }
@@ -51,9 +69,13 @@ struct RSSListView: View {
             .navigationBarItems(trailing: trailingView)
         }
         .sheet(isPresented: $isSheetPresented, content: {
-            AddRSSView(
-                viewModel: AddRSSViewModel(dataSource: DataSourceService.current.rss),
-                onDoneAction: self.onDoneAction)
+            if FeaureItem.add == self.selectedFeatureItem {
+                AddRSSView(
+                    viewModel: AddRSSViewModel(dataSource: DataSourceService.current.rss),
+                    onDoneAction: self.onDoneAction)
+            } else if FeaureItem.setting == self.selectedFeatureItem {
+                SettingView()
+            }
         })
         .onAppear {
             self.viewModel.fecthResults()
