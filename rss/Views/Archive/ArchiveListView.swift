@@ -41,7 +41,15 @@ struct ArchiveListView: View {
                 }
             }
             .sheet(item: $selectedItem, content: { item in
-                SafariView(url: URL(string: item.url)!)
+                if AppEnvironment.current.useSafari {
+                    SafariView(url: URL(string: item.url)!)
+                } else {
+                    WebView(
+                        rssItem: item,
+                        onArchiveAction: {
+                            self.viewModel.archiveOrCancel(item)
+                    })
+                }
             })
             .onAppear {
                 self.viewModel.fecthResults()
@@ -50,6 +58,9 @@ struct ArchiveListView: View {
             .navigationViewStyle(StackNavigationViewStyle())
         }
     }
+}
+
+extension ArchiveListView {
 }
 
 struct ArchiveListView_Previews: PreviewProvider {

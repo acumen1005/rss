@@ -53,4 +53,13 @@ class ArchiveListViewModel: NSObject, ObservableObject {
         }
     }
     
+    func archiveOrCancel(_ item: RSSItem) {
+        let updatedItem = dataSource.readObject(item)
+        updatedItem.isArchive = !item.isArchive
+        updatedItem.updateTime = Date()
+        updatedItem.objectWillChange.send()
+        dataSource.setUpdateObject(updatedItem)
+        
+        _ = dataSource.saveUpdateObject()
+    }
 }
