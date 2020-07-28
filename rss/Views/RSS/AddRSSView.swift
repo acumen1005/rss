@@ -83,6 +83,9 @@ struct AddRSSView: View {
             .navigationBarTitle("Add Source")
             .navigationBarItems(leading: cancelButton, trailing: doneButton)
         }
+        .onDisappear {
+            self.viewModel.cancelCreateNewRSS()
+        }
     }
     
     func fetchDetail() {

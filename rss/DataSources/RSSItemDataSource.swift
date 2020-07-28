@@ -40,8 +40,12 @@ class RSSItemDataSource: NSObject, DataSource {
         super.init()
         fetchedResult.delegate = self
     }
-    
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        objectWillChange.send()
+}
+
+extension RSSItemDataSource {
+    func simple() -> RSSItem? {
+        let item = RSSItem.init(context: createContext)
+        item.url = "https://www.github.com"
+        return item
     }
 }

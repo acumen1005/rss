@@ -25,33 +25,86 @@ struct WebView: View {
         }
     }
     
+    @ObservedObject var viewModel: WKWebViewModel
     @ObservedObject var rssItem: RSSItem
-    var onGoBackAction: (() -> Void)?
-    var onGoForwardAction: (() -> Void)?
+    var webViewWrapper: WKWebViewWrapper
     var onArchiveAction: (() -> Void)?
     
+    init(rssItem: RSSItem, onArchiveAction: (() -> Void)? = nil) {
+        let viewModel = WKWebViewModel(rssItem: rssItem)
+        self.rssItem = rssItem
+        self.viewModel = viewModel
+        self.onArchiveAction = onArchiveAction
+        self.webViewWrapper = WKWebViewWrapper(viewModel: viewModel)
+    }
+    
     var body: some View {
-        VStack {
-            WKWebViewWrapper(viewModel: WKWebViewModel(link: self.rssItem.url))
+        VStack(alignment: .leading) {
+            webViewWrapper
             HStack(alignment: .top, spacing: 30) {
-                makeFeatureItemView(imageName: FeatureItem.goBack.icon, action: self.onGoBackAction)
-                makeFeatureItemView(imageName: FeatureItem.goForward.icon, action: self.onGoForwardAction)
-                Spacer()
+                makeFeatureItemView(
+                    imageName: FeatureItem.goBack.icon,
+                    disable: !self.viewModel.canGoBack,
+                    action: self.onGoBackAction
+                )
+                makeFeatureItemView(
+                    imageName: FeatureItem.goForward.icon,
+                    disable: !self.viewModel.canGoForward,
+                    action: self.onGoForwardAction
+                )
                 makeFeatureItemView(imageName: FeatureItem.archive(self.rssItem.isArchive).icon, action: self.onArchiveAction)
+                
+                if self.viewModel.total > 0.0 {
+                    VStack(alignment: .center) {
+                        ProgressBar(
+                            boardWidth: 6,
+                            font: Font.system(size: 12),
+                            color: .orange, progress:
+                            self.$viewModel.progress
+                        )
+                        .padding(10)
+                    }
+                    .frame(width: 50, height: 50, alignment: .center)
+                }
+                
+                Spacer()
             }
-            .padding(.leading, 10)
-            .padding(.trailing, 10)
+        }
+        .onAppear {
+            
         }
     }
 }
 
 extension WebView {
+    func onGoBackAction() {
+        webViewWrapper.webView.goBack()
+    }
     
-    func makeFeatureItemView(imageName: String, action: (() -> Void)?) -> some View {
+    func onGoForwardAction() {
+        webViewWrapper.webView.goForward()
+    }
+}
+
+extension WebView {
+    
+    func makeFeatureItemView(imageName: String, disable: Bool = false, action: (() -> Void)?) -> some View {
         Image(systemName: imageName)
+            .foregroundColor(disable ? Color.gray : Color.white)
             .frame(width: 50, height: 50, alignment: .center)
             .onTapGesture {
                 action?()
-        }
+            }
+            .disabled(disable)
+    }
+}
+
+struct WebView_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        let simple = DataSourceService.current.rssItem.simple()
+        return WebView(rssItem: simple!, onArchiveAction: {
+            
+        })
     }
 }
