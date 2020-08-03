@@ -7,20 +7,46 @@
 //
 
 import SwiftUI
+import Combine
 import WebKit
 
 class WKWebViewModel: ObservableObject {
     
+    private var dataSource: RSSItemDataSource
+    
+    private var cancellable: AnyCancellable? = nil
     @Published var didFinishLoading: Bool = false
     @Published var link: String = ""
     @Published var canGoBack: Bool = false
     @Published var canGoForward: Bool = false
-    @Published var total: Double = 0.0
-    @Published var progress: Double = 0.0
+    @Published var total: Double = 0.0 {
+        didSet {
+            progressHide = false
+        }
+    }
+    @Published var progress: Double = 0.0 {
+        didSet {
+            if progress > 0 {
+                progressHide = false
+            }
+        }
+    }
+    @Published var progressHide: Bool = true
     
     init (rssItem: RSSItem) {
+        self.dataSource = DataSourceService.current.rssItem
         self.link = rssItem.url
         self.progress = rssItem.progress
+        cancellable = AnyCancellable(
+            $progress.removeDuplicates()
+                .debounce(for: 0.1, scheduler: DispatchQueue.main)
+                .sink { [weak self] p in
+                    let item = self?.dataSource.readObject(rssItem)
+                    item?.progress = p
+                    self?.dataSource.setUpdateObject(item)
+                    _ = self?.dataSource.saveUpdateObject()
+        })
+        
     }
     
     func apply(progress: Double) {

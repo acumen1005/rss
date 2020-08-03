@@ -13,6 +13,7 @@ struct ProgressBar: View {
     var boardWidth: CGFloat = 20
     var font: Font = Font.system(size: 18)
     var color: Color = .red
+    var content: Bool = true
     
     @Binding var progress: Double
     
@@ -27,9 +28,11 @@ struct ProgressBar: View {
                 .stroke(style: StrokeStyle(lineWidth: boardWidth, lineCap: .round, lineJoin: .round))
                 .rotationEffect(Angle(degrees: 270.0))
                 .foregroundColor(color)
-            Text(String(format: "%.1lf", min(self.progress, 1.0)))
-                .font(font)
-                .bold()
+            if content {
+                Text(String(format: "%.1lf", min(self.progress, 1.0)))
+                    .font(font)
+                    .bold()
+            }
         }
     }
 }
@@ -38,7 +41,7 @@ struct ProgressBar_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             VStack {
-                ProgressBar(font: Font.system(size: 20), color: .orange, progress: .constant(0.5))
+                ProgressBar(font: Font.system(size: 20), color: .orange, content: false, progress: .constant(0.5))
                     .frame(width: 100, height: 100)
                     .padding(40.0)
                 

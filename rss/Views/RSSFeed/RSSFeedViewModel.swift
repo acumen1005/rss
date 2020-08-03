@@ -1,5 +1,5 @@
 //
-//  RSSItemViewModel.swift
+//  RSSFeedViewModel.swift
 //  rss
 //
 //  Created by 谷雷雷 on 2020/7/12.

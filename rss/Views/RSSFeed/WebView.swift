@@ -54,7 +54,7 @@ struct WebView: View {
                 )
                 makeFeatureItemView(imageName: FeatureItem.archive(self.rssItem.isArchive).icon, action: self.onArchiveAction)
                 
-                if self.viewModel.total > 0.0 {
+                if !self.viewModel.progressHide {
                     VStack(alignment: .center) {
                         ProgressBar(
                             boardWidth: 6,
