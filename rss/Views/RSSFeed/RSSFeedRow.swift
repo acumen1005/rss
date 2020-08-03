@@ -29,11 +29,21 @@ struct RSSItemRow: View {
                 .lineLimit(3)
                 .foregroundColor(Color("footnoteColor"))
             Spacer()
-            HStack {
+            HStack(spacing: 10) {
+                if itemWrapper.progress > 0 {
+                    ProgressBar(
+                        boardWidth: 4,
+                        font: Font.system(size: 9),
+                        color: .orange,
+                        content: false,
+                        progress: self.$itemWrapper.progress
+                    )
+                    .frame(width: 20, height: 20, alignment: .center)
+                }
                 Text("\(itemWrapper.createTime?.string() ?? "")")
                     .font(.footnote)
                     .foregroundColor(.gray)
-                Spacer()
+                Spacer(minLength: 10)
                 if itemWrapper.isArchive {
                     Image(systemName: "tray.and.arrow.down.fill")
                 }
@@ -49,5 +59,12 @@ struct RSSItemRow: View {
                     self.contextMenuAction?(self.itemWrapper)
             })
         }
+    }
+}
+
+struct RSSFeedRow_Previews: PreviewProvider {
+    static var previews: some View {
+        let simple = DataSourceService.current.rssItem.simple()
+        return RSSItemRow(wrapper: simple!)
     }
 }
