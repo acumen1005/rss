@@ -30,7 +30,11 @@ struct RSSItemRow: View {
                 .foregroundColor(Color("footnoteColor"))
             Spacer()
             HStack(spacing: 10) {
-                if itemWrapper.progress > 0 {
+                if itemWrapper.progress >= 1.0 {
+                    Text("DONE")
+                        .font(.footnote)
+                        .foregroundColor(.orange)
+                } else if itemWrapper.progress > 0 {
                     ProgressBar(
                         boardWidth: 4,
                         font: Font.system(size: 9),
