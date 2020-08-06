@@ -11,18 +11,28 @@ import SwiftUI
 struct SectionView<Content: View>: View {
     
     var title: String?
-    var description: String
+    var description: String?
     let content: () -> Content
     
     var body: some View {
         Group {
             #if os(iOS)
-            Section(footer: Text(description)) {
-                if title != nil {
-                    Text(title!)
-                        .font(.headline)
+            if description == nil {
+                Section {
+                    if title != nil {
+                        Text(title!)
+                            .font(.headline)
+                    }
+                    content()
                 }
-                content()
+            } else {
+                Section(footer: Text(description!)) {
+                    if title != nil {
+                        Text(title!)
+                            .font(.headline)
+                    }
+                    content()
+                }
             }
             #else
             Group {

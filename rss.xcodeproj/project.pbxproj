@@ -15,6 +15,26 @@
 		4C0CF5BA24C6BB7A00E0B4E6 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0CF5B924C6BB7A00E0B4E6 /* WebView.swift */; };
 		4C0CF5BF24C6EEC000E0B4E6 /* UserDefaultWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0CF5BE24C6EEC000E0B4E6 /* UserDefaultWrapper.swift */; };
 		4C0CF5C124C6F60600E0B4E6 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0CF5C024C6F60600E0B4E6 /* SectionView.swift */; };
+		4C435B2324DA887E00D16ED7 /* BatchImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C435B2224DA887E00D16ED7 /* BatchImportView.swift */; };
+		4C435B2C24DC076500D16ED7 /* BatchImportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C435B2B24DC076500D16ED7 /* BatchImportViewModel.swift */; };
+		4C435B3424DC148D00D16ED7 /* rssTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C435B3324DC148D00D16ED7 /* rssTests.swift */; };
+		4C435B3C24DC14B400D16ED7 /* BatchImportViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C435B3B24DC14B400D16ED7 /* BatchImportViewModelTests.swift */; };
+		4C435B3D24DC151400D16ED7 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA04AC524B9D8E300521D0C /* DataSource.swift */; };
+		4C435B3E24DC151400D16ED7 /* RSSItemDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA04AC324B9D8C300521D0C /* RSSItemDataSource.swift */; };
+		4C435B3F24DC151400D16ED7 /* RSSDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA04ACA24B9DD7600521D0C /* RSSDataSource.swift */; };
+		4C435B4024DC151400D16ED7 /* BatchImportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C435B2B24DC076500D16ED7 /* BatchImportViewModel.swift */; };
+		4C435B4124DC189A00D16ED7 /* DataSourceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C812FF424BF1D9B00CDD840 /* DataSourceService.swift */; };
+		4C435B4224DC194500D16ED7 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB5A00624A1E98D0052E80A /* PersistenceManager.swift */; };
+		4C435B4324DC1DE700D16ED7 /* RSSItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EC7824C0C54E009674FC /* RSSItem+CoreDataClass.swift */; };
+		4C435B4424DC1DE700D16ED7 /* RSSItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FE024AA1C5100934910 /* RSSItem+CoreDataProperties.swift */; };
+		4C435B4524DC1DE700D16ED7 /* RSS+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB5A02124A1FD4E0052E80A /* RSS+CoreDataClass.swift */; };
+		4C435B4624DC1DE700D16ED7 /* RSS+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB5A02224A1FD4E0052E80A /* RSS+CoreDataProperties.swift */; };
+		4C435B4724DC1DE700D16ED7 /* ModelHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FCD24A87AAB00934910 /* ModelHelper.swift */; };
+		4C435B4824DC1E0900D16ED7 /* ManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA04AC824B9DBC000521D0C /* ManagedObjectContext.swift */; };
+		4C435B4924DC1E0900D16ED7 /* RSSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FD524A9F1B000934910 /* RSSError.swift */; };
+		4C435B4A24DC1E2A00D16ED7 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB18E4224A3578400F78F34 /* String+Ext.swift */; };
+		4C435B4B24DC1E2A00D16ED7 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB18E4424A3591100F78F34 /* Date+Ext.swift */; };
+		4C435B4D24DC524700D16ED7 /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C435B4C24DC524600D16ED7 /* DocumentPicker.swift */; };
 		4C46675824D00F1D007DFD2C /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C46675724D00F1D007DFD2C /* ProgressBar.swift */; };
 		4C488D6424BCB81F00406700 /* ImageServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C488D6324BCB81F00406700 /* ImageServices.swift */; };
 		4C488D7024BEA58300406700 /* ActionContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C488D6F24BEA58300406700 /* ActionContextMenu.swift */; };
@@ -58,6 +78,16 @@
 		4CE833F524C2DBAB00A911F1 /* RSSListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE833F424C2DBAB00A911F1 /* RSSListViewModel.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		4C435B3624DC148D00D16ED7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C9A3FE124A04D2A00AAEF0D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C9A3FE824A04D2A00AAEF0D;
+			remoteInfo = rss;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		4C0CF5AF24C6924800E0B4E6 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		4C0CF5B124C6946200E0B4E6 /* SettingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRow.swift; sourceTree = "<group>"; };
@@ -67,6 +97,13 @@
 		4C0CF5B924C6BB7A00E0B4E6 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		4C0CF5BE24C6EEC000E0B4E6 /* UserDefaultWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultWrapper.swift; sourceTree = "<group>"; };
 		4C0CF5C024C6F60600E0B4E6 /* SectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
+		4C435B2224DA887E00D16ED7 /* BatchImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchImportView.swift; sourceTree = "<group>"; };
+		4C435B2B24DC076500D16ED7 /* BatchImportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchImportViewModel.swift; sourceTree = "<group>"; };
+		4C435B3124DC148D00D16ED7 /* rssTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = rssTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C435B3324DC148D00D16ED7 /* rssTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rssTests.swift; sourceTree = "<group>"; };
+		4C435B3524DC148D00D16ED7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4C435B3B24DC14B400D16ED7 /* BatchImportViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchImportViewModelTests.swift; sourceTree = "<group>"; };
+		4C435B4C24DC524600D16ED7 /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
 		4C46675724D00F1D007DFD2C /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		4C488D6324BCB81F00406700 /* ImageServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageServices.swift; sourceTree = "<group>"; };
 		4C488D6524BDA0BD00406700 /* rss.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = rss.entitlements; sourceTree = "<group>"; };
@@ -113,6 +150,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4C435B2E24DC148D00D16ED7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4C9A3FE624A04D2A00AAEF0D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -130,6 +174,8 @@
 				4C0CF5AF24C6924800E0B4E6 /* SettingView.swift */,
 				4C0CF5B324C6978B00E0B4E6 /* AppearanceSection.swift */,
 				4C0CF5B124C6946200E0B4E6 /* SettingRow.swift */,
+				4C435B2224DA887E00D16ED7 /* BatchImportView.swift */,
+				4C435B2B24DC076500D16ED7 /* BatchImportViewModel.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -141,6 +187,16 @@
 				4C0CF5BE24C6EEC000E0B4E6 /* UserDefaultWrapper.swift */,
 			);
 			path = Wrapper;
+			sourceTree = "<group>";
+		};
+		4C435B3224DC148D00D16ED7 /* rssTests */ = {
+			isa = PBXGroup;
+			children = (
+				4C435B3324DC148D00D16ED7 /* rssTests.swift */,
+				4C435B3B24DC14B400D16ED7 /* BatchImportViewModelTests.swift */,
+				4C435B3524DC148D00D16ED7 /* Info.plist */,
+			);
+			path = rssTests;
 			sourceTree = "<group>";
 		};
 		4C488D6224BCB80F00406700 /* Services */ = {
@@ -191,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				4C9A3FEB24A04D2A00AAEF0D /* rss */,
+				4C435B3224DC148D00D16ED7 /* rssTests */,
 				4C9A3FEA24A04D2A00AAEF0D /* Products */,
 				4C9A413E24A05CA800AAEF0D /* Frameworks */,
 			);
@@ -200,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				4C9A3FE924A04D2A00AAEF0D /* rss.app */,
+				4C435B3124DC148D00D16ED7 /* rssTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -255,6 +313,7 @@
 				4CB5A02A24A26DE10052E80A /* SafariView.swift */,
 				4C0CF5C024C6F60600E0B4E6 /* SectionView.swift */,
 				4C46675724D00F1D007DFD2C /* ProgressBar.swift */,
+				4C435B4C24DC524600D16ED7 /* DocumentPicker.swift */,
 			);
 			path = CommonViews;
 			sourceTree = "<group>";
@@ -312,6 +371,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4C435B3024DC148D00D16ED7 /* rssTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C435B3824DC148D00D16ED7 /* Build configuration list for PBXNativeTarget "rssTests" */;
+			buildPhases = (
+				4C435B2D24DC148D00D16ED7 /* Sources */,
+				4C435B2E24DC148D00D16ED7 /* Frameworks */,
+				4C435B2F24DC148D00D16ED7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4C435B3724DC148D00D16ED7 /* PBXTargetDependency */,
+			);
+			name = rssTests;
+			productName = rssTests;
+			productReference = 4C435B3124DC148D00D16ED7 /* rssTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		4C9A3FE824A04D2A00AAEF0D /* rss */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4C9A400024A04D2C00AAEF0D /* Build configuration list for PBXNativeTarget "rss" */;
@@ -342,6 +419,10 @@
 				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = acumen;
 				TargetAttributes = {
+					4C435B3024DC148D00D16ED7 = {
+						CreatedOnToolsVersion = 11.5;
+						TestTargetID = 4C9A3FE824A04D2A00AAEF0D;
+					};
 					4C9A3FE824A04D2A00AAEF0D = {
 						CreatedOnToolsVersion = 11.5;
 					};
@@ -364,11 +445,19 @@
 			projectRoot = "";
 			targets = (
 				4C9A3FE824A04D2A00AAEF0D /* rss */,
+				4C435B3024DC148D00D16ED7 /* rssTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4C435B2F24DC148D00D16ED7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4C9A3FE724A04D2A00AAEF0D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -382,6 +471,30 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4C435B2D24DC148D00D16ED7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C435B4A24DC1E2A00D16ED7 /* String+Ext.swift in Sources */,
+				4C435B4B24DC1E2A00D16ED7 /* Date+Ext.swift in Sources */,
+				4C435B4824DC1E0900D16ED7 /* ManagedObjectContext.swift in Sources */,
+				4C435B4924DC1E0900D16ED7 /* RSSError.swift in Sources */,
+				4C435B4324DC1DE700D16ED7 /* RSSItem+CoreDataClass.swift in Sources */,
+				4C435B4424DC1DE700D16ED7 /* RSSItem+CoreDataProperties.swift in Sources */,
+				4C435B4524DC1DE700D16ED7 /* RSS+CoreDataClass.swift in Sources */,
+				4C435B4624DC1DE700D16ED7 /* RSS+CoreDataProperties.swift in Sources */,
+				4C435B4724DC1DE700D16ED7 /* ModelHelper.swift in Sources */,
+				4C435B4224DC194500D16ED7 /* PersistenceManager.swift in Sources */,
+				4C435B4124DC189A00D16ED7 /* DataSourceService.swift in Sources */,
+				4C435B3D24DC151400D16ED7 /* DataSource.swift in Sources */,
+				4C435B3E24DC151400D16ED7 /* RSSItemDataSource.swift in Sources */,
+				4C435B3F24DC151400D16ED7 /* RSSDataSource.swift in Sources */,
+				4C435B4024DC151400D16ED7 /* BatchImportViewModel.swift in Sources */,
+				4C435B3C24DC14B400D16ED7 /* BatchImportViewModelTests.swift in Sources */,
+				4C435B3424DC148D00D16ED7 /* rssTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4C9A3FE524A04D2A00AAEF0D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -414,6 +527,7 @@
 				4CA04AC924B9DBC000521D0C /* ManagedObjectContext.swift in Sources */,
 				4C872FE224AA1C5100934910 /* RSSItem+CoreDataProperties.swift in Sources */,
 				4C9A400824A0503400AAEF0D /* TextFieldView.swift in Sources */,
+				4C435B4D24DC524700D16ED7 /* DocumentPicker.swift in Sources */,
 				4CB5A00724A1E98D0052E80A /* PersistenceManager.swift in Sources */,
 				4C0CF5BA24C6BB7A00E0B4E6 /* WebView.swift in Sources */,
 				4C0CF5B424C6978B00E0B4E6 /* AppearanceSection.swift in Sources */,
@@ -424,6 +538,8 @@
 				4C0CF5B224C6946200E0B4E6 /* SettingRow.swift in Sources */,
 				4C9A3FF424A04D2A00AAEF0D /* HomeView.swift in Sources */,
 				4C0CF5BF24C6EEC000E0B4E6 /* UserDefaultWrapper.swift in Sources */,
+				4C435B2C24DC076500D16ED7 /* BatchImportViewModel.swift in Sources */,
+				4C435B2324DA887E00D16ED7 /* BatchImportView.swift in Sources */,
 				4C872FD624A9F1B000934910 /* RSSError.swift in Sources */,
 				4C9A3FEF24A04D2A00AAEF0D /* SceneDelegate.swift in Sources */,
 				4CB5A02324A1FD4E0052E80A /* RSS+CoreDataClass.swift in Sources */,
@@ -435,6 +551,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4C435B3724DC148D00D16ED7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4C9A3FE824A04D2A00AAEF0D /* rss */;
+			targetProxy = 4C435B3624DC148D00D16ED7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4C9A3FFA24A04D2C00AAEF0D /* LaunchScreen.storyboard */ = {
@@ -448,6 +572,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4C435B3924DC148D00D16ED7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CDAT27Y9CY;
+				INFOPLIST_FILE = rssTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.acumen.rssTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/rss.app/rss";
+			};
+			name = Debug;
+		};
+		4C435B3A24DC148D00D16ED7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CDAT27Y9CY;
+				INFOPLIST_FILE = rssTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.acumen.rssTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/rss.app/rss";
+			};
+			name = Release;
+		};
 		4C9A3FFE24A04D2C00AAEF0D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -617,6 +783,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4C435B3824DC148D00D16ED7 /* Build configuration list for PBXNativeTarget "rssTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C435B3924DC148D00D16ED7 /* Debug */,
+				4C435B3A24DC148D00D16ED7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4C9A3FE424A04D2A00AAEF0D /* Build configuration list for PBXProject "rss" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

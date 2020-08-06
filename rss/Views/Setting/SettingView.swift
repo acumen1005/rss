@@ -18,27 +18,62 @@ struct SettingView: View {
     enum SettingItem: CaseIterable {
         case webView
         case darkMode
+        case batchImport
         
         var label: String {
             switch self {
             case .webView: return "Read Mode"
             case .darkMode: return "Outlook"
+            case .batchImport: return "Import RSS Sources"
             }
         }
     }
     
     @State private var isSelected: Bool = false
     
+    var batchImportView: BatchImportView {
+        let dataSource = DataSourceService.current.rss
+        return BatchImportView(viewModel: BatchImportViewModel(dataSource: dataSource))
+    }
+    
     var body: some View {
         NavigationView {
-            Form {
-                ForEach([SettingItem.webView], id: \.self) { _ in
-                    SectionView(description: "If you want to read feed with WebView, Open it, Have fun! :]") {
-                        Toggle("Use Safari", isOn: self.$isSelected)
+            List {
+                SectionView {
+                    Group {
+                        HStack {
+                            Image(systemName: "safari")
+                                .fixedSize()
+                            Toggle("Use Safari", isOn: self.$isSelected)
+                        }
+                        HStack {
+                            NavigationLink(destination: self.batchImportView) {
+                                HStack {
+                                    Image(systemName: "folder")
+                                        .fixedSize()
+                                    Text("Batch Import RSS Sources")
+                                }
+                            }
+                        }
+                    }
+                }
+                SectionView {
+                    Group {
+                        HStack {
+                            NavigationLink(destination: self.batchImportView) {
+                                HStack {
+                                    Image(systemName: "envelope")
+                                        .fixedSize()
+                                    Text("Github")
+                                }
+                            }
+                        }
                     }
                 }
             }
+            .listStyle(GroupedListStyle())
             .navigationBarTitle("Settings")
+            .environment(\.horizontalSizeClass, .regular)
         }
         .onAppear {
             self.isSelected = AppEnvironment.current.useSafari

@@ -35,14 +35,9 @@ struct RSSItemRow: View {
                         .font(.footnote)
                         .foregroundColor(.orange)
                 } else if itemWrapper.progress > 0 {
-                    ProgressBar(
-                        boardWidth: 4,
-                        font: Font.system(size: 9),
-                        color: .orange,
-                        content: false,
-                        progress: self.$itemWrapper.progress
-                    )
-                    .frame(width: 20, height: 20, alignment: .center)
+                    Text(String(format: "%.1lf %%", itemWrapper.progress * 100))
+                        .font(.footnote)
+                        .foregroundColor(.orange)
                 }
                 Text("\(itemWrapper.createTime?.string() ?? "")")
                     .font(.footnote)

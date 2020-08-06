@@ -39,7 +39,7 @@ struct WebView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             webViewWrapper
             HStack(alignment: .top, spacing: 30) {
                 makeFeatureItemView(
@@ -69,9 +69,7 @@ struct WebView: View {
                 
                 Spacer()
             }
-        }
-        .onAppear {
-            
+//            .background(Color.black)
         }
     }
 }

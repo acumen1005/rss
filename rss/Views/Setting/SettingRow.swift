@@ -16,7 +16,7 @@ struct SettingRow: View {
         Section(header: Text("APPEARANCE")) {
             VStack {
                 HStack {
-                    Image("default_image")
+                    Image("safari")
                     Text("test")
                 }
                 HStack(alignment: .center) {
