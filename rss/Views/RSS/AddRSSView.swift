@@ -68,7 +68,7 @@ struct AddRSSView: View {
         NavigationView {
             Form {
                 Section(header: sectionHeader) {
-                    TextFieldView(label: "Feed URL", placeholder: "", text: $feedUrl)
+                    TextFieldView(label: "URL", placeholder: "", text: $feedUrl)
                 }
                 Section(header: Text("Display")) {
                     if !hasFetchResult {
@@ -89,30 +89,14 @@ struct AddRSSView: View {
     }
     
     func fetchDetail() {
-        guard let url = URL(string: self.feedUrl) else {
+        guard let url = URL(string: self.feedUrl),
+            let rss = viewModel.rss else {
             return
         }
-        viewModel.rss?.url = feedUrl
-        fetchNewRSS(url: url) { result in
+        updateNewRSS(url: url, for: rss) { result in
             switch result {
-            case .success(let feed):
-                switch feed {
-                case .atom(let atomFeed):
-                    self.viewModel.rss?.title = atomFeed.title ?? ""
-                    if let id = atomFeed.id, var url = URL(string: id), let icon = atomFeed.icon {
-                        url.appendPathComponent(icon)
-                        self.viewModel.rss?.image = url.absoluteString
-                    }
-                case .json(let jsonFeed):
-                    self.viewModel.rss?.title = jsonFeed.title ?? ""
-                    self.viewModel.rss?.desc = jsonFeed.description?.trimWhiteAndSpace ?? ""
-                    self.viewModel.rss?.image = jsonFeed.icon ?? ""
-                case .rss(let rssFeed):
-                    self.viewModel.rss?.title = rssFeed.title ?? ""
-                    self.viewModel.rss?.desc = rssFeed.description?.trimWhiteAndSpace ?? ""
-                    self.viewModel.rss?.image = rssFeed.image?.url ?? ""
-                }
-                
+            case .success(let rss):
+                self.viewModel.rss = rss
                 self.hasFetchResult = true
             case .failure(let error):
                 print("fetchDetail error = \(error)")

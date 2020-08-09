@@ -24,3 +24,36 @@ func fetchNewRSS(url: URL,
         }
     }
 }
+
+func updateNewRSS(url: URL,
+                  for rss: RSS,
+                  completionHandler: @escaping ((Result<RSS, Error>) -> Void)) {
+    rss.url = url.absoluteString
+    let parser = FeedParser(URL: url)
+    parser.parseAsync(queue: DispatchQueue.global()) { result in
+        DispatchQueue.main.async {
+            switch result {
+            case .success(let feed):
+                switch feed {
+                case .atom(let atomFeed):
+                    rss.title = atomFeed.title ?? ""
+                    if let id = atomFeed.id, var url = URL(string: id), let icon = atomFeed.icon {
+                        url.appendPathComponent(icon)
+                        rss.image = url.absoluteString
+                    }
+                case .json(let jsonFeed):
+                    rss.title = jsonFeed.title ?? ""
+                    rss.desc = jsonFeed.description?.trimWhiteAndSpace ?? ""
+                    rss.image = jsonFeed.icon ?? ""
+                case .rss(let rssFeed):
+                    rss.title = rssFeed.title ?? ""
+                    rss.desc = rssFeed.description?.trimWhiteAndSpace ?? ""
+                    rss.image = rssFeed.image?.url ?? ""
+                }
+                completionHandler(.success(rss))
+            case .failure(let error):
+                completionHandler(.failure(error))
+            }
+        }
+    }
+}

@@ -16,10 +16,16 @@ struct BatchImportModel: Codable {
     var imageUrl: String?
 
     func apply(in rss: RSS) {
-        rss.title = title ?? ""
         rss.url = url
-        rss.desc = description ?? ""
-        rss.image = imageUrl ?? ""
+        if let t = title {
+            rss.title = t
+        }
+        if let d = description {
+            rss.desc = d
+        }
+        if let img = imageUrl {
+            rss.image = img
+        }
     }
 }
 
@@ -39,14 +45,29 @@ class BatchImportViewModel: NSObject, ObservableObject {
             return
         }
         let models = parseJson2Model(jsonStr)
+        let group = DispatchGroup()
         for model in models {
+            guard let url = URL(string: model.url) else { continue }
             dataSource.discardNewObject()
             dataSource.prepareNewObject()
-            if let newObject = dataSource.newObject {
-                model.apply(in: newObject)
+            guard let rss = dataSource.newObject else { continue }
+            group.enter()
+            updateNewRSS(url: url, for: rss) { rs in
+                switch rs {
+                case .success(let rss):
+                    print("rss = \(rss)")
+                    model.apply(in: rss)
+                    self.dataSource.newObject = rss
+                case .failure(let error):
+                    print("error = \(error)")
+                }
+                group.leave()
             }
         }
-        _ = dataSource.saveNewObject()
+        group.notify(queue: DispatchQueue.main) {
+            _ = self.dataSource.saveNewObject()
+            print("finish !!!")
+        }
     }
     
     func parseJson2Model(_ jsonStr: String) -> [BatchImportModel] {

@@ -54,10 +54,11 @@ struct RSSListView: View {
         NavigationView {
             List {
                 ForEach(viewModel.items, id: \.self) { rss in
-                    NavigationLink(destination: self.destinationView(rss)) {
-                        RSSRow(rss: rss)
+                    Section {
+                        NavigationLink(destination: self.destinationView(rss)) {
+                            RSSRow(rss: rss)
+                        }
                     }
-                    .tag("RSS")
                 }
                 .onDelete { indexSet in
                     if let index = indexSet.first {
@@ -67,6 +68,7 @@ struct RSSListView: View {
             }
             .navigationBarTitle("RSS")
             .navigationBarItems(trailing: trailingView)
+        
         }
         .sheet(isPresented: $isSheetPresented, content: {
             if FeaureItem.add == self.selectedFeatureItem {
