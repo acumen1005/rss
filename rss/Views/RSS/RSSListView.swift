@@ -21,6 +21,7 @@ struct RSSListView: View {
     @State private var isAddFormPresented = false
     @State private var isSettingPresented = false
     @State private var isSheetPresented = false
+    @State private var addRSSProgressValue = 0.0
     @State var sources: [RSS] = []
     
     private var addSourceButton: some View {
@@ -50,25 +51,40 @@ struct RSSListView: View {
         }
     }
     
+    private let addRSSPublisher = NotificationCenter.default.publisher(for: Notification.Name.init("addNewRSSPublisher"))
+    
     var body: some View {
         NavigationView {
-            List {
-                ForEach(viewModel.items, id: \.self) { rss in
-                    Section {
-                        NavigationLink(destination: self.destinationView(rss)) {
-                            RSSRow(rss: rss)
+            ZStack {
+                List {
+                    ForEach(viewModel.items, id: \.self) { rss in
+                        Section {
+                            NavigationLink(destination: self.destinationView(rss)) {
+                                RSSRow(rss: rss)
+                            }
+                        }
+                    }
+                    .onDelete { indexSet in
+                        if let index = indexSet.first {
+                            self.viewModel.delete(at: index)
                         }
                     }
                 }
-                .onDelete { indexSet in
-                    if let index = indexSet.first {
-                        self.viewModel.delete(at: index)
-                    }
+                .navigationBarTitle("RSS", displayMode: .inline)
+                .navigationBarItems(trailing: trailingView)
+                
+                if addRSSProgressValue > 0 && addRSSProgressValue < 1.0 {
+                    LinerProgressBar(lineWidth: 3, color: .blue, progress: $addRSSProgressValue)
+                        .padding(.top, 2)
                 }
             }
-            .navigationBarTitle("RSS")
-            .navigationBarItems(trailing: trailingView)
         }
+        .onReceive(addRSSPublisher, perform: { output in
+            guard
+                let userInfo = output.userInfo,
+                let total = userInfo["total"] as? Double else { return }
+            self.addRSSProgressValue += 1.0/total
+        })
         .sheet(isPresented: $isSheetPresented, content: {
             if FeaureItem.add == self.selectedFeatureItem {
                 AddRSSView(

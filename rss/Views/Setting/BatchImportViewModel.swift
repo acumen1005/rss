@@ -44,6 +44,7 @@ class BatchImportViewModel: NSObject, ObservableObject {
             return
         }
         let models = parseJson2Model(jsonStr)
+        let total = models.count
         let group = DispatchGroup()
         for model in models {
             guard let url = URL(string: model.url) else { continue }
@@ -61,6 +62,12 @@ class BatchImportViewModel: NSObject, ObservableObject {
                     print("error = \(error)")
                 }
                 group.leave()
+                
+                NotificationCenter.default.post(
+                    name: NSNotification.Name.init("addNewRSSPublisher"),
+                    object: nil,
+                    userInfo: ["total": Double(total)]
+                )
             }
         }
         group.notify(queue: DispatchQueue.main) {
