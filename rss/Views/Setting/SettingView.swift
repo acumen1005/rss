@@ -36,6 +36,11 @@ struct SettingView: View {
         return BatchImportView(viewModel: BatchImportViewModel(dataSource: dataSource))
     }
     
+    var dataNStorage: DataNStorageView {
+        let storage = DataNStorageView()
+        return storage
+    }
+    
     var body: some View {
         NavigationView {
             List {
@@ -60,6 +65,19 @@ struct SettingView: View {
                 SectionView {
                     Group {
                         HStack {
+                            NavigationLink(destination: self.dataNStorage) {
+                                HStack {
+                                    Image(systemName: "tray.full")
+                                        .fixedSize()
+                                    Text("Data and Storage")
+                                }
+                            }
+                        }
+                    }
+                }
+                SectionView {
+                    Group {
+                        HStack {
                             NavigationLink(destination: self.batchImportView) {
                                 HStack {
                                     Image(systemName: "envelope")
@@ -72,7 +90,7 @@ struct SettingView: View {
                 }
             }
             .listStyle(GroupedListStyle())
-            .navigationBarTitle("Settings")
+            .navigationBarTitle("Settings", displayMode: .inline)
             .environment(\.horizontalSizeClass, .regular)
         }
         .onAppear {

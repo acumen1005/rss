@@ -64,6 +64,11 @@ extension RSS {
         request.sortDescriptors = [.init(key: #keyPath(RSS.createTime), ascending: false)]
         return request
     }
+    
+    static func requestDefaultObjects() -> NSFetchRequest<RSS> {
+        let request = RSS.fetchRequest() as NSFetchRequest<RSS>
+        return request
+    }
 }
 
 extension RSS {

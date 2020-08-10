@@ -29,7 +29,6 @@ struct BatchImportModel: Codable {
     }
 }
 
-
 class BatchImportViewModel: NSObject, ObservableObject {
     
     let dataSource: RSSDataSource

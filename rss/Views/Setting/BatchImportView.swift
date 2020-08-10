@@ -22,21 +22,18 @@ struct BatchImportView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 12) {
             Image("BatchImportImage")
                 .resizable()
                 .frame(width: UIScreen.main.bounds.width - 40, height: (UIScreen.main.bounds.width - 40)/1.6)
                 .cornerRadius(8)
             Spacer()
-            Button(action: {
+//            RoundRectangeButton(text: .constant("JSON file from URL ...")) {
+//                self.isSheetPresented = true
+//            }
+            RoundRectangeButton(text: .constant("Select File ...")) {
                 self.isSheetPresented = true
-            }) {
-                Text("Select File ...")
-                    .foregroundColor(.white)
             }
-            .frame(width: UIScreen.main.bounds.width - 40, height: 48)
-            .background(Color.blue)
-            .cornerRadius(12)
         }
         .sheet(isPresented: $isSheetPresented, content: {
             DocumentPicker(viewModel: self.pickerViewModel)

@@ -77,6 +77,18 @@ extension RSSItem {
         request.fetchLimit = limit
         return request
     }
+    
+    static func requestCountArchiveObjects() -> NSFetchRequest<RSSItem> {
+        let request = RSSItem.fetchRequest() as NSFetchRequest<RSSItem>
+        let predicate = NSPredicate(format: "isArchive = true")
+        request.predicate = predicate
+        return request
+    }
+    
+    static func requestDefaultObjects() -> NSFetchRequest<RSSItem> {
+        let request = RSSItem.fetchRequest() as NSFetchRequest<RSSItem>
+        return request
+    }
 }
 
 extension RSSItem: ObjectValidatable {

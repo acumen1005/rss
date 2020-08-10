@@ -68,7 +68,6 @@ struct RSSListView: View {
             }
             .navigationBarTitle("RSS")
             .navigationBarItems(trailing: trailingView)
-        
         }
         .sheet(isPresented: $isSheetPresented, content: {
             if FeaureItem.add == self.selectedFeatureItem {
