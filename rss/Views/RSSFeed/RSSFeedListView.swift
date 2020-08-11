@@ -47,9 +47,6 @@ struct RSSFeedListView: View {
                 }
             }
             .navigationBarTitle(rssSource.title)
-        }.onAppear {
-            self.rssFeedViewModel.fecthResults()
-            self.rssFeedViewModel.fetchRemoteRSSItems()
         }
         .sheet(item: $selectedItem, content: { item in
             if AppEnvironment.current.useSafari {
@@ -62,6 +59,10 @@ struct RSSFeedListView: View {
                 })
             }
         })
+        .onAppear {
+            self.rssFeedViewModel.fecthResults()
+            self.rssFeedViewModel.fetchRemoteRSSItems()
+        }
     }
     
     func contextmenuAction(_ item: RSSItem) {

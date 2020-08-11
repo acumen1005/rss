@@ -52,6 +52,7 @@ struct RSSListView: View {
     }
     
     private let addRSSPublisher = NotificationCenter.default.publisher(for: Notification.Name.init("addNewRSSPublisher"))
+    private let rssRefreshPublisher = NotificationCenter.default.publisher(for: Notification.Name.init("rssListNeedRefresh"))
     
     var body: some View {
         NavigationView {
@@ -84,6 +85,9 @@ struct RSSListView: View {
                 let userInfo = output.userInfo,
                 let total = userInfo["total"] as? Double else { return }
             self.addRSSProgressValue += 1.0/total
+        })
+        .onReceive(rssRefreshPublisher, perform: { output in
+            self.viewModel.fecthResults()
         })
         .sheet(isPresented: $isSheetPresented, content: {
             if FeaureItem.add == self.selectedFeatureItem {

@@ -60,7 +60,7 @@ class RSSFeedViewModel: NSObject, ObservableObject {
                 switch feed {
                     case .atom(let atomFeed):
                         for item in atomFeed.entries ?? [] {
-                            if let fetchDate = self.rss.lastFetchTime, let pubDate = item.published, pubDate < fetchDate {
+                            if let fetchDate = self.rss.lastFetchTime, let pubDate = item.updated, pubDate < fetchDate {
                                 continue
                             }
                             guard let title = item.title, items.filter({ $0.title == title }).count <= 0 else {

@@ -39,11 +39,8 @@ class BatchImportViewModel: NSObject, ObservableObject {
         super.init()
     }
     
-    func batchInsert(_ jsonURL: URL) {
-        guard let jsonStr = try? String(contentsOf: jsonURL, encoding: .utf8) else {
-            return
-        }
-        let models = parseJson2Model(jsonStr)
+    func batchInsert(JSONText: String) {
+        let models = parseJson2Model(JSONText)
         let total = models.count
         let group = DispatchGroup()
         for model in models {
@@ -72,8 +69,19 @@ class BatchImportViewModel: NSObject, ObservableObject {
         }
         group.notify(queue: DispatchQueue.main) {
             _ = self.dataSource.saveNewObject()
-            print("finish !!!")
+            NotificationCenter.default.post(
+                name: Notification.Name.init("rssListNeedRefresh"),
+                object: nil,
+                userInfo: nil
+            )
         }
+    }
+    
+    func batchInsert(_ jsonURL: URL) {
+        guard let jsonStr = try? String(contentsOf: jsonURL, encoding: .utf8) else {
+            return
+        }
+        batchInsert(JSONText: jsonStr)
     }
     
     func parseJson2Model(_ jsonStr: String) -> [BatchImportModel] {

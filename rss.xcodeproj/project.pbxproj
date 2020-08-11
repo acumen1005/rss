@@ -39,6 +39,7 @@
 		4C435B5524E0F71A00D16ED7 /* DataNStorageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C435B5424E0F71A00D16ED7 /* DataNStorageViewModel.swift */; };
 		4C435B5724E11FC900D16ED7 /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C435B5624E11FC900D16ED7 /* Color+Ext.swift */; };
 		4C435B5924E124CE00D16ED7 /* LinerProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C435B5824E124CE00D16ED7 /* LinerProgressBar.swift */; };
+		4C435B5B24E1B71F00D16ED7 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C435B5A24E1B71F00D16ED7 /* TextView.swift */; };
 		4C46675824D00F1D007DFD2C /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C46675724D00F1D007DFD2C /* ProgressBar.swift */; };
 		4C488D6424BCB81F00406700 /* ImageServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C488D6324BCB81F00406700 /* ImageServices.swift */; };
 		4C488D7024BEA58300406700 /* ActionContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C488D6F24BEA58300406700 /* ActionContextMenu.swift */; };
@@ -112,6 +113,7 @@
 		4C435B5424E0F71A00D16ED7 /* DataNStorageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataNStorageViewModel.swift; sourceTree = "<group>"; };
 		4C435B5624E11FC900D16ED7 /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
 		4C435B5824E124CE00D16ED7 /* LinerProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinerProgressBar.swift; sourceTree = "<group>"; };
+		4C435B5A24E1B71F00D16ED7 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		4C46675724D00F1D007DFD2C /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		4C488D6324BCB81F00406700 /* ImageServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageServices.swift; sourceTree = "<group>"; };
 		4C488D6524BDA0BD00406700 /* rss.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = rss.entitlements; sourceTree = "<group>"; };
@@ -192,7 +194,6 @@
 		4C0CF5BD24C6EE9100E0B4E6 /* Wrapper */ = {
 			isa = PBXGroup;
 			children = (
-				4C0CF5B724C6A21A00E0B4E6 /* WKWebViewWrapper.swift */,
 				4C0CF5BE24C6EEC000E0B4E6 /* UserDefaultWrapper.swift */,
 			);
 			path = Wrapper;
@@ -317,6 +318,7 @@
 		4C9A400624A0501B00AAEF0D /* CommonViews */ = {
 			isa = PBXGroup;
 			children = (
+				4C0CF5B724C6A21A00E0B4E6 /* WKWebViewWrapper.swift */,
 				4C9A400724A0503400AAEF0D /* TextFieldView.swift */,
 				4C488D6F24BEA58300406700 /* ActionContextMenu.swift */,
 				4CB5A02A24A26DE10052E80A /* SafariView.swift */,
@@ -325,6 +327,7 @@
 				4C435B5824E124CE00D16ED7 /* LinerProgressBar.swift */,
 				4C435B4C24DC524600D16ED7 /* DocumentPicker.swift */,
 				4C435B4E24E0E22D00D16ED7 /* RoundRectangeButton.swift */,
+				4C435B5A24E1B71F00D16ED7 /* TextView.swift */,
 			);
 			path = CommonViews;
 			sourceTree = "<group>";
@@ -551,6 +554,7 @@
 				4C435B4F24E0E22D00D16ED7 /* RoundRectangeButton.swift in Sources */,
 				4C0CF5B824C6A21A00E0B4E6 /* WKWebViewWrapper.swift in Sources */,
 				4C435B5724E11FC900D16ED7 /* Color+Ext.swift in Sources */,
+				4C435B5B24E1B71F00D16ED7 /* TextView.swift in Sources */,
 				4C9A3FF424A04D2A00AAEF0D /* HomeView.swift in Sources */,
 				4C0CF5BF24C6EEC000E0B4E6 /* UserDefaultWrapper.swift in Sources */,
 				4C435B2C24DC076500D16ED7 /* BatchImportViewModel.swift in Sources */,
@@ -750,7 +754,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = rss/rss.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_ASSET_PATHS = "\"rss/Preview Content\"";
 				DEVELOPMENT_TEAM = CDAT27Y9CY;
 				ENABLE_PREVIEWS = YES;
@@ -776,7 +780,7 @@
 				CODE_SIGN_ENTITLEMENTS = rss/rss.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_ASSET_PATHS = "\"rss/Preview Content\"";
 				DEVELOPMENT_TEAM = CDAT27Y9CY;
 				ENABLE_PREVIEWS = YES;

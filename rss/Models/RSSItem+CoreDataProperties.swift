@@ -52,7 +52,6 @@ extension RSSItem {
         item.author = author
         item.url = url
         item.createTime = createTime
-        item.createTime = Date()
         item.progress = 0
         item.isArchive = false
         return item

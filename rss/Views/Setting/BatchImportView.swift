@@ -13,6 +13,9 @@ struct BatchImportView: View {
     let viewModel: BatchImportViewModel
     
     @State private var isSheetPresented = false
+    @State private var isJSONHintPresented = false
+    @State private var buttonStatus: RoundRectangeButton.Status = .normal("Select File...")
+    @State private var JSONText = ""
     
     @ObservedObject private var pickerViewModel: DocumentPickerViewModel
     
@@ -23,16 +26,50 @@ struct BatchImportView: View {
     
     var body: some View {
         VStack(spacing: 12) {
-            Image("BatchImportImage")
-                .resizable()
-                .frame(width: UIScreen.main.bounds.width - 40, height: (UIScreen.main.bounds.width - 40)/1.6)
-                .cornerRadius(8)
-            Spacer()
-//            RoundRectangeButton(text: .constant("JSON file from URL ...")) {
-//                self.isSheetPresented = true
+//            HStack {
+//                Text("Show the JSON format")
+//                    .foregroundColor(.white)
+//                    .font(.headline)
+//                    .fixedSize()
+//                    .padding(.leading, 20)
+//                Spacer()
+//                Image(systemName: "chevron.right")
+//                    .fixedSize()
+//                    .foregroundColor(.white)
+//                    .padding(.trailing, 20)
 //            }
-            RoundRectangeButton(text: .constant("Select File ...")) {
-                self.isSheetPresented = true
+//            .padding(.top, 8)
+//            .padding(.bottom, 8)
+//            .background(Color(0xFFBA5C))
+//            .onTapGesture {
+//                self.isJSONHintPresented.toggle()
+//            }
+            if isJSONHintPresented {
+                Image("BatchImportImage")
+                    .resizable()
+                    .frame(width: UIScreen.main.bounds.width - 40, height: (UIScreen.main.bounds.width - 40)/1.6)
+                    .cornerRadius(8)
+            }
+            TextView(text: $JSONText, textStyle: .constant(.body))
+                .frame(height: 300)
+                .border(Color.gray, width: 1.0)
+                .padding(.leading, 20)
+                .padding(.trailing, 20)
+            Spacer()
+            RoundRectangeButton(status: $buttonStatus) { status in
+                switch status {
+                case .error:
+                    print("import error !!!")
+                case .normal:
+                    print("normal")
+                    self.isSheetPresented = true
+                case .ok:
+                    self.viewModel.batchInsert(JSONText: self.JSONText)
+                    self.buttonStatus = .normal("Import Successfully !!!")
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0) {
+                        self.buttonStatus = .normal("Select File ...")
+                    }
+                }
             }
         }
         .sheet(isPresented: $isSheetPresented, content: {
@@ -40,8 +77,13 @@ struct BatchImportView: View {
         })
         .onReceive(self.pickerViewModel.$jsonURL, perform: { output in
             guard let jsonURL = output else { return }
-            self.viewModel.batchInsert(jsonURL)
+            guard let jsonStr = try? String(contentsOf: jsonURL, encoding: .utf8) else {
+                return
+            }
+            self.JSONText = jsonStr
+            self.buttonStatus = .ok("Import")
         })
+        .padding(.top, 20)
         .padding(.bottom, 20)
         .onDisappear {
             self.viewModel.discardCreateContext()

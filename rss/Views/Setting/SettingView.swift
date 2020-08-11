@@ -56,7 +56,7 @@ struct SettingView: View {
                                 HStack {
                                     Image(systemName: "folder")
                                         .fixedSize()
-                                    Text("Batch Import RSS Sources")
+                                    Text("Batch Import")
                                 }
                             }
                         }
@@ -75,19 +75,18 @@ struct SettingView: View {
                         }
                     }
                 }
-                SectionView {
-                    Group {
-                        HStack {
-                            NavigationLink(destination: self.batchImportView) {
-                                HStack {
-                                    Image(systemName: "envelope")
-                                        .fixedSize()
-                                    Text("Github")
-                                }
-                            }
-                        }
-                    }
-                }
+//                SectionView {
+//                    Group {
+//                        HStack {
+//                            Image(systemName: "envelope")
+//                                .fixedSize()
+//                            Text("Github")
+//                        }
+//                        .onTapGesture {
+//                            print("tap tap tap !!!")
+//                        }
+//                    }
+//                }
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle("Settings", displayMode: .inline)
