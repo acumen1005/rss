@@ -51,6 +51,6 @@ struct SectionView<Content: View>: View {
 struct SectionView_Previews: PreviewProvider {
     static var previews: some View {
         SectionView(title: "Section", description: "Description", content: { Text("Content") })
-        .previewLayout(.sizeThatFits)
+            .previewLayout(.sizeThatFits)
     }
 }

@@ -36,9 +36,10 @@ struct RSSFeedListView: View {
                 ForEach(self.rssFeedViewModel.items, id: \.self) { item in
                     RSSItemRow(wrapper: item,
                                menu: self.contextmenuAction(_:))
+                        .contentShape(Rectangle())
                         .onTapGesture {
                             self.selectedItem = item
-                    }
+                        }
                 }
                 VStack(alignment: .center) {
                     Button(action: self.rssFeedViewModel.loadMore) {

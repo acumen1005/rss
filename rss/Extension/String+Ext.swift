@@ -16,4 +16,10 @@ extension String {
     var trimWhiteAndSpace: String {
         return replacingOccurrences(of: "\n", with: "")
     }
+    
+    func toPermissiveDate() -> Date? {
+        return RFC822DateFormatter().date(from: self) ??
+            (RFC3339DateFormatter().date(from: self) ??
+            ISO8601DateFormatter().date(from: self))
+    }
 }

@@ -80,6 +80,20 @@
 		4CB5A02424A1FD4E0052E80A /* RSS+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB5A02224A1FD4E0052E80A /* RSS+CoreDataProperties.swift */; };
 		4CB5A02924A268DF0052E80A /* RSSFeedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB5A02824A268DF0052E80A /* RSSFeedListView.swift */; };
 		4CB5A02B24A26DE10052E80A /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB5A02A24A26DE10052E80A /* SafariView.swift */; };
+		4CC6A6D124F614C900C88809 /* OPMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6A6D024F614C900C88809 /* OPMLParser.swift */; };
+		4CC6A6D324F617CA00C88809 /* OPMLParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6A6D224F617CA00C88809 /* OPMLParserTests.swift */; };
+		4CC6A6D624F6183200C88809 /* Subscriptions-test.opml in Resources */ = {isa = PBXBuildFile; fileRef = 4CC6A6D524F6183200C88809 /* Subscriptions-test.opml */; };
+		4CC6A6D724F61A5D00C88809 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872FCF24A9E48400934910 /* Request.swift */; };
+		4CC6A6D824F631BD00C88809 /* OPMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6A6D024F614C900C88809 /* OPMLParser.swift */; };
+		4CC6A6E724F6404300C88809 /* DateSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6A6E324F6404200C88809 /* DateSpec.swift */; };
+		4CC6A6E824F6404300C88809 /* RFC3339DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6A6E424F6404200C88809 /* RFC3339DateFormatter.swift */; };
+		4CC6A6E924F6404300C88809 /* RFC822DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6A6E524F6404200C88809 /* RFC822DateFormatter.swift */; };
+		4CC6A6EA24F6404300C88809 /* ISO8601DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6A6E624F6404200C88809 /* ISO8601DateFormatter.swift */; };
+		4CC6A6EB24F6406600C88809 /* RFC3339DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6A6E424F6404200C88809 /* RFC3339DateFormatter.swift */; };
+		4CC6A6EC24F6406600C88809 /* RFC822DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6A6E524F6404200C88809 /* RFC822DateFormatter.swift */; };
+		4CC6A6ED24F6406600C88809 /* ISO8601DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6A6E624F6404200C88809 /* ISO8601DateFormatter.swift */; };
+		4CC6A6EE24F6406D00C88809 /* DateSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6A6E324F6404200C88809 /* DateSpec.swift */; };
+		4CC6A6F024F643A900C88809 /* Subscriptions-test2.opml in Resources */ = {isa = PBXBuildFile; fileRef = 4CC6A6EF24F643A900C88809 /* Subscriptions-test2.opml */; };
 		4CE833F524C2DBAB00A911F1 /* RSSListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE833F424C2DBAB00A911F1 /* RSSListViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -156,6 +170,14 @@
 		4CB5A02224A1FD4E0052E80A /* RSS+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RSS+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4CB5A02824A268DF0052E80A /* RSSFeedListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedListView.swift; sourceTree = "<group>"; };
 		4CB5A02A24A26DE10052E80A /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
+		4CC6A6D024F614C900C88809 /* OPMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPMLParser.swift; sourceTree = "<group>"; };
+		4CC6A6D224F617CA00C88809 /* OPMLParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPMLParserTests.swift; sourceTree = "<group>"; };
+		4CC6A6D524F6183200C88809 /* Subscriptions-test.opml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Subscriptions-test.opml"; sourceTree = "<group>"; };
+		4CC6A6E324F6404200C88809 /* DateSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateSpec.swift; sourceTree = "<group>"; };
+		4CC6A6E424F6404200C88809 /* RFC3339DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RFC3339DateFormatter.swift; sourceTree = "<group>"; };
+		4CC6A6E524F6404200C88809 /* RFC822DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RFC822DateFormatter.swift; sourceTree = "<group>"; };
+		4CC6A6E624F6404200C88809 /* ISO8601DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISO8601DateFormatter.swift; sourceTree = "<group>"; };
+		4CC6A6EF24F643A900C88809 /* Subscriptions-test2.opml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Subscriptions-test2.opml"; sourceTree = "<group>"; };
 		4CE833F424C2DBAB00A911F1 /* RSSListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -202,8 +224,10 @@
 		4C435B3224DC148D00D16ED7 /* rssTests */ = {
 			isa = PBXGroup;
 			children = (
+				4CC6A6D424F6180E00C88809 /* Support Files */,
 				4C435B3324DC148D00D16ED7 /* rssTests.swift */,
 				4C435B3B24DC14B400D16ED7 /* BatchImportViewModelTests.swift */,
+				4CC6A6D224F617CA00C88809 /* OPMLParserTests.swift */,
 				4C435B3524DC148D00D16ED7 /* Info.plist */,
 			);
 			path = rssTests;
@@ -216,6 +240,7 @@
 				4C812FF424BF1D9B00CDD840 /* DataSourceService.swift */,
 				4C872FCF24A9E48400934910 /* Request.swift */,
 				4C0CF5B524C69F9C00E0B4E6 /* AppEnvironment.swift */,
+				4CC6A6D024F614C900C88809 /* OPMLParser.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -352,6 +377,7 @@
 		4CA04AC724B9DBA000521D0C /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				4CC6A6E224F6404200C88809 /* Dates */,
 				4CA04AC824B9DBC000521D0C /* ManagedObjectContext.swift */,
 				4CB18E4224A3578400F78F34 /* String+Ext.swift */,
 				4CB18E4424A3591100F78F34 /* Date+Ext.swift */,
@@ -381,6 +407,26 @@
 				4C872FCD24A87AAB00934910 /* ModelHelper.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		4CC6A6D424F6180E00C88809 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				4CC6A6D524F6183200C88809 /* Subscriptions-test.opml */,
+				4CC6A6EF24F643A900C88809 /* Subscriptions-test2.opml */,
+			);
+			name = "Support Files";
+			sourceTree = "<group>";
+		};
+		4CC6A6E224F6404200C88809 /* Dates */ = {
+			isa = PBXGroup;
+			children = (
+				4CC6A6E324F6404200C88809 /* DateSpec.swift */,
+				4CC6A6E424F6404200C88809 /* RFC3339DateFormatter.swift */,
+				4CC6A6E524F6404200C88809 /* RFC822DateFormatter.swift */,
+				4CC6A6E624F6404200C88809 /* ISO8601DateFormatter.swift */,
+			);
+			path = Dates;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -470,6 +516,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CC6A6D624F6183200C88809 /* Subscriptions-test.opml in Resources */,
+				4CC6A6F024F643A900C88809 /* Subscriptions-test2.opml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,6 +538,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CC6A6EE24F6406D00C88809 /* DateSpec.swift in Sources */,
+				4CC6A6EB24F6406600C88809 /* RFC3339DateFormatter.swift in Sources */,
+				4CC6A6EC24F6406600C88809 /* RFC822DateFormatter.swift in Sources */,
+				4CC6A6ED24F6406600C88809 /* ISO8601DateFormatter.swift in Sources */,
+				4CC6A6D824F631BD00C88809 /* OPMLParser.swift in Sources */,
+				4CC6A6D724F61A5D00C88809 /* Request.swift in Sources */,
 				4C435B4A24DC1E2A00D16ED7 /* String+Ext.swift in Sources */,
 				4C435B4B24DC1E2A00D16ED7 /* Date+Ext.swift in Sources */,
 				4C435B4824DC1E0900D16ED7 /* ManagedObjectContext.swift in Sources */,
@@ -498,6 +552,7 @@
 				4C435B4424DC1DE700D16ED7 /* RSSItem+CoreDataProperties.swift in Sources */,
 				4C435B4524DC1DE700D16ED7 /* RSS+CoreDataClass.swift in Sources */,
 				4C435B4624DC1DE700D16ED7 /* RSS+CoreDataProperties.swift in Sources */,
+				4CC6A6D324F617CA00C88809 /* OPMLParserTests.swift in Sources */,
 				4C435B4724DC1DE700D16ED7 /* ModelHelper.swift in Sources */,
 				4C435B4224DC194500D16ED7 /* PersistenceManager.swift in Sources */,
 				4C435B4124DC189A00D16ED7 /* DataSourceService.swift in Sources */,
@@ -526,8 +581,10 @@
 				4C435B5524E0F71A00D16ED7 /* DataNStorageViewModel.swift in Sources */,
 				4CB5A02024A1FCFA0052E80A /* RSS.xcdatamodeld in Sources */,
 				4C9A3FED24A04D2A00AAEF0D /* AppDelegate.swift in Sources */,
+				4CC6A6E824F6404300C88809 /* RFC3339DateFormatter.swift in Sources */,
 				4C872FD824A9F72200934910 /* RSSItemStore.swift in Sources */,
 				4CA04AC424B9D8C300521D0C /* RSSItemDataSource.swift in Sources */,
+				4CC6A6D124F614C900C88809 /* OPMLParser.swift in Sources */,
 				4CB5A02B24A26DE10052E80A /* SafariView.swift in Sources */,
 				4C488D7424BEAAD200406700 /* ArchiveListViewModel.swift in Sources */,
 				4CB18E4024A3485B00F78F34 /* RSSFeedRow.swift in Sources */,
@@ -535,6 +592,7 @@
 				4CB5A02424A1FD4E0052E80A /* RSS+CoreDataProperties.swift in Sources */,
 				4CB18E4524A3591100F78F34 /* Date+Ext.swift in Sources */,
 				4C46675824D00F1D007DFD2C /* ProgressBar.swift in Sources */,
+				4CC6A6E724F6404300C88809 /* DateSpec.swift in Sources */,
 				4CA04AD324BAED0300521D0C /* RSSFeedViewModel.swift in Sources */,
 				4CA04ACB24B9DD7600521D0C /* RSSDataSource.swift in Sources */,
 				4CB5A00924A1E9C50052E80A /* RSSStore.swift in Sources */,
@@ -553,10 +611,12 @@
 				4C9A414224A1B5A300AAEF0D /* RSSListView.swift in Sources */,
 				4C435B4F24E0E22D00D16ED7 /* RoundRectangeButton.swift in Sources */,
 				4C0CF5B824C6A21A00E0B4E6 /* WKWebViewWrapper.swift in Sources */,
+				4CC6A6E924F6404300C88809 /* RFC822DateFormatter.swift in Sources */,
 				4C435B5724E11FC900D16ED7 /* Color+Ext.swift in Sources */,
 				4C435B5B24E1B71F00D16ED7 /* TextView.swift in Sources */,
 				4C9A3FF424A04D2A00AAEF0D /* HomeView.swift in Sources */,
 				4C0CF5BF24C6EEC000E0B4E6 /* UserDefaultWrapper.swift in Sources */,
+				4CC6A6EA24F6404300C88809 /* ISO8601DateFormatter.swift in Sources */,
 				4C435B2C24DC076500D16ED7 /* BatchImportViewModel.swift in Sources */,
 				4C435B2324DA887E00D16ED7 /* BatchImportView.swift in Sources */,
 				4C872FD624A9F1B000934910 /* RSSError.swift in Sources */,
@@ -754,7 +814,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = rss/rss.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_ASSET_PATHS = "\"rss/Preview Content\"";
 				DEVELOPMENT_TEAM = CDAT27Y9CY;
 				ENABLE_PREVIEWS = YES;
@@ -780,7 +840,7 @@
 				CODE_SIGN_ENTITLEMENTS = rss/rss.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_ASSET_PATHS = "\"rss/Preview Content\"";
 				DEVELOPMENT_TEAM = CDAT27Y9CY;
 				ENABLE_PREVIEWS = YES;
