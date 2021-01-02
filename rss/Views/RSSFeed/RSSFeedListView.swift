@@ -21,7 +21,6 @@ struct RSSFeedListView: View {
     @ObservedObject var rssFeedViewModel: RSSFeedViewModel
     
     @State private var selectedItem: RSSItem?
-    @State private var isSafariViewPresented = false
     @State private var start: Int = 0
     @State private var footer: String = "load more"
     @State var cancellables = Set<AnyCancellable>()
@@ -55,7 +54,10 @@ struct RSSFeedListView: View {
             } else {
                 WebView(
                     rssItem: item,
-                    onArchiveAction: {
+                    onCloseClosure: {
+                        self.selectedItem = nil
+                    },
+                    onArchiveClosure: {
                         self.rssFeedViewModel.archiveOrCancel(item)
                 })
             }

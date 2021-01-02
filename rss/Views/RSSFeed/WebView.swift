@@ -11,12 +11,14 @@ import SwiftUI
 struct WebView: View {
     
     enum FeatureItem {
+        case close
         case goBack
         case goForward
         case archive(Bool)
         
         var icon: String {
             switch self {
+            case .close: return "xmark"
             case .goBack: return "chevron.left"
             case .goForward: return "chevron.right"
             case .archive(let isArchived):
@@ -28,13 +30,15 @@ struct WebView: View {
     @ObservedObject var viewModel: WKWebViewModel
     @ObservedObject var rssItem: RSSItem
     var webViewWrapper: WKWebViewWrapper
-    var onArchiveAction: (() -> Void)?
+    var onArchiveClosure: (() -> Void)?
+    var onCloseClosure: (() -> Void)?
     
-    init(rssItem: RSSItem, onArchiveAction: (() -> Void)? = nil) {
+    init(rssItem: RSSItem, onCloseClosure: @escaping (() -> Void), onArchiveClosure: (() -> Void)? = nil) {
         let viewModel = WKWebViewModel(rssItem: rssItem)
         self.rssItem = rssItem
         self.viewModel = viewModel
-        self.onArchiveAction = onArchiveAction
+        self.onCloseClosure = onCloseClosure
+        self.onArchiveClosure = onArchiveClosure
         self.webViewWrapper = WKWebViewWrapper(viewModel: viewModel)
     }
     
@@ -42,17 +46,25 @@ struct WebView: View {
         VStack(alignment: .leading, spacing: 0) {
             webViewWrapper
             HStack(alignment: .top, spacing: 30) {
-                makeFeatureItemView(
-                    imageName: FeatureItem.goBack.icon,
-                    disable: !self.viewModel.canGoBack,
-                    action: self.onGoBackAction
-                )
+                if !self.viewModel.canGoBack {
+                    makeFeatureItemView(
+                        imageName: FeatureItem.close.icon,
+                        disable: true,
+                        action: self.onGoBackAction
+                    )
+                } else {
+                    makeFeatureItemView(
+                        imageName: FeatureItem.goBack.icon,
+                        disable: true,
+                        action: self.onGoBackAction
+                    )
+                }
                 makeFeatureItemView(
                     imageName: FeatureItem.goForward.icon,
                     disable: !self.viewModel.canGoForward,
                     action: self.onGoForwardAction
                 )
-                makeFeatureItemView(imageName: FeatureItem.archive(self.rssItem.isArchive).icon, action: self.onArchiveAction)
+                makeFeatureItemView(imageName: FeatureItem.archive(self.rssItem.isArchive).icon, action: self.onArchiveClosure)
                 
                 if !self.viewModel.progressHide {
                     VStack(alignment: .center) {
@@ -66,10 +78,8 @@ struct WebView: View {
                     }
                     .frame(width: 50, height: 50, alignment: .center)
                 }
-                
                 Spacer()
             }
-//            .background(Color.black)
         }
     }
 }
@@ -81,6 +91,11 @@ extension WebView {
     
     func onGoForwardAction() {
         webViewWrapper.webView.goForward()
+    }
+    
+    func onCloseAction() {
+//        webViewWrapper.webView.
+        self.onCloseClosure?()
     }
 }
 
@@ -101,7 +116,9 @@ struct WebView_Previews: PreviewProvider {
     
     static var previews: some View {
         let simple = DataSourceService.current.rssItem.simple()
-        return WebView(rssItem: simple!, onArchiveAction: {
+        return WebView(rssItem: simple!, onCloseClosure: {
+            
+        }, onArchiveClosure: {
             
         })
     }

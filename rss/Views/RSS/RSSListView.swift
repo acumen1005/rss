@@ -13,6 +13,7 @@ struct RSSListView: View {
     enum FeaureItem {
         case setting
         case add
+        case archive
     }
     
     @ObservedObject var viewModel: RSSListViewModel
@@ -20,9 +21,14 @@ struct RSSListView: View {
     @State private var selectedFeatureItem = FeaureItem.add
     @State private var isAddFormPresented = false
     @State private var isSettingPresented = false
+    @State private var action: Int?
     @State private var isSheetPresented = false
-    @State private var addRSSProgressValue = 0.0
+    @State private var addRSSProgressValue = 1.0
     @State var sources: [RSS] = []
+    
+    private var archiveListView: some View {
+        ArchiveListView(viewModel: ArchiveListViewModel(dataSource: DataSourceService.current.rssItem))
+    }
     
     private var addSourceButton: some View {
         Button(action: {
@@ -30,6 +36,15 @@ struct RSSListView: View {
             self.selectedFeatureItem = .add
         }) {
             Image(systemName: "plus.circle")
+                .imageScale(.medium)
+        }
+    }
+    
+    private var archiveButton: some View {
+        Button(action: {
+            self.action = 1
+        }) {
+            Image(systemName: "archivebox.fill")
                 .imageScale(.medium)
         }
     }
@@ -46,9 +61,11 @@ struct RSSListView: View {
 
     private var trailingView: some View {
         HStack(alignment: .top, spacing: 24) {
-            settingButton
             addSourceButton
-        }
+            archiveButton
+            Spacer()
+            settingButton
+        }.padding(24)
     }
     
     private let addRSSPublisher = NotificationCenter.default.publisher(for: Notification.Name.init("addNewRSSPublisher"))
@@ -56,28 +73,41 @@ struct RSSListView: View {
     
     var body: some View {
         NavigationView {
-            ZStack {
-                List {
-                    ForEach(viewModel.items, id: \.self) { rss in
-                        Section {
+            VStack {
+                ZStack {
+                    List {
+                        ForEach(viewModel.items, id: \.self) { rss in
                             NavigationLink(destination: self.destinationView(rss)) {
                                 RSSRow(rss: rss)
                             }
                         }
-                    }
-                    .onDelete { indexSet in
-                        if let index = indexSet.first {
-                            self.viewModel.delete(at: index)
+                        .onDelete { indexSet in
+                            if let index = indexSet.first {
+                                self.viewModel.delete(at: index)
+                            }
                         }
                     }
+                    .navigationBarTitle("RSS", displayMode: .inline)
+//                    .navigationBarHidden(true)
                 }
-                .navigationBarTitle("RSS", displayMode: .inline)
-                .navigationBarItems(trailing: trailingView)
-                
+                Spacer()
                 if addRSSProgressValue > 0 && addRSSProgressValue < 1.0 {
                     LinerProgressBar(lineWidth: 3, color: .blue, progress: $addRSSProgressValue)
-                        .padding(.top, 2)
+                        .frame(width: UIScreen.main.bounds.width, height: 3, alignment: .leading)
                 }
+                trailingView
+                    .frame(width: UIScreen.main.bounds.width, height: 49, alignment: .leading)
+                NavigationLink(
+                    destination: ArchiveListView(
+                        viewModel: ArchiveListViewModel(
+                            dataSource: DataSourceService.current.rssItem
+                        )
+                    ),
+                    tag: 1,
+                    selection: $action) {
+                    EmptyView()
+                }
+                
             }
         }
         .onReceive(addRSSPublisher, perform: { output in
@@ -96,6 +126,8 @@ struct RSSListView: View {
                     onDoneAction: self.onDoneAction)
             } else if FeaureItem.setting == self.selectedFeatureItem {
                 SettingView()
+            } else if FeaureItem.archive == self.selectedFeatureItem {
+                archiveListView
             }
         })
         .onAppear {
@@ -114,7 +146,6 @@ extension RSSListView {
         RSSFeedListView(viewModel: RSSFeedViewModel(rss: rss, dataSource: DataSourceService.current.rssItem))
             .environmentObject(DataSourceService.current.rss)
     }
-    
 }
 
 struct RSSListView_Previews: PreviewProvider {
