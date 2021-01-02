@@ -18,27 +18,79 @@ struct SettingView: View {
     enum SettingItem: CaseIterable {
         case webView
         case darkMode
+        case batchImport
         
         var label: String {
             switch self {
             case .webView: return "Read Mode"
             case .darkMode: return "Outlook"
+            case .batchImport: return "Import RSS Sources"
             }
         }
     }
     
     @State private var isSelected: Bool = false
     
+    var batchImportView: BatchImportView {
+        let dataSource = DataSourceService.current.rss
+        return BatchImportView(viewModel: BatchImportViewModel(dataSource: dataSource))
+    }
+    
+    var dataNStorage: DataNStorageView {
+        let storage = DataNStorageView()
+        return storage
+    }
+    
     var body: some View {
         NavigationView {
-            Form {
-                ForEach([SettingItem.webView], id: \.self) { _ in
-                    SectionView(description: "If you want to read feed with WebView, Open it, Have fun! :]") {
-                        Toggle("Use Safari", isOn: self.$isSelected)
+            List {
+                SectionView {
+                    Group {
+                        HStack {
+                            Image(systemName: "safari")
+                                .fixedSize()
+                            Toggle("Use Safari", isOn: self.$isSelected)
+                        }
+                        HStack {
+                            NavigationLink(destination: self.batchImportView) {
+                                HStack {
+                                    Image(systemName: "folder")
+                                        .fixedSize()
+                                    Text("Batch Import")
+                                }
+                            }
+                        }
                     }
                 }
+                SectionView {
+                    Group {
+                        HStack {
+                            NavigationLink(destination: self.dataNStorage) {
+                                HStack {
+                                    Image(systemName: "tray.full")
+                                        .fixedSize()
+                                    Text("Data and Storage")
+                                }
+                            }
+                        }
+                    }
+                }
+//                SectionView {
+//                    Group {
+//                        HStack {
+//                            Image(systemName: "envelope")
+//                                .fixedSize()
+//                            Text("Github")
+//                        }
+//                        .onTapGesture {
+//                            print("tap tap tap !!!")
+//                        }
+//                    }
+//                }
             }
-            .navigationBarTitle("Settings")
+            .listStyle(GroupedListStyle())
+            .navigationBarTitle("Settings", displayMode: .inline)
+            .environment(\.horizontalSizeClass, .regular)
         }
         .onAppear {
             self.isSelected = AppEnvironment.current.useSafari

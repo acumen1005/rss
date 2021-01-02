@@ -21,7 +21,6 @@ struct RSSFeedListView: View {
     @ObservedObject var rssFeedViewModel: RSSFeedViewModel
     
     @State private var selectedItem: RSSItem?
-    @State private var isSafariViewPresented = false
     @State private var start: Int = 0
     @State private var footer: String = "load more"
     @State var cancellables = Set<AnyCancellable>()
@@ -36,9 +35,10 @@ struct RSSFeedListView: View {
                 ForEach(self.rssFeedViewModel.items, id: \.self) { item in
                     RSSItemRow(wrapper: item,
                                menu: self.contextmenuAction(_:))
+                        .contentShape(Rectangle())
                         .onTapGesture {
                             self.selectedItem = item
-                    }
+                        }
                 }
                 VStack(alignment: .center) {
                     Button(action: self.rssFeedViewModel.loadMore) {
@@ -47,9 +47,6 @@ struct RSSFeedListView: View {
                 }
             }
             .navigationBarTitle(rssSource.title)
-        }.onAppear {
-            self.rssFeedViewModel.fecthResults()
-            self.rssFeedViewModel.fetchRemoteRSSItems()
         }
         .sheet(item: $selectedItem, content: { item in
             if AppEnvironment.current.useSafari {
@@ -57,11 +54,18 @@ struct RSSFeedListView: View {
             } else {
                 WebView(
                     rssItem: item,
-                    onArchiveAction: {
+                    onCloseClosure: {
+                        self.selectedItem = nil
+                    },
+                    onArchiveClosure: {
                         self.rssFeedViewModel.archiveOrCancel(item)
                 })
             }
         })
+        .onAppear {
+            self.rssFeedViewModel.fecthResults()
+            self.rssFeedViewModel.fetchRemoteRSSItems()
+        }
     }
     
     func contextmenuAction(_ item: RSSItem) {

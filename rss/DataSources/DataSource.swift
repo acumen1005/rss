@@ -101,6 +101,18 @@ extension DataSource {
         }
     }
     
+    /// Perform fetch count on the `fetchController`.
+    /// - Parameter request: The request to perform or `nil` to perform the current request.
+    func performFetchCount(_ request: NSFetchRequest<Model>) -> Int {
+        do {
+            let count = try parentContext.count(for: request)
+            return count
+        } catch {
+            print(error)
+            return 0
+        }
+    }
+    
     /// Set fetch controller section key path.
     ///
     /// - Parameter keyPath: The key path to set.

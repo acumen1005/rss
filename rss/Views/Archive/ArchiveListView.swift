@@ -20,7 +20,7 @@ struct ArchiveListView: View {
     }
     
     var body: some View {
-        NavigationView {
+        HStack {
             List {
                 ForEach(self.viewModel.items, id: \.self) { item in
                     RSSItemRow(wrapper: item)
@@ -46,7 +46,10 @@ struct ArchiveListView: View {
                 } else {
                     WebView(
                         rssItem: item,
-                        onArchiveAction: {
+                        onCloseClosure: {
+                            
+                        },
+                        onArchiveClosure: {
                             self.viewModel.archiveOrCancel(item)
                     })
                 }
@@ -54,8 +57,6 @@ struct ArchiveListView: View {
             .onAppear {
                 self.viewModel.fecthResults()
             }
-            .navigationBarTitle("Archive")
-            .navigationViewStyle(StackNavigationViewStyle())
         }
     }
 }

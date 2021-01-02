@@ -53,7 +53,6 @@ struct RSSRow: View {
                     .font(.footnote)
                     .foregroundColor(.gray)
             }
-            
         }
         .padding(.top, 8)
         .padding(.bottom, 8)

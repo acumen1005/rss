@@ -22,24 +22,25 @@ struct HomeView: View {
     }
     
     var body: some View {
-        TabView {
-            homeListView
-                .tabItem {
-                    VStack {
-                        Image(systemName: "house.fill")
-                            .imageScale(.medium)
-                        Text("Home")
-                    }
-                }
-            archiveListView
-                .tabItem {
-                    VStack {
-                        Image(systemName: "archivebox.fill")
-                            .imageScale(.medium)
-                        Text("Archive")
-                    }
-                }
-        }
+//        TabView {
+//            homeListView
+//                .tabItem {
+//                    VStack {
+//                        Image(systemName: "house.fill")
+//                            .imageScale(.medium)
+//                        Text("Home")
+//                    }
+//                }
+//            archiveListView
+//                .tabItem {
+//                    VStack {
+//                        Image(systemName: "archivebox.fill")
+//                            .imageScale(.medium)
+//                        Text("Archive")
+//                    }
+//                }
+//        }
+        homeListView
     }
 }
 

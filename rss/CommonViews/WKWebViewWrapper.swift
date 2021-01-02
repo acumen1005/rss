@@ -15,6 +15,9 @@ class WKWebViewModel: ObservableObject {
     private var dataSource: RSSItemDataSource
     
     private var cancellable: AnyCancellable? = nil
+    
+    var isFirst: Bool = true
+    
     @Published var didFinishLoading: Bool = false
     @Published var link: String = ""
     @Published var canGoBack: Bool = false
@@ -37,6 +40,7 @@ class WKWebViewModel: ObservableObject {
         self.dataSource = DataSourceService.current.rssItem
         self.link = rssItem.url
         self.progress = rssItem.progress
+        self.isFirst = true
         cancellable = AnyCancellable(
             $progress.removeDuplicates()
                 .debounce(for: 0.1, scheduler: DispatchQueue.main)
@@ -67,10 +71,21 @@ struct WKWebViewWrapper: UIViewRepresentable {
         }
 
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            let total = Double(webView.scrollView.contentSize.height)
             self.viewModel.didFinishLoading = true
             self.viewModel.canGoBack = webView.canGoBack
             self.viewModel.canGoForward = webView.canGoForward
-            self.viewModel.total = Double(webView.scrollView.contentSize.height)
+            self.viewModel.total = total
+            
+            if self.viewModel.isFirst {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+                    var contentOffsetY = 0.0
+                    if self.viewModel.progress > 0 {
+                        contentOffsetY = total * self.viewModel.progress - Double(webView.scrollView.bounds.height)
+                    }
+                    webView.scrollView.setContentOffset(CGPoint(x: 0, y: contentOffsetY), animated: false)
+                }
+            }
         }
         
         func scrollViewDidScroll(_ scrollView: UIScrollView) {
